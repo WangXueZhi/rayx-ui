@@ -1,7 +1,9 @@
 import Button from './button'
-import Toast from './toast'
+import ScrollBar from './scroll-bar'
 import Table from './table'
-const components = [Button, Toast, Table]
+import Test from './test'
+import Toast from './toast'
+const components = [Button, ScrollBar, Table, Test, Toast]
 
 const install = function (Vue) {
   if (install.installed) return
@@ -15,8 +17,8 @@ if (typeof window !== 'undefined' && window.Vue) {
 }
 export default {
   install,
-  Button
+  Button, ScrollBar, Table, Test, Toast
 }
 export {
-  Button
+  Button, ScrollBar, Table, Test, Toast
 }

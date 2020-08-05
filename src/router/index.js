@@ -24,7 +24,13 @@ const routes = [{
   {
     path: '/docs',
     component: Layout,
-    children: componentsRouters
+    children: [
+      {
+        path: 'start',
+        component: () => import('@/views/docs/start/index.vue')
+      },
+      ...componentsRouters
+    ]
   }
 ]
 

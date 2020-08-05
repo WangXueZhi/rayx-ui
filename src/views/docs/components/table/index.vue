@@ -42,7 +42,7 @@ import demo0 from "./demo0.vue";;
 const demosData = [{"title":"基本用法","code":"<template>\n  <Table :column=\"column\" :data=\"data\"><\/Table>\n<\/template>\n<script>\n  import {\n    Table\n  } from \"mvui\";\n  export default {\n    components: {\n      Table\n    },\n    data() {\n      return {\n        column: [{\n          prop: \"name\",\n          label: \"姓名\",\n        }, {\n          prop: \"sex\",\n          label: \"性别\",\n        }, {\n          prop: \"age\",\n          label: \"年龄\",\n        }],\n        data: [{\n          name: 'jack',\n          sex: 'm',\n          age: '10'\n        }, {\n          name: 'may',\n          sex: 'w',\n          age: '10'\n        }]\n      };\n    }\n  }\n<\/script>","desc":"基本用法的描述"}];
 
 export default {
-  name: "views.docs.table",
+  name: "views.docs.components.table",
   components: {
     Table,
     demo0,

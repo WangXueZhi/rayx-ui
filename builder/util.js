@@ -74,8 +74,23 @@ const cleanEmptyInArray = function (array) {
     return newArray;
 }
 
+// 组件名格式转换
+function cpNameTransfer(name) {
+    let nameArr = [];
+    if (name.indexOf("-") >= 0) {
+        nameArr = name.split("-");
+        for (let i = 0; i < nameArr.length; i++) {
+            nameArr[i] = nameArr[i].substring(0, 1).toUpperCase() + nameArr[i].substring(1);
+        }
+    } else {
+        nameArr[0] = name.substring(0, 1).toUpperCase() + name.substring(1);
+    }
+    return nameArr.join("");
+}
+
 module.exports = {
     dirListInDir,
     rmdirSync,
-    cleanEmptyInArray
+    cleanEmptyInArray,
+    cpNameTransfer
 };

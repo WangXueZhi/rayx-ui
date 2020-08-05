@@ -4,11 +4,11 @@ let watch = require('gulp-watch');
 const build = require('./builder/build')
 
 const toBuildAll = function () {
+    build()
     shell.exec('npm run lib:test', {
         async: false,
         silent: false
     });
-    build()
 }
 
 const openServer = function () {

@@ -1,6 +1,7 @@
 <template>
   <ScrollBar wrapperClass="layout-menu">
     <div class="layout-menu-list">
+      <div class="layout-menu-item" @click="docChange('/docs/start')">快速开始</div>
       <LayoutMenuComponents />
     </div>
   </ScrollBar>
@@ -12,19 +13,11 @@ import LayoutMenuComponents from "./LayoutMenuComponents.vue"
 
 export default {
   name: "LayoutMenu",
-  components: { ScrollBar, LayoutMenuComponents }
+  components: { ScrollBar, LayoutMenuComponents },
+  methods: {
+    docChange(path) {
+      this.$router.push(path);
+    },
+  },
 };
 </script>
-<style lang="scss" scoped>
-.layout-menu {
-  width: 14%;
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  margin-top: 65px;
-
-  .layout-menu-list {
-    
-  }
-}
-</style>

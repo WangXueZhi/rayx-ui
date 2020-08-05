@@ -11,9 +11,3 @@ export default {
   name: 'LayoutWrapper'
 }
 </script>
-<style lang="scss" scoped>
-  .layout-wrapper{
-    margin: 0 15%;
-    margin-top: 65px;
-  }
-</style>

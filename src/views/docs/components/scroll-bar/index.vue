@@ -42,7 +42,7 @@ import demo0 from "./demo0.vue";;
 const demosData = [{"title":"基本用法","code":"<template>\n  <ScrollBar wrapperClass=\"test-scroll-wrapper\">\n    <div class=\"test-scroll-item\" v-for=\"(item, i) in data\">{{item}}<\/div>\n  <\/ScrollBar>\n<\/template>\n<script>\n  import {\n    ScrollBar\n  } from \"mvui\";\n  export default {\n    components: {\n      ScrollBar\n    },\n    data() {\n      return {\n        data: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]\n      }\n    }\n  }\n<\/script>\n<style lang=\"scss\">\n  .test-scroll-wrapper {\n    width: 240px;\n    height: 200px;\n    border: 1px solid #969696;\n\n    .test-scroll-item {\n      text-align: center;\n    }\n  }\n<\/style>","desc":"基本用法的描述"}];
 
 export default {
-  name: "views.docs.scroll-bar",
+  name: "views.docs.components.scroll-bar",
   components: {
     Table,
     demo0,

@@ -27,12 +27,8 @@ const outputConfig = function () {
 // 入口配置
 const entryConfig = function () {
     if (buildTarget === 'lib') {
-        return {
-            button: './packages/button/index.js',
-            toast: './packages/toast/index.js',
-            table: './packages/table/index.js',
-            'scroll-bar': './packages/scroll-bar/index.js'
-        }
+        const webpackComponentsEntrys = require('./webpack.components.entrys.js')
+        return webpackComponentsEntrys
     } else {
         return {
             index: path.resolve(__dirname, './src/main.js'),
@@ -66,7 +62,7 @@ const pluginsConfig = function () {
 }
 
 // css匹配规则配置
-const cssLoaderRules = function(){
+const cssLoaderRules = function () {
     return [{
         test: /\.css$/,
         use: [
@@ -91,17 +87,18 @@ module.exports = {
     output: outputConfig(),
     module: {
         rules: [{
-            test: /\.js$/,
-            loader: 'babel-loader',
-            exclude: /node_modules/
-        }, {
-            test: /\.vue$/,
-            loader: 'vue-loader'
-        },
-        {
-          test: /\.html$/,
-          loader: 'html-loader'
-        }, ...cssLoaderRules()]
+                test: /\.js$/,
+                loader: 'babel-loader',
+                exclude: /node_modules/
+            }, {
+                test: /\.vue$/,
+                loader: 'vue-loader'
+            },
+            {
+                test: /\.html$/,
+                loader: 'html-loader'
+            }, ...cssLoaderRules()
+        ]
     },
     devtool: "source-map",
     resolve: {

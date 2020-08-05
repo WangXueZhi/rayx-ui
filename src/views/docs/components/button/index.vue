@@ -2,7 +2,36 @@
   <div class="mv-docs-wrapper">
     <div class="mv-docs-name">{{titleAndDesc.title}}</div>
     <div class="mv-docs-info">{{titleAndDesc.desc}}</div>
-    <div class="mv-docs-demo">__DEMO_LIST__</div>
+    <div class="mv-docs-demo"><div class="mv-docs-part">
+    <div class="mv-docs-part-title">基本用法</div>
+    <div class="mv-docs-part-desc">基本用法的描述</div>
+    <div class="mv-docs-demo-examp">
+        <div class="mv-docs-demo-comps">
+            <demo0></demo0>
+        </div>
+        <div class="mv-docs-demo-code" :class="{showCode: demoControlShowCode[0] && !!demoControlShowCode[0].show}">
+            <pre><code class="html hljs xml" v-html="demosData[0].code"></code></pre>
+        </div>
+        <div class="mv-docs-demo-control" @click="demoControlShowCodeTotgal(0)">
+            {{demoControlShowCode[0] && demoControlShowCode[0].show?'隐藏代码':'显示代码'}}
+        </div>
+    </div>
+</div>
+<div class="mv-docs-part">
+    <div class="mv-docs-part-title">基本用法2</div>
+    <div class="mv-docs-part-desc"></div>
+    <div class="mv-docs-demo-examp">
+        <div class="mv-docs-demo-comps">
+            <demo1></demo1>
+        </div>
+        <div class="mv-docs-demo-code" :class="{showCode: demoControlShowCode[1] && !!demoControlShowCode[1].show}">
+            <pre><code class="html hljs xml" v-html="demosData[1].code"></code></pre>
+        </div>
+        <div class="mv-docs-demo-control" @click="demoControlShowCodeTotgal(1)">
+            {{demoControlShowCode[1] && demoControlShowCode[1].show?'隐藏代码':'显示代码'}}
+        </div>
+    </div>
+</div></div>
     <div class="mv-docs-props mv-docs-part">
       <div class="mv-docs-props-title mv-docs-part-title">props</div>
       <Table :column="propsColumn" :data="props"></Table>
@@ -23,15 +52,17 @@ import { Table } from "mvui";
 import hljs from "highlight.js";
 import "highlight.js/styles/color-brewer.css";
 
-__DEMO_IMPORT__;
+import demo0 from "./demo0.vue";
+import demo1 from "./demo1.vue";;
 
-const demosData = __DEMOS_DATA__;
+const demosData = [{"title":"基本用法","code":"<template> <Button>按钮<\/Button> <\/template>\n<script>\n  import {\n    Button\n  } from \"mvui\";\n  export default {\n    components: {\n      Button\n    }\n  }\n<\/script>","desc":"基本用法的描述"},{"title":"基本用法2","code":"<template> <Button>按钮<\/Button> <\/template>\n<script>\n  import {\n    Button\n  } from \"mvui\";\n  export default {\n    components: {\n      Button\n    }\n  }\n<\/script>","desc":""}];
 
 export default {
-  name: "views.docs.components.__COMPNENT_NAME__",
+  name: "views.docs.components.button",
   components: {
     Table,
-    __DEMO_COMPONENT_LIST__,
+    demo0,
+demo1,
   },
   data() {
     return {
@@ -59,10 +90,10 @@ export default {
           label: "默认值",
         },
       ],
-      titleAndDesc: __TITLE_DESC__,
-      props: __PROPS__,
-      slots: __SLOTS__,
-      events: __EVENTS__,
+      titleAndDesc: {"title":"Button 按钮","desc":"基础组件，触发业务逻辑时使用"},
+      props: [{"comment":"类型","name":"type","type":"String","default":"default"},{"comment":"禁用","name":"disabled","type":"Boolean","default":false}],
+      slots: [["名称","说明"],["---","---"],["disabled","按钮失效状态"]],
+      events: [["名称","说明","返回值"],["---","---","---"],["disabled","按钮失效状态","[]"]],
     };
   },
   computed: {

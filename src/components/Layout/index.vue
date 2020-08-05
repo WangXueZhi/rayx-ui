@@ -12,7 +12,7 @@
 import LayoutHeader from './LayoutHeader'
 import LayoutWrapper from './LayoutWrapper'
 import LayoutMenu from './LayoutMenu'
-
+import './index.scss'
 
 export default {
   name: 'Layout',
