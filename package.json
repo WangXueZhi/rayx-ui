@@ -1,8 +1,8 @@
 {
   "name": "mvui",
-  "version": "0.1.0",
+  "version": "0.0.1",
   "private": true,
-  "main": "packages/index.js",
+  "main": "lib/index",
   "scripts": {
     "build:test": "cross-env NODE_ENV=development BUILD_TARGET=example webpack --progress",
     "build:prod": "cross-env NODE_ENV=production BUILD_TARGET=example webpack --progress",

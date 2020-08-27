@@ -4,4 +4,5 @@ module.exports = {
     'table': './packages/table/index.js',
     'test': './packages/test/index.js',
     'toast': './packages/toast/index.js',
+    'index': './packages/index.js',
 }

@@ -183,6 +183,7 @@ const main = function () {
     }], BUILD_PATH_PACKAGE_INDEX)
 
     // webpack构建入口
+    webpackComponentsList.push(`    'index': './packages/index.js',`)
     replaceTplAndBuildToTarget(TPL_PATH_WEBPACK_COMPONENTS_ENTRYS, [{
         tplText: /__WEBPACK_COMPONENTS_ENTRYS__/g,
         value: webpackComponentsList.join('\n')

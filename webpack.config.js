@@ -14,7 +14,8 @@ const outputConfig = function () {
             filename: '[name]/index.js',
             libraryTarget: 'umd',
             libraryExport: 'default',
-            umdNamedDefine: true
+            umdNamedDefine: true,
+            chunkFilename: '[id].js'
         }
     } else {
         return {
@@ -78,8 +79,6 @@ const cssLoaderRules = function () {
         ]
     }]
 }
-
-console.log(path.resolve('lib'))
 
 module.exports = {
     mode: nodeEnv,
