@@ -1,11 +1,11 @@
-<template> <Button>按钮</Button> </template>
+<template>
+  <Button>按钮</Button>
+</template>
 <script>
-  import {
+import { Button } from "mvui";
+export default {
+  components: {
     Button
-  } from "mvui";
-  export default {
-    components: {
-      Button
-    }
   }
+}
 </script>

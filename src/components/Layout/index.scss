@@ -24,11 +24,12 @@
 }
 
 .layout-menu {
-    width: 14%;
+    width: 13%;
     position: fixed;
     top: 0;
     bottom: 0;
     margin-top: 65px;
+    border-right: 1px solid #f0f0f0;
 
     .layout-menu-list {
         .layout-menu-item {
@@ -38,10 +39,51 @@
             z-index: 1;
             transition: all 0.2s ease-in-out;
         }
+
+        .layout-menu-list-part {
+            .layout-menu-list-component-part {
+                .layout-menu-list-component-part-title {
+                    padding: 8px 16px;
+                    color: rgba(0, 0, 0, .45);
+                    font-size: 14px;
+                    line-height: 1.5715;
+                    transition: all .3s;
+                    font-size: 13px;
+                    margin: 16px 0;
+
+                    &:after {
+                        position: relative;
+                        top: 12px;
+                        display: block;
+                        width: calc(100% - 20px);
+                        height: 1px;
+                        background: #f0f0f0;
+                        content: "";
+                    }
+                }
+
+                .layout-menu-list-component-items {
+                    .layout-menu-list-component-item {
+                        padding: 8px 16px;
+                        font-size: 14px;
+                        text-overflow: ellipsis;
+                        color: rgba(0,0,0,.85);
+                        cursor: pointer;
+                        &:hover{
+                            color: #1890ff;
+                        }
+                        &.layout-menu-list-component-item-active{
+                            color: #1890ff;
+                            background-color: #e6f7ff;
+                        }
+                    }
+                }
+            }
+        }
     }
 }
 
 .layout-wrapper {
-    margin: 0 15%;
+    margin: 0 14%;
     margin-top: 65px;
 }

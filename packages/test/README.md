@@ -1,11 +1,4 @@
----
-version: 0.0.1
-author: wangxuezhi
-category: Components
-type: 通用
-title: Test
-subtitle: test
----
+<!-- type: 测试 -->
 
 # Test test
 基础组件，触发业务逻辑时使用
@@ -41,6 +34,9 @@ export default {
 }
 </script>
 ```
+
+<!-- prop -->
+<!-- method -->
 
 ## slot
 | 名称 | 说明 |

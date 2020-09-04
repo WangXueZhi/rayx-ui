@@ -2,12 +2,10 @@
   <Test>按钮</Test>
 </template>
 <script>
-  import {
+import { Test } from "mvui";
+export default {
+  components: {
     Test
-  } from "mvui";
-  export default {
-    components: {
-      Test
-    }
   }
+}
 </script>

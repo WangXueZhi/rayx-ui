@@ -1,12 +1,4 @@
----
-version: 0.0.1
-author: wangxuezhi
-category: Components
-type: 通用
-title: Button
-subtitle: 按钮
-cover: https://gw.alipayobjects.com/zos/alicdn/fNUKzY1sk/Button.svg
----
+<!-- type: 通用 -->
 
 # Button 按钮
 基础组件，触发业务逻辑时使用
@@ -42,6 +34,9 @@ export default {
 }
 </script>
 ```
+
+<!-- prop -->
+<!-- method -->
 
 ## slot
 | 名称 | 说明 |

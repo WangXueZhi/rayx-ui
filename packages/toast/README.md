@@ -1,7 +1,4 @@
----
-version: 0.0.1
-author: wangxuezhi
----
+<!-- type: 交互 -->
 
 # Toast 轻提示
 组件描述
@@ -19,3 +16,6 @@ export default {
 }
 </script>
 ```
+
+<!-- prop -->
+<!-- method -->

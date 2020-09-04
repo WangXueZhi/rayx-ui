@@ -1,12 +1,4 @@
----
-version: 0.0.1
-author: wangxuezhi
-category: Components
-type: 数据展示
-title: Table
-subtitle: 表格
-cover: https://gw.alipayobjects.com/zos/alicdn/fNUKzY1sk/Button.svg
----
+<!-- type: 展示 -->
 
 # Table 表格
 用于展示多条结构类似的数据，可对数据进行排序、筛选、对比或其他自定义操作。
@@ -58,6 +50,9 @@ export default {
 }
 </script>
 ```
+
+<!-- prop -->
+<!-- method -->
 
 ## slot
 | 名称 | 说明 |

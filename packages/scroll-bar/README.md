@@ -1,19 +1,11 @@
----
-version: 0.0.1
-author: wangxuezhi
-category: Components
-type: 通用
-title: ScrollBar
-subtitle: 滚动条容器
----
+<!-- type: 通用 -->
 
 # ScrollBar 滚动条容器
 基础组件，代替原生滚动条
 
 ## 示例
 
-#### 基本用法
-基本用法的描述
+基本用法
 ```html demo
 <template>
   <ScrollBar wrapperClass="test-scroll-wrapper">
@@ -43,9 +35,11 @@ export default {
       text-align: center;
     }
   }
-
 </style>
 ```
+
+<!-- prop -->
+<!-- method -->
 
 ## slot
 | 名称 | 说明 |
