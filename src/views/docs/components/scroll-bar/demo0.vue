@@ -4,7 +4,7 @@
   </ScrollBar>
 </template>
 <script>
-import { ScrollBar } from "mvui";
+import { ScrollBar } from "rayx-ui";
 export default {
   components: {
     ScrollBar

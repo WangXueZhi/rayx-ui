@@ -1,24 +1,21 @@
 <template>
-  <div>快速开始</div>
+  <vue-markdown>{{ start }}</vue-markdown>
 </template>
 
 <script>
-
+import VueMarkdown from "@/components/VueMarkdown";
+import start from "./start.md";
 export default {
   name: "views.docs.start",
   components: {
-
+    VueMarkdown,
   },
-  data() {
+  data () {
     return {
-
-    };
+      start: start
+    }
   },
-  computed: {
-
-  },
-  methods: {
-
-  },
+  computed: {},
+  methods: {},
 };
 </script>

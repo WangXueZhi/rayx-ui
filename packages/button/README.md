@@ -6,13 +6,13 @@
 ## 示例
 
 #### 基本用法
-基本用法的描述
+基本用法的示例
 ```html demo
 <template>
   <Button>按钮</Button>
 </template>
 <script>
-import { Button } from "mvui";
+import { Button } from "rayx-ui";
 export default {
   components: {
     Button
@@ -20,13 +20,13 @@ export default {
 }
 </script>
 ```
-#### 基本用法2
-```html demo
+不带示例的用法
+```html
 <template>
   <Button>按钮</Button>
 </template>
 <script>
-import { Button } from "mvui";
+import { Button } from "rayx-ui";
 export default {
   components: {
     Button

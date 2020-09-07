@@ -1,14 +1,14 @@
-<div class="mv-docs-part">
-    <div class="mv-docs-part-title">__DEMO_NAME__</div>
-    <div class="mv-docs-part-desc">__DEMO_DESC__</div>
-    <div class="mv-docs-demo-examp">
-        <div class="mv-docs-demo-comps">
+<div class="ra-docs-part">
+    <div class="ra-docs-part-title">__DEMO_NAME__</div>
+    <div class="ra-docs-part-desc">__DEMO_DESC__</div>
+    <div class="ra-docs-demo-examp">
+        <div class="ra-docs-demo-comps">
             <demo__DEMO_NUM__></demo__DEMO_NUM__>
         </div>
-        <div class="mv-docs-demo-code" :class="{showCode: demoControlShowCode[__DEMO_NUM__] && !!demoControlShowCode[__DEMO_NUM__].show}">
+        <div class="ra-docs-demo-code" :class="{showCode: demoControlShowCode[__DEMO_NUM__] && !!demoControlShowCode[__DEMO_NUM__].show}">
             <pre><code class="html hljs xml" v-html="demosData[__DEMO_NUM__].code"></code></pre>
         </div>
-        <div class="mv-docs-demo-control" @click="demoControlShowCodeTotgal(__DEMO_NUM__)">
+        <div class="ra-docs-demo-control" @click="demoControlShowCodeTotgal(__DEMO_NUM__)">
             {{demoControlShowCode[__DEMO_NUM__] && demoControlShowCode[__DEMO_NUM__].show?'隐藏代码':'显示代码'}}
         </div>
     </div>

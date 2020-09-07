@@ -2,6 +2,7 @@ const path = require('path');
 const VueLoaderPlugin = require('vue-loader').VueLoaderPlugin;
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const pkg = require('./package.json')
 
 const nodeEnv = process.env.NODE_ENV
 const buildTarget = process.env.BUILD_TARGET
@@ -86,6 +87,9 @@ module.exports = {
     output: outputConfig(),
     module: {
         rules: [{
+                test: /.md$/,
+                use: 'text-loader',
+            }, {
                 test: /\.js$/,
                 loader: 'babel-loader',
                 exclude: /node_modules/
@@ -103,7 +107,7 @@ module.exports = {
     resolve: {
         alias: {
             // 'vue': 'vue/dist/vue.js',
-            'mvui': path.resolve('lib'),
+            [pkg.name]: path.resolve('lib'),
             '@': path.resolve('src')
         },
         extensions: ['.css', '.js', '.vue']

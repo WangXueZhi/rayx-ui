@@ -1,7 +1,7 @@
 .layout-header {
     width: 100%;
     height: 65px;
-    padding: 0 20px;
+    padding: 0 26px;
     box-sizing: border-box;
     border-bottom: 1px solid #dcdfe6;
     position: fixed;
@@ -33,17 +33,29 @@
 
     .layout-menu-list {
         .layout-menu-item {
-            padding: 14px 24px;
+            padding: 14px 26px;
             position: relative;
             cursor: pointer;
             z-index: 1;
             transition: all 0.2s ease-in-out;
+
+            cursor: pointer;
+
+            &:hover {
+                color: #1890ff;
+            }
+
+            &.layout-menu-item-active {
+                color: #1890ff !important;
+                background-color: #e6f7ff;
+                border-right: 1px solid #1890ff;
+            }
         }
 
         .layout-menu-list-part {
             .layout-menu-list-component-part {
                 .layout-menu-list-component-part-title {
-                    padding: 8px 16px;
+                    padding: 8px 26px;
                     color: rgba(0, 0, 0, .45);
                     font-size: 14px;
                     line-height: 1.5715;
@@ -55,7 +67,7 @@
                         position: relative;
                         top: 12px;
                         display: block;
-                        width: calc(100% - 20px);
+                        width: calc(100%);
                         height: 1px;
                         background: #f0f0f0;
                         content: "";
@@ -64,18 +76,11 @@
 
                 .layout-menu-list-component-items {
                     .layout-menu-list-component-item {
-                        padding: 8px 16px;
+                        padding: 8px 26px;
                         font-size: 14px;
                         text-overflow: ellipsis;
-                        color: rgba(0,0,0,.85);
-                        cursor: pointer;
-                        &:hover{
-                            color: #1890ff;
-                        }
-                        &.layout-menu-list-component-item-active{
-                            color: #1890ff;
-                            background-color: #e6f7ff;
-                        }
+                        color: rgba(0, 0, 0, .85);
+
                     }
                 }
             }
@@ -84,6 +89,7 @@
 }
 
 .layout-wrapper {
-    margin: 0 14%;
+    margin: 0 13%;
     margin-top: 65px;
+    padding: 26px;
 }

@@ -3,7 +3,7 @@
     <div class="layout-header-left">
       <div class="layout-header-logo">
         <img :src="logo" />
-        mvui
+        rayx-ui
       </div>
     </div>
     <div class="layout-header-right">

@@ -1,22 +1,22 @@
 <template>
-  <div class="mv-docs-wrapper">
+  <div class="ra-docs-wrapper">
     <!-- type: 通用 -->
 <h1>ScrollBar 滚动条容器</h1>
 <p>基础组件，代替原生滚动条</p>
 <h2>示例</h2>
 <p>基本用法</p>
-<div class="mv-docs-demo-examp">
-    <div class="mv-docs-demo-comps">
-        <demo0></demo0>
-    </div>
-    <div class="mv-docs-demo-code" :class="{showCode: demoControlShowCode[0] && !!demoControlShowCode[0].show}">
-        <pre><code class="hljs" v-pre><span class="hljs-tag">&lt;<span class="hljs-name">template</span>&gt;</span>
+<div class="ra-docs-demo-examp">
+            <div class="ra-docs-demo-comps">
+                <demo0></demo0>
+            </div>
+            <div class="ra-docs-demo-code" :class="{showCode: demoControlShowCode[0] && !!demoControlShowCode[0].show}">
+                <pre><code class="hljs" v-pre><span class="hljs-tag">&lt;<span class="hljs-name">template</span>&gt;</span>
   <span class="hljs-tag">&lt;<span class="hljs-name">ScrollBar</span> <span class="hljs-attr">wrapperClass</span>=<span class="hljs-string">&quot;test-scroll-wrapper&quot;</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;test-scroll-item&quot;</span> <span class="hljs-attr">v-for</span>=<span class="hljs-string">&quot;(item, i) in data&quot;</span>&gt;</span>{{item}}<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
   <span class="hljs-tag">&lt;/<span class="hljs-name">ScrollBar</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="javascript">
-<span class="hljs-keyword">import</span> { ScrollBar } <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;mvui&quot;</span>;
+<span class="hljs-keyword">import</span> { ScrollBar } <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;rayx-ui&quot;</span>;
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> {
   <span class="hljs-attr">components</span>: {
     ScrollBar
@@ -41,11 +41,11 @@
 <span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span>
 </code></pre>
 
-    </div>
-    <div class="mv-docs-demo-control" @click="demoControlShowCodeTotgal(0)">
-        {{demoControlShowCode[0] && demoControlShowCode[0].show?'隐藏代码':'显示代码'}}
-    </div>
-</div><h2>props</h2>
+            </div>
+            <div class="ra-docs-demo-control" @click="demoControlShowCodeTotgal(0)">
+                {{demoControlShowCode[0] && demoControlShowCode[0].show?'隐藏代码':'显示代码'}}
+            </div>
+        </div><h2>props</h2>
 <table>
 <thead>
 <tr>
@@ -122,7 +122,6 @@
 
 <script>
 import demo0 from "./demo0.vue";
-import "highlight.js/styles/color-brewer.css";
 
 export default {
   name: "views.docs.components.scroll-bar",

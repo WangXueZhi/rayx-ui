@@ -1,17 +1,12 @@
+const pkg = require('./package.json')
+
 module.exports = {
   presets: ['@vue/cli-plugin-babel/preset'],
   plugins: [
-    [
-      'component',
-      {
-        libraryName: 'element-ui',
-        styleLibraryName: 'theme-chalk'
-      }
-    ],
     ['import', {
-      libraryName: 'mvui',
+      libraryName: pkg.name,
       style: true,
       libraryDirectory: '/'
-    }, 'mvui']
+    }, pkg.name]
   ]
 }

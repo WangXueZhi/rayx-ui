@@ -4,8 +4,8 @@
       <div class="layout-menu-list-component-part-title">{{typeItem.type}}</div>
       <div class="layout-menu-list-component-items">
         <div
-          class="layout-menu-list-component-item"
-          :class="{'layout-menu-list-component-item-active':currentPath===`/docs/components/${componentName}`}"
+          class="layout-menu-list-component-item layout-menu-item"
+          :class="{'layout-menu-item-active':currentPath===`/docs/components/${componentName}`}"
           v-for="componentName in typeItem.list"
           :key="componentName"
           @click="docChange(`/docs/components/${componentName}`)"

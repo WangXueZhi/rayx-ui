@@ -36,35 +36,28 @@ module.exports = function (mdContent) {
 
 
     md.renderer.rules.fence = function (tokens, idx, options, env, self) {
-        tokens[idx].attrPush(['v-pre'])
-        const text = `<div class="mv-docs-demo-examp">
-    <div class="mv-docs-demo-comps">
-        <demo${demoIndex}></demo${demoIndex}>
-    </div>
-    <div class="mv-docs-demo-code" :class="{showCode: demoControlShowCode[${demoIndex}] && !!demoControlShowCode[${demoIndex}].show}">
-        ${defaultFenceRender(tokens, idx, options, env, self)}
-    </div>
-    <div class="mv-docs-demo-control" @click="demoControlShowCodeTotgal(${demoIndex})">
-        {{demoControlShowCode[${demoIndex}] && demoControlShowCode[${demoIndex}].show?'隐藏代码':'显示代码'}}
-    </div>
-</div>`
+        const token = tokens[idx]
+        let text = defaultFenceRender(tokens, idx, options, env, self)
+        if (token.info.includes(' demo') || token.info.includes('demo ')) {
+            text = `<div class="ra-docs-demo-examp">
+            <div class="ra-docs-demo-comps">
+                <demo${demoIndex}></demo${demoIndex}>
+            </div>
+            <div class="ra-docs-demo-code" :class="{showCode: demoControlShowCode[${demoIndex}] && !!demoControlShowCode[${demoIndex}].show}">
+                ${defaultFenceRender(tokens, idx, options, env, self)}
+            </div>
+            <div class="ra-docs-demo-control" @click="demoControlShowCodeTotgal(${demoIndex})">
+                {{demoControlShowCode[${demoIndex}] && demoControlShowCode[${demoIndex}].show?'隐藏代码':'显示代码'}}
+            </div>
+        </div>`
 
-        demoImportArr.push(`import demo${demoIndex} from "./demo${demoIndex}.vue";`)
-        demoComponentsArr.push(`demo${demoIndex}`)
-        demoCodeArr.push(tokens[idx].content)
-        demoIndex++
+            demoImportArr.push(`import demo${demoIndex} from "./demo${demoIndex}.vue";`)
+            demoComponentsArr.push(`demo${demoIndex}`)
+            demoCodeArr.push(tokens[idx].content)
+            demoIndex++
+        }
+
         return text
-        // 如果你确认其他的插件不能添加 `target` - 放弃以下检查：
-        // var aIndex = tokens[idx].attrIndex('target');
-
-        // if (aIndex < 0) {
-        //     tokens[idx].attrPush(['target', '_blank']); // 添加新属性
-        // } else {
-        //     tokens[idx].attrs[aIndex][1] = '_blank'; // 替换已经存在的属性值
-        // }
-
-        // 传递 token 到默认的渲染器。
-        // return defaultRender(tokens, idx, options, env, self);
     };
 
     md.renderer.rules.table_open = function (tokens, idx, options, env, self) {

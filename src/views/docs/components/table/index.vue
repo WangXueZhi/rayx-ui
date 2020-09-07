@@ -1,21 +1,21 @@
 <template>
-  <div class="mv-docs-wrapper">
+  <div class="ra-docs-wrapper">
     <!-- type: 展示 -->
 <h1>Table 表格</h1>
 <p>用于展示多条结构类似的数据，可对数据进行排序、筛选、对比或其他自定义操作。</p>
 <h2>示例</h2>
 <h4>基本用法</h4>
 <p>基本用法的描述</p>
-<div class="mv-docs-demo-examp">
-    <div class="mv-docs-demo-comps">
-        <demo0></demo0>
-    </div>
-    <div class="mv-docs-demo-code" :class="{showCode: demoControlShowCode[0] && !!demoControlShowCode[0].show}">
-        <pre><code class="hljs" v-pre><span class="hljs-tag">&lt;<span class="hljs-name">template</span>&gt;</span>
+<div class="ra-docs-demo-examp">
+            <div class="ra-docs-demo-comps">
+                <demo0></demo0>
+            </div>
+            <div class="ra-docs-demo-code" :class="{showCode: demoControlShowCode[0] && !!demoControlShowCode[0].show}">
+                <pre><code class="hljs" v-pre><span class="hljs-tag">&lt;<span class="hljs-name">template</span>&gt;</span>
   <span class="hljs-tag">&lt;<span class="hljs-name">Table</span> <span class="hljs-attr">:column</span>=<span class="hljs-string">&quot;column&quot;</span> <span class="hljs-attr">:data</span>=<span class="hljs-string">&quot;data&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">Table</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="javascript">
-<span class="hljs-keyword">import</span> { Table } <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;mvui&quot;</span>;
+<span class="hljs-keyword">import</span> { Table } <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;rayx-ui&quot;</span>;
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> {
   <span class="hljs-attr">components</span>: {
     Table
@@ -54,11 +54,11 @@
 </span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
 </code></pre>
 
-    </div>
-    <div class="mv-docs-demo-control" @click="demoControlShowCodeTotgal(0)">
-        {{demoControlShowCode[0] && demoControlShowCode[0].show?'隐藏代码':'显示代码'}}
-    </div>
-</div><h2>props</h2>
+            </div>
+            <div class="ra-docs-demo-control" @click="demoControlShowCodeTotgal(0)">
+                {{demoControlShowCode[0] && demoControlShowCode[0].show?'隐藏代码':'显示代码'}}
+            </div>
+        </div><h2>props</h2>
 <table>
 <thead>
 <tr>
@@ -131,7 +131,6 @@
 
 <script>
 import demo0 from "./demo0.vue";
-import "highlight.js/styles/color-brewer.css";
 
 export default {
   name: "views.docs.components.table",

@@ -49,7 +49,6 @@ const getComponentsData = function () {
     return arr
 }
 
-const TPL_PATH_DEMO_CODE = path.resolve(__dirname, "../tpl/demo_code.html");
 const TPL_PATH_DOC = path.resolve(__dirname, "../tpl/doc.vue");
 const TPL_PATH_ROUTER = path.resolve(__dirname, "../tpl/router.js");
 const TPL_PATH_COMPONENTS_LIST = path.resolve(__dirname, "../tpl/LayoutMenuComponents.vue");
@@ -113,10 +112,6 @@ const main = function () {
     let menuComponentsListData = [] // 组件列表数据
 
     datas.forEach(item => {
-        if (item.fname === 'scroll-bar') {
-            console.log(item)
-        }
-
         menuComponentsListData = addMenuComponentsListData(menuComponentsListData, {
             type: item.type,
             fname: item.fname

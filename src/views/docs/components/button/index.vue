@@ -1,21 +1,21 @@
 <template>
-  <div class="mv-docs-wrapper">
+  <div class="ra-docs-wrapper">
     <!-- type: 通用 -->
 <h1>Button 按钮</h1>
 <p>基础组件，触发业务逻辑时使用</p>
 <h2>示例</h2>
 <h4>基本用法</h4>
-<p>基本用法的描述</p>
-<div class="mv-docs-demo-examp">
-    <div class="mv-docs-demo-comps">
-        <demo0></demo0>
-    </div>
-    <div class="mv-docs-demo-code" :class="{showCode: demoControlShowCode[0] && !!demoControlShowCode[0].show}">
-        <pre><code class="hljs" v-pre><span class="hljs-tag">&lt;<span class="hljs-name">template</span>&gt;</span>
+<p>基本用法的示例</p>
+<div class="ra-docs-demo-examp">
+            <div class="ra-docs-demo-comps">
+                <demo0></demo0>
+            </div>
+            <div class="ra-docs-demo-code" :class="{showCode: demoControlShowCode[0] && !!demoControlShowCode[0].show}">
+                <pre><code class="hljs" v-pre><span class="hljs-tag">&lt;<span class="hljs-name">template</span>&gt;</span>
   <span class="hljs-tag">&lt;<span class="hljs-name">Button</span>&gt;</span>按钮<span class="hljs-tag">&lt;/<span class="hljs-name">Button</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="javascript">
-<span class="hljs-keyword">import</span> { Button } <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;mvui&quot;</span>;
+<span class="hljs-keyword">import</span> { Button } <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;rayx-ui&quot;</span>;
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> {
   <span class="hljs-attr">components</span>: {
     Button
@@ -24,21 +24,16 @@
 </span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
 </code></pre>
 
-    </div>
-    <div class="mv-docs-demo-control" @click="demoControlShowCodeTotgal(0)">
-        {{demoControlShowCode[0] && demoControlShowCode[0].show?'隐藏代码':'显示代码'}}
-    </div>
-</div><h4>基本用法2</h4>
-<div class="mv-docs-demo-examp">
-    <div class="mv-docs-demo-comps">
-        <demo1></demo1>
-    </div>
-    <div class="mv-docs-demo-code" :class="{showCode: demoControlShowCode[1] && !!demoControlShowCode[1].show}">
-        <pre><code class="hljs" v-pre><span class="hljs-tag">&lt;<span class="hljs-name">template</span>&gt;</span>
+            </div>
+            <div class="ra-docs-demo-control" @click="demoControlShowCodeTotgal(0)">
+                {{demoControlShowCode[0] && demoControlShowCode[0].show?'隐藏代码':'显示代码'}}
+            </div>
+        </div><p>不带示例的用法</p>
+<pre><code class="hljs" v-pre><span class="hljs-tag">&lt;<span class="hljs-name">template</span>&gt;</span>
   <span class="hljs-tag">&lt;<span class="hljs-name">Button</span>&gt;</span>按钮<span class="hljs-tag">&lt;/<span class="hljs-name">Button</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="javascript">
-<span class="hljs-keyword">import</span> { Button } <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;mvui&quot;</span>;
+<span class="hljs-keyword">import</span> { Button } <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;rayx-ui&quot;</span>;
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> {
   <span class="hljs-attr">components</span>: {
     Button
@@ -46,12 +41,7 @@
 }
 </span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
 </code></pre>
-
-    </div>
-    <div class="mv-docs-demo-control" @click="demoControlShowCodeTotgal(1)">
-        {{demoControlShowCode[1] && demoControlShowCode[1].show?'隐藏代码':'显示代码'}}
-    </div>
-</div><h2>props</h2>
+<h2>props</h2>
 <table>
 <thead>
 <tr>
@@ -129,14 +119,11 @@
 
 <script>
 import demo0 from "./demo0.vue";
-import demo1 from "./demo1.vue";
-import "highlight.js/styles/color-brewer.css";
 
 export default {
   name: "views.docs.components.button",
   components: {
     demo0,
-demo1,
   },
   data() {
     return {

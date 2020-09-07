@@ -6,6 +6,7 @@
 
 <script>
 import './app.scss'
+import "highlight.js/styles/color-brewer.css";
 export default {
   components: {
   }

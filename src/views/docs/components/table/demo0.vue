@@ -2,7 +2,7 @@
   <Table :column="column" :data="data"></Table>
 </template>
 <script>
-import { Table } from "mvui";
+import { Table } from "rayx-ui";
 export default {
   components: {
     Table

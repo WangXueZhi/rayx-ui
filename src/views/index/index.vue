@@ -5,7 +5,7 @@
 </template>
 
 <script>
-// import nvui from 'mvui'
+// import nvui from 'rayx-ui'
 // console.log(nvui)
 export default {
   name: 'views.index',

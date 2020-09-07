@@ -1,12 +1,11 @@
 <template>
-  <div class="mv-docs-wrapper">
+  <div class="ra-docs-wrapper">
     __DEMO_TEXT__
   </div>
 </template>
 
 <script>
 __DEMO_IMPORT__
-import "highlight.js/styles/color-brewer.css";
 
 export default {
   name: "views.docs.components.__COMPNENT_NAME__",
