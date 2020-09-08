@@ -74,12 +74,7 @@
 <th>说明</th>
 </tr>
 </thead>
-<tbody>
-<tr>
-<td>hello</td>
-<td>hello</td>
-</tr>
-</tbody>
+<tbody></tbody>
 </table>
 <h2>slot</h2>
 <table>
@@ -123,7 +118,7 @@ import demo0 from "./demo0.vue";
 export default {
   name: "views.docs.components.button",
   components: {
-    demo0,
+    demo0
   },
   data() {
     return {

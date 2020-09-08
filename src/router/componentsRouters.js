@@ -2,6 +2,9 @@ export default [{
     path: "components/button",
     component: () => import("@/views/docs/components/button/index.vue"),
 },{
+    path: "components/gr-modal",
+    component: () => import("@/views/docs/components/gr-modal/index.vue"),
+},{
     path: "components/scroll-bar",
     component: () => import("@/views/docs/components/scroll-bar/index.vue"),
 },{

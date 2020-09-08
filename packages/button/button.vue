@@ -1,6 +1,5 @@
 <template>
-  <button>
-    <span class=bt>123</span>
+  <button class="ra-button" @click="click">
     <slot></slot>
   </button>
 </template>
@@ -25,12 +24,8 @@ export default {
     }
   },
   methods: {
-    /**
-     * hello
-     */
-    hello () {
-      console.log('hello')
-      this.$emit('on-change')
+    click(){
+      this.$emit('click')
     }
   }
 }

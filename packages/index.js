@@ -1,9 +1,10 @@
 import Button from './button'
+import GrModal from './gr-modal'
 import ScrollBar from './scroll-bar'
 import Table from './table'
 import Test from './test'
 import Toast from './toast'
-const components = [Button, ScrollBar, Table, Test, Toast]
+const components = [Button, GrModal, ScrollBar, Table, Test, Toast]
 
 const install = function (Vue) {
   if (install.installed) return
@@ -17,8 +18,8 @@ if (typeof window !== 'undefined' && window.Vue) {
 }
 export default {
   install,
-  Button, ScrollBar, Table, Test, Toast
+  Button, GrModal, ScrollBar, Table, Test, Toast
 }
 export {
-  Button, ScrollBar, Table, Test, Toast
+  Button, GrModal, ScrollBar, Table, Test, Toast
 }

@@ -1,6 +1,6 @@
 <template>
   <div class="ra-docs-wrapper">
-    <!-- type: 测试 -->
+    <!-- type: 通用 -->
 <h1>Test test</h1>
 <p>基础组件，触发业务逻辑时使用</p>
 <h2>示例</h2>
@@ -135,7 +135,7 @@ export default {
   name: "views.docs.components.test",
   components: {
     demo0,
-demo1,
+demo1
   },
   data() {
     return {

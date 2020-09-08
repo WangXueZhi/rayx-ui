@@ -126,7 +126,7 @@ import demo0 from "./demo0.vue";
 export default {
   name: "views.docs.components.scroll-bar",
   components: {
-    demo0,
+    demo0
   },
   data() {
     return {

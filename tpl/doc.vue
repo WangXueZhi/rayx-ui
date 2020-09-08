@@ -10,7 +10,7 @@ __DEMO_IMPORT__
 export default {
   name: "views.docs.components.__COMPNENT_NAME__",
   components: {
-    __DEMO_COMPONENT_LIST__,
+    __DEMO_COMPONENT_LIST__
   },
   data() {
     return {
