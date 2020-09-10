@@ -1,42 +1,50 @@
-let gulp = require('gulp');
+// let gulp = require('gulp');
 let shell = require('shelljs');
 const path = require('path')
-let watch = require('gulp-watch');
-const build = require('./builder/build2')
+let gulpWatch = require('gulp-watch');
+const builder = require('./builder/build2')
+const {
+    series
+} = require('gulp');
 
-const toBuildAll = function () {
-    build()
+// 构建文档
+const build = function (cb) {
+    builder()
+    cb && cb();
+}
+
+// 打包lib
+const lib = function (cb) {
     shell.exec('npm run lib:test', {
         async: false,
         silent: false
     });
+    cb();
 }
 
-const openServer = function () {
-    toBuildAll()
+// 开发服务
+const dev = function (cb) {
     shell.exec('npm run open', {
         async: true,
         silent: false
     });
+    cb();
 }
 
-// 开启开发服务
-gulp.task('dev', async () => {
-    openServer()
-    watch('packages/**/**', function (file) {
+const watch = function(cb){
+    gulpWatch('packages/**/**', function (file) {
+        
         const filePath = path.resolve(file.history[0])
+        console.log(filePath)
+        console.log(!filePath.includes('\\packages\\index.js'))
         if (!filePath.includes('\\packages\\index.js')) {
-            toBuildAll()
+            build();
         }
     });
-});
+    cb()
+}
 
-// 构建所有
-gulp.task('buildAll', async () => {
-    toBuildAll()
-});
-
-// 构建文档
-gulp.task('build', async () => {
-    build()
-});
+exports.dev = series(build, watch, dev);
+exports.buildAll = series(build, lib);
+exports.build = build;
+exports.lib = lib;

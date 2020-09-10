@@ -9,8 +9,7 @@ module.exports = {
     }],
     ['import', {
       libraryName: pkg.name,
-      style: true,
-      libraryDirectory: '/'
+      libraryDirectory: 'packages'
     }, pkg.name]
   ]
 }

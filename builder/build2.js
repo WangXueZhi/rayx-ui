@@ -10,7 +10,7 @@ const getComponentsData = function () {
     const files = fs.readdirSync('./packages')
     for (let i = 0; i < files.length; i++) {
         const stats = fs.statSync('./packages/' + files[i])
-        if (stats.isDirectory()) {
+        if (stats.isDirectory() && files[i]!=='styles') {
             // vue
             const vueFileContent = fs.readFileSync('./packages/' + files[i] + '/' + files[i] + '.vue', 'utf-8')
             const matchReg = /<script(?:\s+[^>]*)?>([\s\S]+?)<\/script\s*>/
@@ -34,7 +34,7 @@ const getComponentsData = function () {
             methods.forEach(item => {
                 methodsTableMd += `| ${item.name} | ${item.comment} |\n`
             })
-
+            
             const mdContent = mdFileContent.replace(/<!-- prop -->/gm, propsTableMd).replace(/<!-- method -->/gm, methodsTableMd)
             const typeMatch = mdContent.match(/(?<=<!-- type:\s*).*(?=-->)/m)
             const type = typeMatch ? typeMatch[0].replace(/\s/gm, '') : ''
@@ -85,10 +85,10 @@ const replaceTplAndBuildToTarget = function (tplPath, replaceList, targetPath) {
 }
 
 // 操作组件列表数据
-const addMenuComponentsListData = function(sourceArr, data){
-    for(let i=0; i<sourceArr.length; i++){
-        if(sourceArr[i].type===data.type){
-            if(!sourceArr[i].list.includes(data.fname)){
+const addMenuComponentsListData = function (sourceArr, data) {
+    for (let i = 0; i < sourceArr.length; i++) {
+        if (sourceArr[i].type === data.type) {
+            if (!sourceArr[i].list.includes(data.fname)) {
                 sourceArr[i].list.push(data.fname)
             }
             return sourceArr
@@ -101,7 +101,7 @@ const addMenuComponentsListData = function(sourceArr, data){
     return sourceArr
 }
 
-const main = function () {
+const build = function () {
     const datas = getComponentsData()
 
     const routersContent = [] // 组件路由数组
@@ -116,17 +116,17 @@ const main = function () {
             type: item.type,
             fname: item.fname
         })
-        
+
         // 创建组件路由数组
         routersContent.push(fs.readFileSync(TPL_PATH_ROUTER, 'utf-8')
-            .replace(/__COMPNENT_NAME__/g, item.fname)) 
+            .replace(/__COMPNENT_NAME__/g, item.fname))
 
         // 创建菜单中的组件列表
         menuComponentsList.push(`<div class="layout-menu-item" @click="docChange('/docs/components/${item.fname}')">${item.fname}</div>`)
         // webpack构建入口
         webpackComponentsList.push(`    '${item.fname}': './packages/${item.fname}/index.js',`)
         // 组件入口导入列表
-        package_index_imports.push(`import ${util.cpNameTransfer(item.fname)} from './${item.fname}'`) 
+        package_index_imports.push(`import ${util.cpNameTransfer(item.fname)} from './${item.fname}'`)
         // 组件入口组件列表
         package_index_components.push(util.cpNameTransfer(item.fname))
 
@@ -161,7 +161,7 @@ const main = function () {
     replaceTplAndBuildToTarget(TPL_PATH_PACKAGE_INDEX, [{
         tplText: /__PACKAGE_IMPORT_LIST__/g,
         value: package_index_imports.join('\n')
-    },{
+    }, {
         tplText: /__PACKAGE_COMPONENTS_LIST__/g,
         value: package_index_components.join(', ')
     }], BUILD_PATH_PACKAGE_INDEX)
@@ -177,7 +177,7 @@ const main = function () {
     replaceTplAndBuildToTarget(TPL_PATH_COMPONENTS_LIST, [{
         tplText: /__COMPONENTS_MENU_LIST__/g,
         value: menuComponentsList.join('\n')
-    },{
+    }, {
         tplText: /__LIST_DATA__/g,
         value: JSON.stringify(menuComponentsListData)
     }], BUILD_PATH_COMPONENTS_LIST)
@@ -186,6 +186,15 @@ const main = function () {
     const routersText = `export default [${routersContent.join(',')}]`
     fs.openSync(BUILD_PATH_ROUTERS, 'w+')
     fs.writeFileSync(BUILD_PATH_ROUTERS, routersText)
+}
+
+const main = function () {
+    // 删除lib目录
+    const LIB_PATH = path.resolve(__dirname, `../lib`)
+    if (fs.existsSync(LIB_PATH)) {
+        util.rmdirSync(LIB_PATH, build)
+    }
+    build()
 }
 
 module.exports = main

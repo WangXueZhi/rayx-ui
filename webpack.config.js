@@ -81,6 +81,8 @@ const cssLoaderRules = function () {
     }]
 }
 
+console.log(path.resolve('./'))
+
 module.exports = {
     mode: nodeEnv,
     entry: entryConfig(),
@@ -92,7 +94,8 @@ module.exports = {
                     loader: "url-loader",
                     query: {
                         limit: 10000,
-                        name: "imgs/[name]--[folder].[ext]"
+                        name: "assets/images/[name].[ext]",
+                        publicPath: '../'
                     }
                 }
             },
@@ -101,7 +104,8 @@ module.exports = {
                 loader: "url-loader",
                 options: {
                     limit: 10000,
-                    name: "media/[name]--[folder].[ext]"
+                    name: "assets/media/[name].[ext]",
+                    publicPath: '../'
                 }
             },
             {
@@ -110,7 +114,8 @@ module.exports = {
                     loader: "url-loader",
                     query: {
                         limit: 10000,
-                        name: "fonts/[name]--[folder].[ext]"
+                        name: "assets/fonts/[name].[ext]",
+                        publicPath: '../'
                     }
                 }
             }, {
@@ -134,7 +139,7 @@ module.exports = {
     resolve: {
         alias: {
             // 'vue': 'vue/dist/vue.js',
-            [pkg.name]: path.resolve('lib'),
+            [pkg.name]: path.resolve('./'),
             '@': path.resolve('src')
         },
         extensions: ['.css', '.js', '.vue']

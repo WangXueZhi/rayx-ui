@@ -35,7 +35,7 @@
 
 <script>
 import { Modal } from 'view-design'
-import {Button} from 'rayx-ui'
+import Button from '../button'
 
 export default {
   name: "gr-modal",
@@ -125,3 +125,4 @@ export default {
 </script>
 
 <style lang="scss" src="./gr-modal.scss"></style>
+<style src="view-design/dist/styles/iview.css"></style>

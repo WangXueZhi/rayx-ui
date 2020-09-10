@@ -1,13 +1,12 @@
 <template>
   <div class="home">
-    <div class="ui-name">rayx-ui</div>
-    <!-- <div class="ui-button">
-      <Button>组件文档</Button>
+    <div class="ui-name-en">Component Producer For <span>Vue</span></div>
+    <div class="ui-name-cn">快速搭建文档<br />一套基于Vue的组件库脚手架</div>
+    <div class="ui-button">
+      <Button type="ghost" circle disabled>架构</Button>
+      <Button type="ghost" circle disabled>组件开发规范</Button>
+      <Button colorType="primary" type="ghost" circle @click="componentDoc">组件文档</Button>
     </div>
-    <GrModal>
-      <template slot="content">content</template>
-      <template slot="footer">footer</template>
-    </GrModal> -->
   </div>
 </template>
 
@@ -20,6 +19,11 @@ export default {
   components: {
     GrModal,
     Button
+  },
+  methods: {
+    componentDoc(){
+      this.$router.push('/docs/start');
+    }
   }
 }
 </script>
@@ -31,8 +35,29 @@ export default {
     width: 100%;
     height: 100%;
     display: flex;
-    align-content: center;
-    justify-self: center;
+    align-items: center;
+    justify-content: center;
     flex-direction: column;
+
+    .ui-name-en{
+      font-size: 26px;
+      span{
+        color: #4fc08d;
+      }
+    }
+
+    .ui-name-cn{
+      font-size: 20px;
+      margin-top: 10px;
+      line-height: 1.5;
+      text-align: center;
+    }
+
+    .ui-button{
+      margin-top: 20px;
+      width: 300px;
+      display: flex;
+      justify-content: space-between;
+    }
   }
 </style>

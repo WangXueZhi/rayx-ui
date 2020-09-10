@@ -8,7 +8,7 @@ yarn add rayx-ui
 
 ## 使用
 
-#### 全量导入
+### 全量导入
 
 ```js
 import Vue from "vue";
@@ -36,7 +36,7 @@ new Vue({
 });
 ```
 
-#### 按需导入
+### 按需导入
 
 先安装 babel-plugin-import 插件
 
@@ -52,8 +52,7 @@ module.exports = {
   plugins: [
     ['import', {
       libraryName: 'rayx-ui',
-      style: true,
-      libraryDirectory: '/'
+      libraryDirectory: 'packages'
     }, 'rayx-ui']
   ]
 }

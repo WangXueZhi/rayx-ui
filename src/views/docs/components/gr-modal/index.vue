@@ -4,7 +4,7 @@
 <h1>gr-modal 模态对话框</h1>
 <p>需要用户处理事务，又不希望跳转页面以致打断工作流程时</p>
 <h2>示例</h2>
-<h4>基本用法</h4>
+<h3>基本用法</h3>
 <div class="ra-docs-demo-examp">
             <div class="ra-docs-demo-comps">
                 <demo0></demo0>

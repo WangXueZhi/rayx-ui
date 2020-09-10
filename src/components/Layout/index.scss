@@ -21,6 +21,14 @@
             align-items: center;
         }
     }
+
+    .layout-header-right{
+        display: flex;
+        align-items: center;
+        a{
+            padding: 0 5px;
+        }
+    }
 }
 
 .layout-menu {

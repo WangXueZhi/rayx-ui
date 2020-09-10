@@ -1,32 +1,57 @@
 <template>
-  <button class="ra-button" @click="click">
+  <button
+    class="ra-button"
+    @click="click"
+    :class="{
+      [`ra-button-${colorType}`]:colorType!=='default',
+      [`ra-button-${type}`]:type!=='default',
+      'ra-button-circle': circle,
+      'ra-button-disabled': disabled
+    }"
+  >
     <slot></slot>
   </button>
 </template>
 <script>
-import './button.scss'
+import "./button.scss";
 export default {
-  name: 'r-button',
+  name: "r-button",
   props: {
     /**
-     * 类型
+     * 颜色类型：```default``` / ```primary``` / ```info``` / ```success``` / ```warning``` / ```error```
+     */
+    colorType: {
+      type: String,
+      default: "default",
+    },
+    /**
+     * 按钮类型：```default``` / ```ghost``` / ```dashed```
      */
     type: {
       type: String,
-      default: 'default'
+      default: "default",
+    },
+    /**
+     * 最大圆角
+     */
+    circle: {
+      type: Boolean,
+      default: false,
     },
     /**
      * 禁用
      */
     disabled: {
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
   },
   methods: {
-    click(){
-      this.$emit('click')
-    }
-  }
-}
+    click() {
+      if (!this.disabled) {
+        this.$emit("click");
+      }
+    },
+  },
+};
 </script>

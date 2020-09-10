@@ -1,5 +1,92 @@
-.ra-button{
-    color: #000;
-    padding: 5px 10px;
-    border-radius: 5px;
+@import '../styles/var.scss';
+
+.ra-button {
+    line-height: 1.5715;
+    position: relative;
+    display: inline-block;
+    font-weight: 400;
+    white-space: nowrap;
+    text-align: center;
+    background-image: none;
+    cursor: pointer;
+    transition: all .3s cubic-bezier(.645, .045, .355, 1);
+    user-select: none;
+    touch-action: manipulation;
+    height: 32px;
+    padding: 4px 15px;
+    font-size: 14px;
+    border-radius: 2px;
+    color: rgba(0, 0, 0, .85);
+    background: #fff;
+    border: 1px solid #d9d9d9;
+    outline: 0;
+
+    @mixin colorType($value: $--color-primary) {
+        color: #fff;
+        background: $value;
+        border-color: $value;
+
+        &:hover {
+            background: mix(#fff, $value, 20%);
+            border-color: mix(#fff, $value, 20%);
+        }
+
+        &:active {
+            background: $value;
+            border-color: $value;
+        }
+
+        &.ra-button-ghost,
+        &.ra-button-dashed {
+            color: $value;
+            background: none;
+
+            &:hover {
+                color: mix(#fff, $value, 20%);
+                border-color: mix(#fff, $value, 20%);
+            }
+
+            &:active {
+                color: $value;
+                border-color: $value;
+            }
+        }
+    }
+
+    &.ra-button-primary {
+        @include colorType($--color-primary);
+    }
+
+    &.ra-button-success {
+        @include colorType($--color-success);
+    }
+    &.ra-button-warning {
+        @include colorType($--color-warning);
+    }
+
+    &.ra-button-error {
+        @include colorType($--color-error);
+    }
+
+    &.ra-button-info {
+        @include colorType($--color-info);
+    }
+
+    &.ra-button-ghost {
+        background: none;
+    }
+
+    &.ra-button-dashed {
+        background: none;
+        border-style: dashed;
+    }
+
+    &.ra-button-circle{
+        border-radius: 32px;
+    }
+
+    &.ra-button-disabled{
+        cursor: not-allowed;
+        opacity: .5;
+    }
 }
