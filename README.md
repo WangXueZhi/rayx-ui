@@ -22,3 +22,4 @@ yarn dev 或者 npm run dev
 yarn lib 或者 npm run lib
 ```
 
+## 组件开发规范请在启动dev模式后查看
