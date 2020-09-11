@@ -2,7 +2,7 @@
 let shell = require('shelljs');
 const path = require('path')
 let gulpWatch = require('gulp-watch');
-const builder = require('./builder/build2')
+const builder = require('./builder/build')
 const {
     series
 } = require('gulp');

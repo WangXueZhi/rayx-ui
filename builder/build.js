@@ -1,14 +1,8 @@
 const vuePaserDoAst = require('./vue-paser').doAst
-const mdPaserDoAst = require('./md-paser').doAst
-const MarkdownIt = new require('markdown-it')
-const md = new MarkdownIt();
 const fs = require('fs')
 const path = require('path')
-const gulp = require("gulp");
-const replace = require('gulp-replace');
-const rename = require("gulp-rename");
 const util = require('./util')
-const beautify = require('js-beautify').html
+const mdRender = require('./md-render')
 
 // 获取组件数据
 const getComponentsData = function () {
@@ -16,27 +10,45 @@ const getComponentsData = function () {
     const files = fs.readdirSync('./packages')
     for (let i = 0; i < files.length; i++) {
         const stats = fs.statSync('./packages/' + files[i])
-        if (stats.isDirectory()) {
+        if (stats.isDirectory() && files[i]!=='styles') {
             // vue
             const vueFileContent = fs.readFileSync('./packages/' + files[i] + '/' + files[i] + '.vue', 'utf-8')
             const matchReg = /<script(?:\s+[^>]*)?>([\s\S]+?)<\/script\s*>/
             const code = matchReg.exec(vueFileContent)[1]
 
+            const conmponentData = vuePaserDoAst(code)
+            const {
+                props,
+                methods
+            } = conmponentData
+
             // md
             const mdFileContent = fs.readFileSync('./packages/' + files[i] + '/README.md', 'utf-8')
-            let tokens = md.parseInline(mdFileContent, {})[0].children
+            let propsTableMd = `## props\n| 参数 | 说明 | 类型 | 默认值 |\n| --- | --- | --- | --- |\n`
+            let methodsTableMd = `## methods\n| 方法名 | 说明 |\n| --- | --- |\n`
 
+            props.forEach(item => {
+                propsTableMd += `| ${item.name} | ${item.comment} | ${item.type} | ${item.default} |\n`
+            })
+
+            methods.forEach(item => {
+                methodsTableMd += `| ${item.name} | ${item.comment} |\n`
+            })
+            
+            const mdContent = mdFileContent.replace(/<!-- props -->/gm, propsTableMd).replace(/<!-- methods -->/gm, methodsTableMd)
+            const typeMatch = mdContent.match(/(?<=<!-- type:\s*).*(?=-->)/m)
+            const type = typeMatch ? typeMatch[0].replace(/\s/gm, '') : ''
             arr.push({
                 fname: files[i],
-                ...vuePaserDoAst(code),
-                ...mdPaserDoAst(tokens)
+                type,
+                ...conmponentData,
+                ...mdRender(mdContent)
             })
         }
     }
     return arr
 }
 
-const TPL_PATH_DEMO_CODE = path.resolve(__dirname, "../tpl/demo_code.html");
 const TPL_PATH_DOC = path.resolve(__dirname, "../tpl/doc.vue");
 const TPL_PATH_ROUTER = path.resolve(__dirname, "../tpl/router.js");
 const TPL_PATH_COMPONENTS_LIST = path.resolve(__dirname, "../tpl/LayoutMenuComponents.vue");
@@ -48,41 +60,11 @@ const BUILD_PATH_COMPONENTS_LIST = path.resolve(__dirname, "../src/components/La
 const BUILD_PATH_WEBPACK_COMPONENTS_ENTRYS = path.resolve(__dirname, "../webpack.components.entrys.js");
 const BUILD_PATH_PACKAGE_INDEX = path.resolve(__dirname, "../packages/index.js");
 
-// 示例内容
-const getExamplesData = function (examples) {
-    let demoRunArr = []
-    let demoImportArr = []
-    let demoComponentsArr = []
-    examples.forEach((exam, i) => {
-        demoRunArr.push(fs.readFileSync(TPL_PATH_DEMO_CODE, 'utf-8')
-            .replace(/__DEMO_NAME__/g, exam.title)
-            .replace(/__DEMO_DESC__/g, exam.desc)
-            .replace(/__DEMO_NUM__/g, i))
-        demoImportArr.push(`import demo${i} from "./demo${i}.vue";`)
-        demoComponentsArr.push(`demo${i}`)
-    })
-    return {
-        demoRunText: demoRunArr.join('\r\n'),
-        demoImportText: demoImportArr.join('\r\n'),
-        demoComponentsText: demoComponentsArr.join(',\r\n')
-    }
-}
-
 // 创建demo示例组件
 const buildDemos = function (examples, buildPath) {
     examples.forEach((exam, i) => {
         fs.openSync(`${buildPath}/demo${i}.vue`, 'w+')
-        fs.writeFileSync(`${buildPath}/demo${i}.vue`, exam.code)
-    })
-}
-
-// 美化代码格式
-const beautifyExampleCode = function (examples) {
-    return examples.map((exam, i) => {
-        exam.code = beautify(exam.code, {
-            indent_size: "2",
-        })
-        return exam
+        fs.writeFileSync(`${buildPath}/demo${i}.vue`, exam)
     })
 }
 
@@ -102,7 +84,24 @@ const replaceTplAndBuildToTarget = function (tplPath, replaceList, targetPath) {
     fs.writeFileSync(targetPath, content)
 }
 
-const main = function () {
+// 操作组件列表数据
+const addMenuComponentsListData = function (sourceArr, data) {
+    for (let i = 0; i < sourceArr.length; i++) {
+        if (sourceArr[i].type === data.type) {
+            if (!sourceArr[i].list.includes(data.fname)) {
+                sourceArr[i].list.push(data.fname)
+            }
+            return sourceArr
+        }
+    }
+    sourceArr.push({
+        type: data.type,
+        list: [data.fname]
+    })
+    return sourceArr
+}
+
+const build = function () {
     const datas = getComponentsData()
 
     const routersContent = [] // 组件路由数组
@@ -110,8 +109,14 @@ const main = function () {
     const webpackComponentsList = [] // webpack构建入口列表
     const package_index_imports = [] // 组件入口导入列表
     const package_index_components = [] // 组件入口组件列表
-    
+    let menuComponentsListData = [] // 组件列表数据
+
     datas.forEach(item => {
+        menuComponentsListData = addMenuComponentsListData(menuComponentsListData, {
+            type: item.type,
+            fname: item.fname
+        })
+
         // 创建组件路由数组
         routersContent.push(fs.readFileSync(TPL_PATH_ROUTER, 'utf-8')
             .replace(/__COMPNENT_NAME__/g, item.fname))
@@ -121,7 +126,7 @@ const main = function () {
         // webpack构建入口
         webpackComponentsList.push(`    '${item.fname}': './packages/${item.fname}/index.js',`)
         // 组件入口导入列表
-        package_index_imports.push(`import ${util.cpNameTransfer(item.fname)} from './${item.fname}'`) 
+        package_index_imports.push(`import ${util.cpNameTransfer(item.fname)} from './${item.fname}'`)
         // 组件入口组件列表
         package_index_components.push(util.cpNameTransfer(item.fname))
 
@@ -130,54 +135,33 @@ const main = function () {
         if (!fs.existsSync(DOC_PATH)) {
             fs.mkdirSync(DOC_PATH);
         }
-        let {
-            demoRunText,
-            demoImportText,
-            demoComponentsText
-        } = getExamplesData(item.examples)
 
-        // 美化示例代码
-        const butifyedExamples = beautifyExampleCode(item.examples)
+        // // 美化示例代码
+        // const butifyedExamples = beautifyExampleCode(item.examples)
 
         // 生成doc代码
-
         replaceTplAndBuildToTarget(TPL_PATH_DOC, [{
-            tplText: /__DEMO_LIST__/g,
-            value: demoRunText
+            tplText: /__DEMO_TEXT__/g,
+            value: item.demoText
         }, {
             tplText: /__DEMO_IMPORT__/g,
-            value: demoImportText
+            value: item.demoImportText
         }, {
             tplText: /__COMPNENT_NAME__/g,
             value: item.fname
         }, {
             tplText: /__DEMO_COMPONENT_LIST__/g,
-            value: demoComponentsText
-        }, {
-            tplText: /__TITLE_DESC__/g,
-            value: JSON.stringify(item.titleAndDesc)
-        }, {
-            tplText: /__PROPS__/g,
-            value: JSON.stringify(item.props)
-        }, {
-            tplText: /__SLOTS__/g,
-            value: JSON.stringify(item.slot)
-        }, {
-            tplText: /__EVENTS__/g,
-            value: JSON.stringify(item.event)
-        }, {
-            tplText: /__DEMOS_DATA__/g,
-            value: JSON.stringify(butifyedExamples).replace(/<\//g, '<\\/')
+            value: item.demoComponentsText
         }], `${DOC_PATH}/index.vue`)
 
-        buildDemos(butifyedExamples, DOC_PATH)
+        buildDemos(item.demoCodeArr, DOC_PATH)
     })
 
     // package组件入口
     replaceTplAndBuildToTarget(TPL_PATH_PACKAGE_INDEX, [{
         tplText: /__PACKAGE_IMPORT_LIST__/g,
         value: package_index_imports.join('\n')
-    },{
+    }, {
         tplText: /__PACKAGE_COMPONENTS_LIST__/g,
         value: package_index_components.join(', ')
     }], BUILD_PATH_PACKAGE_INDEX)
@@ -193,12 +177,24 @@ const main = function () {
     replaceTplAndBuildToTarget(TPL_PATH_COMPONENTS_LIST, [{
         tplText: /__COMPONENTS_MENU_LIST__/g,
         value: menuComponentsList.join('\n')
+    }, {
+        tplText: /__LIST_DATA__/g,
+        value: JSON.stringify(menuComponentsListData)
     }], BUILD_PATH_COMPONENTS_LIST)
 
     // 组件路由
     const routersText = `export default [${routersContent.join(',')}]`
     fs.openSync(BUILD_PATH_ROUTERS, 'w+')
     fs.writeFileSync(BUILD_PATH_ROUTERS, routersText)
+}
+
+const main = function () {
+    // 删除lib目录
+    const LIB_PATH = path.resolve(__dirname, `../lib`)
+    if (fs.existsSync(LIB_PATH)) {
+        util.rmdirSync(LIB_PATH, build)
+    }
+    build()
 }
 
 module.exports = main
