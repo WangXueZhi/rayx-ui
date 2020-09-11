@@ -13,18 +13,12 @@
     >
       <slot name="content" />
       <footer slot="footer" v-if="!footerHide && customFooter === undefined">
-        <Button @click="ok">
-          {{okText}}
-        </Button>
         <Button @click="cancel">
           {{cancelText}}
         </Button>
-        <!-- <i-button class="gr-modal-ok-btn" @click="ok" v-text="okText" />
-        <i-button
-          class="gr-modal-cancel-btn"
-          @click="cancel"
-          v-text="cancelText"
-        /> -->
+        <Button @click="ok" colorType="primary">
+          {{okText}}
+        </Button>
       </footer>
       <footer v-else slot="footer">
         <slot name="footer"></slot>
@@ -112,9 +106,11 @@ export default {
   methods: {
     ok() {
       this.$emit("on-ok");
+      this.show = false;
     },
     cancel() {
       this.$emit("on-cancel");
+      this.show = false;
     },
     visibleChange(bool) {
       this.$emit("on-visible-change", bool);
