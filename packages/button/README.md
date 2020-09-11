@@ -33,7 +33,7 @@
       形状
     </div>
     <div class="demo-button-Type">
-      <Button colorType="primary" circle>幽灵按钮</Button>
+      <Button colorType="primary" type="ghost" circle>幽灵按钮</Button>
       <Button colorType="primary" type="dashed" circle>按</Button>
     </div>
   </div>
@@ -54,7 +54,7 @@
 </style>
 ```
 
-<!-- prop -->
+<!-- props -->
 
 ## event
 

@@ -25,11 +25,31 @@ const routes = [{
     path: '/docs',
     component: Layout,
     children: [
+      { path: '/', redirect: '/docs/start' },
       {
         path: 'start',
         component: () => import('@/views/docs/start/index.vue')
       },
       ...componentsRouters
+    ]
+  },
+  {
+    path: '/development',
+    component: Layout,
+    children: [
+      { path: '/', redirect: '/development' },
+      {
+        path: 'base',
+        component: () => import('@/views/development/base/index.vue')
+      },
+      {
+        path: 'component',
+        component: () => import('@/views/development/component/index.vue')
+      },
+      {
+        path: 'md',
+        component: () => import('@/views/development/md/index.vue')
+      }
     ]
   }
 ]

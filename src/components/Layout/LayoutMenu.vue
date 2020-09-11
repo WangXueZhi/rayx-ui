@@ -1,12 +1,31 @@
 <template>
   <ScrollBar wrapperClass="layout-menu">
     <div class="layout-menu-list">
-      <div
-        class="layout-menu-item"
-        :class="{'layout-menu-item-active':currentPath===`/docs/start`}"
-        @click="docChange('/docs/start')"
-      >快速开始</div>
-      <LayoutMenuComponents />
+      <div v-if="currentPath.indexOf('/docs/')===0">
+        <div
+          class="layout-menu-item"
+          :class="{'layout-menu-item-active':currentPath===`/docs/start`}"
+          @click="docChange('/docs/start')"
+        >快速开始</div>
+        <LayoutMenuComponents />
+      </div>
+      <div v-if="currentPath.indexOf('/development/')===0">
+        <div
+          class="layout-menu-item"
+          :class="{'layout-menu-item-active':currentPath==='/development/base'}"
+          @click="docChange('/development/base')"
+        >基本约定</div>
+        <div
+          class="layout-menu-item"
+          :class="{'layout-menu-item-active':currentPath==='/development/component'}"
+          @click="docChange('/development/component')"
+        >组件编写规范</div>
+        <div
+          class="layout-menu-item"
+          :class="{'layout-menu-item-active':currentPath==='/development/md'}"
+          @click="docChange('/development/md')"
+        >markdown编写规范</div>
+      </div>
     </div>
   </ScrollBar>
 </template>

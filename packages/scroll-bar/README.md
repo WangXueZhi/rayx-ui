@@ -38,8 +38,8 @@ export default {
 </style>
 ```
 
-<!-- prop -->
-<!-- method -->
+<!-- props -->
+<!-- methods -->
 
 ## slot
 | 名称 | 说明 |

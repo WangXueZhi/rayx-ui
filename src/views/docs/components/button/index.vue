@@ -34,7 +34,7 @@
       形状
     <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;demo-button-Type&quot;</span>&gt;</span>
-      <span class="hljs-tag">&lt;<span class="hljs-name">Button</span> <span class="hljs-attr">colorType</span>=<span class="hljs-string">&quot;primary&quot;</span> <span class="hljs-attr">circle</span>&gt;</span>幽灵按钮<span class="hljs-tag">&lt;/<span class="hljs-name">Button</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">Button</span> <span class="hljs-attr">colorType</span>=<span class="hljs-string">&quot;primary&quot;</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;ghost&quot;</span> <span class="hljs-attr">circle</span>&gt;</span>幽灵按钮<span class="hljs-tag">&lt;/<span class="hljs-name">Button</span>&gt;</span>
       <span class="hljs-tag">&lt;<span class="hljs-name">Button</span> <span class="hljs-attr">colorType</span>=<span class="hljs-string">&quot;primary&quot;</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;dashed&quot;</span> <span class="hljs-attr">circle</span>&gt;</span>按<span class="hljs-tag">&lt;/<span class="hljs-name">Button</span>&gt;</span>
     <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
   <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>

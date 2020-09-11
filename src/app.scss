@@ -50,25 +50,21 @@ body {
     }
 
     h1 {
-        font-size: 26px;
         font-weight: 400;
         margin: 12px 0;
     }
 
     h2 {
-        font-size: 20px;
         font-weight: 400;
         margin: 12px 0;
     }
 
     h3 {
-        font-size: 16px;
         font-weight: 400;
         margin: 8px 0;
     }
 
     h4 {
-        font-size: 14px;
         font-weight: 400;
         margin: 8px 0;
     }
@@ -76,6 +72,10 @@ body {
     p {
         font-size: 14px;
         margin: 6px 0;
+    }
+
+    ol{
+        padding-left: 16px;
     }
 
     .hljs {

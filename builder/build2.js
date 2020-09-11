@@ -35,7 +35,7 @@ const getComponentsData = function () {
                 methodsTableMd += `| ${item.name} | ${item.comment} |\n`
             })
             
-            const mdContent = mdFileContent.replace(/<!-- prop -->/gm, propsTableMd).replace(/<!-- method -->/gm, methodsTableMd)
+            const mdContent = mdFileContent.replace(/<!-- props -->/gm, propsTableMd).replace(/<!-- methods -->/gm, methodsTableMd)
             const typeMatch = mdContent.match(/(?<=<!-- type:\s*).*(?=-->)/m)
             const type = typeMatch ? typeMatch[0].replace(/\s/gm, '') : ''
             arr.push({

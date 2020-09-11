@@ -8,6 +8,13 @@ yarn add rayx-ui
 
 ## 使用
 
+### CDN
+```html
+<link href='//xxx.xxx.cn/rayx-ui/dist/index/style.css'/>
+<script src='//xxx.xxx.cn/rayx-ui/dist/index/index.js'></script>
+```
+
+
 ### 全量导入
 
 ```js
@@ -22,8 +29,6 @@ import "rayx-ui/dist/index/style.css";
 Vue.use(RayxUI);
 
 Vue.use(VueRouter);
-
-// The routing configuration
 const RouterConfig = {
   routes: Routers,
 };
@@ -36,7 +41,7 @@ new Vue({
 });
 ```
 
-### 按需导入
+### 按需导入（推荐）
 
 先安装 babel-plugin-import 插件
 

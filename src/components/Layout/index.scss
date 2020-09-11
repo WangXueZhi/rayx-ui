@@ -27,6 +27,10 @@
         align-items: center;
         a{
             padding: 0 5px;
+            color: #515a6e;
+            &.active{
+                color: #1890ff;
+            }
         }
     }
 }

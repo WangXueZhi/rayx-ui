@@ -51,8 +51,8 @@ export default {
 </script>
 ```
 
-<!-- prop -->
-<!-- method -->
+<!-- props -->
+<!-- methods -->
 
 ## slot
 | 名称 | 说明 |

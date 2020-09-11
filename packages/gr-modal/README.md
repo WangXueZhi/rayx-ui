@@ -41,7 +41,7 @@
 </script>
 ```
 
-<!-- prop -->
+<!-- props -->
 
 ## event
 
