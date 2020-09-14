@@ -6,7 +6,11 @@
 ## 注释
 如果组件的props和methods要解析到文档中，必须加上多行形式的注释，单行形式的注释不会被解析，注释内容会作为属性说明
 
-```js
+```html
+<template>
+  ...
+</template>
+<script>  
 export default {
   name: "r-button",
   props: {
@@ -49,4 +53,5 @@ export default {
     },
   },
 };
+</script>
 ```
