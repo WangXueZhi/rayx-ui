@@ -8,6 +8,22 @@ let isProps = false
 let isMethods = false
 let defaultExportType = 'ObjectExpression' // 默认导出类型
 
+// 解析类型为BinaryExpression的节点
+const parseBinaryExpression = function (node) {
+  let str = ''
+  if (node.type === 'BinaryExpression') {
+    if (node.left.type === 'BinaryExpression') {
+      str += parseBinaryExpression(node.left)
+    } else {
+      str += `${node.left.name}`
+    }
+
+    str += ` ${node.operator} ${node.right.name}`
+  }
+
+  return str
+}
+
 const paresExportDefault = function (path, data, code) {
   if (path.node.type === 'ObjectProperty' && path.node.key.name === 'name') {
     data.cname = path.node.value.value
@@ -15,10 +31,12 @@ const paresExportDefault = function (path, data, code) {
 
   const commentBlock = getCommentBlockItem(path.node.leadingComments)
 
+
+
   // 属性
   if (isProps === true && path.type !== 'Identifier' && path.node.key && commentBlock) {
     const k = {}
-    k.comment = commentBlock.value.replace(/\s|\*/g, '')
+    k.comment = commentBlock.value.replace(/\s|\*/g, '').replace(/\|/g, '&#124;')
     k.name = path.node.key.name
 
     // 定义类型
@@ -28,12 +46,16 @@ const paresExportDefault = function (path, data, code) {
     // 对象类型
     if (path.node.value.type === 'ObjectExpression') {
       path.node.value.properties.forEach(item => {
+        // console.log(item)
         let v = item.value.value
         if (item.value.type === 'Identifier') {
           v = item.value.name
         }
         if (item.value.type === 'ObjectExpression' || item.value.type === 'ArrayExpression') {
           v = code.slice(item.value.start, item.value.end).replace(/\s/g, '')
+        }
+        if (item.value.type === 'BinaryExpression') {
+          v = parseBinaryExpression(item.value).replace(/\|/g, '&#124;')
         }
 
         k[item.key.name] = v

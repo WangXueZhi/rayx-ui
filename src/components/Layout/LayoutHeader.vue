@@ -9,7 +9,7 @@
     <div class="layout-header-right">
       <a href="#/">首页</a>
       <a href="#/docs/start" :class="{active: activePath.indexOf('/docs')===0}">组件</a>
-      <a>架构</a>
+      <a href="#/architecture/base" :class="{active: activePath.indexOf('/architecture')===0}">架构</a>
       <a href="#/development/base" :class="{active: activePath.indexOf('/development')===0}">组件开发规范</a>
     </div>
   </header>

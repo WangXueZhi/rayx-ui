@@ -16,13 +16,6 @@ export default {
       type: String,
       default: 'default'
     },
-    /**
-     * 禁用
-     */
-    disabled: {
-      type: Boolean,
-      default: false
-    }
   },
   methods: {
     /**

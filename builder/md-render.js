@@ -37,7 +37,7 @@ module.exports = function (mdContent) {
 
     md.renderer.rules.fence = function (tokens, idx, options, env, self) {
         const token = tokens[idx]
-        let text = defaultFenceRender(tokens, idx, options, env, self)
+        let text = ''
         if (token.info.includes(' demo') || token.info.includes('demo ')) {
             text = `<div class="ra-docs-demo-examp">
             <div class="ra-docs-demo-comps">
@@ -55,6 +55,8 @@ module.exports = function (mdContent) {
             demoComponentsArr.push(`demo${demoIndex}`)
             demoCodeArr.push(tokens[idx].content)
             demoIndex++
+        } else {
+            text = defaultFenceRender(tokens, idx, options, env, self)
         }
 
         return text

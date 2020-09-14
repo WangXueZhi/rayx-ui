@@ -10,9 +10,9 @@
         <br />一套基于Vue的组件库脚手架
       </div>
       <div class="ui-button">
-        <Button type="ghost" circle disabled>架构</Button>
-        <Button colorType="primary" type="ghost" circle @click="developmentDoc">组件开发规范</Button>
         <Button colorType="primary" type="ghost" circle @click="componentDoc">组件文档</Button>
+        <Button colorType="primary" type="ghost" circle @click="architectureDoc">架构</Button>
+        <Button colorType="primary" type="ghost" circle @click="developmentDoc">组件开发规范</Button>
       </div>
     </div>
     <div class="home-markdown">
@@ -43,6 +43,9 @@ export default {
     },
     developmentDoc() {
       this.$router.push("/development/base");
+    },
+    architectureDoc() {
+      this.$router.push("/architecture/base");
     },
   },
 };

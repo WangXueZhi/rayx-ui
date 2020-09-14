@@ -68,12 +68,6 @@
 <td>String</td>
 <td>default</td>
 </tr>
-<tr>
-<td>disabled</td>
-<td>禁用</td>
-<td>Boolean</td>
-<td>false</td>
-</tr>
 </tbody>
 </table>
 <h2>methods</h2>

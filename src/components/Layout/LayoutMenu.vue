@@ -26,6 +26,23 @@
           @click="docChange('/development/md')"
         >markdown编写规范</div>
       </div>
+      <div v-if="currentPath.indexOf('/architecture/')===0">
+        <div
+          class="layout-menu-item"
+          :class="{'layout-menu-item-active':currentPath==='/architecture/base'}"
+          @click="docChange('/architecture/base')"
+        >概览</div>
+        <div
+          class="layout-menu-item"
+          :class="{'layout-menu-item-active':currentPath==='/architecture/vue'}"
+          @click="docChange('/architecture/vue')"
+        >vue解析</div>
+        <div
+          class="layout-menu-item"
+          :class="{'layout-menu-item-active':currentPath==='/architecture/md'}"
+          @click="docChange('/architecture/md')"
+        >md解析</div>
+      </div>
     </div>
   </ScrollBar>
 </template>

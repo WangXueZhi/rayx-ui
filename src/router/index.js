@@ -37,7 +37,7 @@ const routes = [{
     path: '/development',
     component: Layout,
     children: [
-      { path: '/', redirect: '/development' },
+      { path: '/', redirect: '/development/base' },
       {
         path: 'base',
         component: () => import('@/views/development/base/index.vue')
@@ -49,6 +49,25 @@ const routes = [{
       {
         path: 'md',
         component: () => import('@/views/development/md/index.vue')
+      }
+    ]
+  },
+  {
+    path: '/architecture',
+    component: Layout,
+    children: [
+      { path: '/', redirect: '/architecture/base' },
+      {
+        path: 'base',
+        component: () => import('@/views/architecture/base/index.vue')
+      },
+      {
+        path: 'vue',
+        component: () => import('@/views/architecture/vue/index.vue')
+      },
+      {
+        path: 'md',
+        component: () => import('@/views/architecture/md/index.vue')
       }
     ]
   }

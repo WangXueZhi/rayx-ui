@@ -90,7 +90,7 @@
 <tr>
 <td>w</td>
 <td>宽度</td>
-<td>undefined</td>
+<td>Number | String</td>
 <td>auto</td>
 </tr>
 <tr>

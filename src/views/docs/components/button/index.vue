@@ -72,13 +72,13 @@
 <tbody>
 <tr>
 <td>colorType</td>
-<td>颜色类型：<code>default</code>/<code>primary</code>/<code>info</code>/<code>success</code>/<code>warning</code>/<code>error</code></td>
+<td>颜色类型：default|primary|info|success|warning|error</td>
 <td>String</td>
 <td>default</td>
 </tr>
 <tr>
 <td>type</td>
-<td>按钮类型：<code>default</code>/<code>ghost</code>/<code>dashed</code></td>
+<td>按钮类型：default|ghost|dashed</td>
 <td>String</td>
 <td>default</td>
 </tr>
@@ -93,6 +93,12 @@
 <td>禁用</td>
 <td>Boolean</td>
 <td>false</td>
+</tr>
+<tr>
+<td>class</td>
+<td>class</td>
+<td>String | Array | Object</td>
+<td></td>
 </tr>
 </tbody>
 </table>

@@ -6,7 +6,7 @@
 import VueMarkdown from "@/components/VueMarkdown";
 import base from "./base.md";
 export default {
-  name: "views.development.md",
+  name: "views.architecture.vue",
   components: {
     VueMarkdown,
   },

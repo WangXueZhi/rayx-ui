@@ -13,23 +13,23 @@
   </button>
 </template>
 <script>
-import "./button.scss";
+import './button.scss'
 export default {
-  name: "r-button",
+  name: 'r-button',
   props: {
     /**
-     * 颜色类型：```default``` / ```primary``` / ```info``` / ```success``` / ```warning``` / ```error```
+     * 颜色类型：default | primary | info | success | warning | error
      */
     colorType: {
       type: String,
-      default: "default",
+      default: 'default',
     },
     /**
-     * 按钮类型：```default``` / ```ghost``` / ```dashed```
+     * 按钮类型：default | ghost | dashed
      */
     type: {
       type: String,
-      default: "default",
+      default: 'default',
     },
     /**
      * 最大圆角
@@ -45,13 +45,20 @@ export default {
       type: Boolean,
       default: false,
     },
+    /**
+     * class
+     */
+    class: {
+      type: String | Array | Object,
+      default: '',
+    },
   },
   methods: {
     click() {
       if (!this.disabled) {
-        this.$emit("click");
+        this.$emit('click')
       }
     },
   },
-};
+}
 </script>
