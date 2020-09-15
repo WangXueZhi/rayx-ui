@@ -55,3 +55,18 @@ export default {
 };
 </script>
 ```
+
+## 注意
+脚手架只提供了scss的支持，如果你想用less，在webpack.config.js中配置less-loader就可以
+
+vue组件必须引用自己的样式文件：
+```html
+<script>
+import './button.scss' // 方式一
+export default {
+  name: 'r-button',
+  props: {
+...
+</script>
+<style lang="scss" src="./button.scss"></style> // 方式二
+```
