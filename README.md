@@ -23,3 +23,19 @@ yarn dev 或者 npm run dev
 ```
 yarn lib 或者 npm run lib
 ```
+
+## 文档
+
+[组件开发规范-基本约定](./src/views/development/base/base.md)
+
+[组件开发规范-组件编写](./src/views/development/component/base.md)
+
+[组件开发规范-markdown编写](./src/views/development/md/base.md)
+
+[架构说明-流程和构建](./src/views/architecture/base/base.md)
+
+[架构说明-markdown解析](./src/views/architecture/md/base.md)
+
+[架构说明-vue解析](./src/views/architecture/vue/base.md)
+
+
