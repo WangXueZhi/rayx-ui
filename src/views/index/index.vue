@@ -6,8 +6,8 @@
         <span>Vue</span>
       </div>
       <div class="ui-name-cn">
-        快速搭建组件库和文档
-        <br />一套基于Vue的组件库脚手架
+        快速搭建组件库系统
+        <br />开箱即用的组件库脚手架
       </div>
       <div class="ui-button">
         <Button colorType="primary" type="ghost" circle @click="componentDoc">组件文档</Button>
