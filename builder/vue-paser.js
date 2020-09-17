@@ -43,19 +43,53 @@ const paresExportDefault = function (path, data, code) {
     if (path.node.value.type === 'Identifier') {
       k.type = path.node.value.name
     }
+    
     // 对象类型
     if (path.node.value.type === 'ObjectExpression') {
       path.node.value.properties.forEach(item => {
-        // console.log(item)
-        let v = item.value.value
-        if (item.value.type === 'Identifier') {
+
+        let v = ''
+
+        // 基本数据类型
+        if(item.value && (item.value.value || item.value.value===false)){
+          v = item.value.value
+        }
+
+        // 对象方法类型
+        if(item.type === 'ObjectMethod'){
+          if (data.cname === 'gr-tabs') {
+            console.log(item.body.body)
+          }
+          for( let i = 0; i<item.body.body.length; i++){
+            const subItem = item.body.body[i]
+            if(subItem.type === 'ReturnStatement'){
+              v = code.slice(subItem.argument.start, subItem.argument.end).replace(/\s/g, '').replace(/\|/g, '&#124;')
+              break;
+            }
+          }
+        }
+
+        // 定义类型
+        if (item.value && item.value.type === 'Identifier') {
           v = item.value.name
         }
-        if (item.value.type === 'ObjectExpression' || item.value.type === 'ArrayExpression') {
+        // 对象或数组类型
+        if (item.value && (item.value.type === 'ObjectExpression' || item.value.type === 'ArrayExpression')) {
           v = code.slice(item.value.start, item.value.end).replace(/\s/g, '')
         }
-        if (item.value.type === 'BinaryExpression') {
+        // 类型类型
+        if (item.value && item.value.type === 'BinaryExpression') {
           v = parseBinaryExpression(item.value).replace(/\|/g, '&#124;')
+        }
+        // 箭头函数类型
+        if (item.value && item.value.type === 'ArrowFunctionExpression') {
+          for( let i = 0; i<item.value.body.body.length; i++){
+            const subItem = item.value.body.body[i]
+            if(subItem.type === 'ReturnStatement'){
+              v = code.slice(subItem.argument.start, subItem.argument.end).replace(/\s/g, '')
+              break;
+            }
+          }
         }
 
         k[item.key.name] = v
