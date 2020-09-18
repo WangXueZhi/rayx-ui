@@ -31,8 +31,6 @@ const paresExportDefault = function (path, data, code) {
 
   const commentBlock = getCommentBlockItem(path.node.leadingComments)
 
-
-
   // 属性
   if (isProps === true && path.type !== 'Identifier' && path.node.key && commentBlock) {
     const k = {}
@@ -42,6 +40,21 @@ const paresExportDefault = function (path, data, code) {
     // 定义类型
     if (path.node.value.type === 'Identifier') {
       k.type = path.node.value.name
+    }
+
+    if (path.node.value.type === 'ArrayExpression') {
+      k.type = 'Array'
+      k.default = code.slice(path.node.value.start, path.node.value.end).replace(/\s/g, '')
+    }
+
+    if (data.cname === 'gr-tabs') {
+      console.log(path.node.value.type)
+      // console.log(k)
+    }
+
+    if(path.node.value.value){
+      k.default = path.node.value.value
+      k.type = typeof path.node.value.value
     }
     
     // 对象类型
@@ -57,9 +70,6 @@ const paresExportDefault = function (path, data, code) {
 
         // 对象方法类型
         if(item.type === 'ObjectMethod'){
-          if (data.cname === 'gr-tabs') {
-            console.log(item.body.body)
-          }
           for( let i = 0; i<item.body.body.length; i++){
             const subItem = item.body.body[i]
             if(subItem.type === 'ReturnStatement'){
@@ -93,11 +103,14 @@ const paresExportDefault = function (path, data, code) {
         }
 
         k[item.key.name] = v
+
+        k['default'] = k['default'] === undefined ? '未定义' : k['default']
       })
     }
-
     data.props.push(k)
   }
+
+  
 
   // 方法
   if (isMethods === true && (path.node.type === 'ObjectMethod' || path.node.type === 'ObjectProperty') && commentBlock) {
