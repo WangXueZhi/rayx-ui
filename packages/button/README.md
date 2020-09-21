@@ -1,4 +1,4 @@
-<!-- type: 通用 -->
+<!-- type: 基础 -->
 
 # Button 按钮
 
@@ -6,32 +6,57 @@
 
 ## 示例
 
-颜色和类型
+颜色
 
-```html demo
+```vue demo
 <template>
   <div class="demo-wrapper">
-    <div class="demo-title">
-      颜色
-    </div>
     <div class="demo-button-Type">
-      <Button>默认色</Button>
+      <Button hide>默认色</Button>
       <Button colorType="primary">主色</Button>
       <Button colorType="info">信息色</Button>
       <Button colorType="success">成功色</Button>
       <Button colorType="warning">警告色</Button>
       <Button colorType="error">错误色</Button>
     </div>
-    <div class="demo-title">
-      类型
-    </div>
+  </div>
+</template>
+<script>
+  import { Button } from "rayx-ui";
+  export default {
+    components: {
+      Button,
+    },
+  };
+</script>
+```
+
+类型
+
+```vue demo
+<template>
+  <div class="demo-wrapper">
     <div class="demo-button-Type">
       <Button colorType="primary" type="ghost">幽灵按钮</Button>
       <Button colorType="primary" type="dashed">虚线边框</Button>
     </div>
-    <div class="demo-title">
-      形状
-    </div>
+  </div>
+</template>
+<script>
+  import { Button } from "rayx-ui";
+  export default {
+    components: {
+      Button,
+    },
+  };
+</script>
+```
+
+形状
+
+```vue demo
+<template>
+  <div class="demo-wrapper">
     <div class="demo-button-Type">
       <Button colorType="primary" type="ghost" circle>幽灵按钮</Button>
       <Button colorType="primary" type="dashed" circle>按</Button>
@@ -46,14 +71,7 @@
     },
   };
 </script>
-<style scoped>
-  .demo-title{
-    margin-top: 10px;
-    margin-bottom: 5px;
-  }
-</style>
 ```
-
 <!-- props -->
 
 ## event

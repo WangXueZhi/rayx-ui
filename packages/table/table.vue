@@ -20,7 +20,7 @@
   </div>
 </template>
 <script>
-import "./table.scss";
+
 export default {
   name: "r-table",
   props: {

@@ -10,7 +10,7 @@ const getComponentsData = function () {
     const files = fs.readdirSync('./packages')
     for (let i = 0; i < files.length; i++) {
         const stats = fs.statSync('./packages/' + files[i])
-        if (stats.isDirectory() && files[i]!=='styles') {
+        if (stats.isDirectory() && files[i] !== 'styles') {
             // vue
             const vueFileContent = fs.readFileSync('./packages/' + files[i] + '/' + files[i] + '.vue', 'utf-8')
             const matchReg = /<script(?:\s+[^>]*)?>([\s\S]+?)<\/script\s*>/
@@ -34,7 +34,7 @@ const getComponentsData = function () {
             methods.forEach(item => {
                 methodsTableMd += `| ${item.name} | ${item.comment} |\n`
             })
-            
+
             const mdContent = mdFileContent.replace(/<!-- props -->/gm, propsTableMd).replace(/<!-- methods -->/gm, methodsTableMd)
             const typeMatch = mdContent.match(/(?<=<!-- type:\s*).*(?=-->)/m)
             const type = typeMatch ? typeMatch[0].replace(/\s/gm, '') : ''
@@ -54,11 +54,13 @@ const TPL_PATH_ROUTER = path.resolve(__dirname, "../tpl/router.js");
 const TPL_PATH_COMPONENTS_LIST = path.resolve(__dirname, "../tpl/LayoutMenuComponents.vue");
 const TPL_PATH_WEBPACK_COMPONENTS_ENTRYS = path.resolve(__dirname, "../tpl/webpack.components.entrys.js");
 const TPL_PATH_PACKAGE_INDEX = path.resolve(__dirname, "../tpl/package.index.js");
+const TPL_PATH_PACKAGE_INDEX_STYLE = path.resolve(__dirname, "../tpl/package.style.scss");
 
 const BUILD_PATH_ROUTERS = path.resolve(__dirname, "../src/router/componentsRouters.js");
 const BUILD_PATH_COMPONENTS_LIST = path.resolve(__dirname, "../src/components/Layout/LayoutMenuComponents.vue");
 const BUILD_PATH_WEBPACK_COMPONENTS_ENTRYS = path.resolve(__dirname, "../webpack.components.entrys.js");
 const BUILD_PATH_PACKAGE_INDEX = path.resolve(__dirname, "../packages/index.js");
+const BUILD_PATH_PACKAGE_INDEX_STYLE = path.resolve(__dirname, "../packages/index.scss");
 
 // 创建demo示例组件
 const buildDemos = function (examples, buildPath) {
@@ -79,8 +81,10 @@ const replaceTplAndBuildToTarget = function (tplPath, replaceList, targetPath) {
     replaceList.forEach(function (item) {
         content = content.replace(item.tplText, item.value)
     })
-
-    fs.openSync(targetPath, 'w+')
+    if (!fs.existsSync(targetPath)) {
+        fs.openSync(targetPath, 'w+')
+    }
+    
     fs.writeFileSync(targetPath, content)
 }
 
@@ -101,7 +105,7 @@ const addMenuComponentsListData = function (sourceArr, data) {
     return sourceArr
 }
 
-const build = function () {
+const build = function (cb) {
     const datas = getComponentsData()
 
     const routersContent = [] // 组件路由数组
@@ -109,6 +113,7 @@ const build = function () {
     const webpackComponentsList = [] // webpack构建入口列表
     const package_index_imports = [] // 组件入口导入列表
     const package_index_components = [] // 组件入口组件列表
+    const package_index_imports_style = [] // 组件入口导入样式列表
     let menuComponentsListData = [] // 组件列表数据
 
     datas.forEach(item => {
@@ -129,9 +134,15 @@ const build = function () {
         package_index_imports.push(`import ${util.cpNameTransfer(item.fname)} from './${item.fname}'`)
         // 组件入口组件列表
         package_index_components.push(util.cpNameTransfer(item.fname))
+        // 组件入口导入样式列表
+        package_index_imports_style.push(`@import "./${item.fname}/${item.fname}";`)
 
         // 创建docs
-        const DOC_PATH = path.resolve(__dirname, `../src/views/docs/components/${item.fname}`)
+        const DEMO_PATH = path.resolve(__dirname, `../demos`)
+        const DOC_PATH = path.resolve(__dirname, `../demos/${item.fname}`)
+        if (!fs.existsSync(DEMO_PATH)) {
+            fs.mkdirSync(DEMO_PATH);
+        }
         if (!fs.existsSync(DOC_PATH)) {
             fs.mkdirSync(DOC_PATH);
         }
@@ -166,6 +177,12 @@ const build = function () {
         value: package_index_components.join(', ')
     }], BUILD_PATH_PACKAGE_INDEX)
 
+    // package组件入口
+    replaceTplAndBuildToTarget(TPL_PATH_PACKAGE_INDEX_STYLE, [{
+        tplText: /__IMPORT_STYLE_LIST__/g,
+        value: package_index_imports_style.join('\n')
+    }], BUILD_PATH_PACKAGE_INDEX_STYLE)
+
     // webpack构建入口
     webpackComponentsList.push(`    'index': './packages/index.js',`)
     replaceTplAndBuildToTarget(TPL_PATH_WEBPACK_COMPONENTS_ENTRYS, [{
@@ -186,15 +203,17 @@ const build = function () {
     const routersText = `export default [${routersContent.join(',')}]`
     fs.openSync(BUILD_PATH_ROUTERS, 'w+')
     fs.writeFileSync(BUILD_PATH_ROUTERS, routersText)
+
+    cb && cb()
 }
 
-const main = function () {
+const main = function (cb) {
     // 删除lib目录
-    const LIB_PATH = path.resolve(__dirname, `../lib`)
-    if (fs.existsSync(LIB_PATH)) {
-        util.rmdirSync(LIB_PATH, build)
-    }
-    build()
+    // const LIB_PATH = path.resolve(__dirname, `../lib`)
+    // if (fs.existsSync(LIB_PATH)) {
+    //     util.rmdirSync(LIB_PATH, build)
+    // }
+    build(cb)
 }
 
 module.exports = main

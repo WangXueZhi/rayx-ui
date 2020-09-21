@@ -13,7 +13,6 @@
   </button>
 </template>
 <script>
-import './button.scss'
 export default {
   name: 'r-button',
   props: {

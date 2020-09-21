@@ -848,7 +848,7 @@
     "@babel/types" "^7.4.4"
     esutils "^2.0.2"
 
-"@babel/runtime@7.x", "@babel/runtime@^7.0.0", "@babel/runtime@^7.11.0", "@babel/runtime@^7.8.4":
+"@babel/runtime@^7.0.0", "@babel/runtime@^7.11.0", "@babel/runtime@^7.8.4":
   version "7.11.2"
   resolved "http://172.16.104.140:4873/@babel%2fruntime/-/runtime-7.11.2.tgz#f549c13c754cc40b87644b9fa9f09a6a95fe0736"
   integrity sha1-9UnBPHVMxAuHZEufqfCaapX+BzY=
@@ -1182,11 +1182,6 @@
     "@types/uglify-js" "*"
     "@types/webpack-sources" "*"
     source-map "^0.6.0"
-
-"@vant/icons@1.3.0":
-  version "1.3.0"
-  resolved "http://172.16.104.140:4873/@vant%2ficons/-/icons-1.3.0.tgz#94f4c93122fd7331e0e00df55804779aead8c9c2"
-  integrity sha1-lPTJMSL9czHg4A31WAR3murYycI=
 
 "@vue/babel-helper-vue-jsx-merge-props@^1.0.0":
   version "1.0.0"
@@ -2080,11 +2075,6 @@ async-settle@^1.0.0:
   dependencies:
     async-done "^1.2.2"
 
-async-validator@^3.3.0:
-  version "3.4.0"
-  resolved "http://172.16.104.140:4873/async-validator/-/async-validator-3.4.0.tgz#871b3e594124bf4c4eb7bcd1a9e78b44f3b09cae"
-  integrity sha1-hxs+WUEkv0xOt7zRqeeLRPOwnK4=
-
 async@^2.6.2:
   version "2.6.3"
   resolved "http://172.16.104.140:4873/async/-/async-2.6.3.tgz#d72625e2344a3656e3a3ad4fa749fa83299d82ff"
@@ -2215,11 +2205,6 @@ base@^0.11.1:
     isobject "^3.0.1"
     mixin-deep "^1.2.0"
     pascalcase "^0.1.1"
-
-batch-processor@1.0.0:
-  version "1.0.0"
-  resolved "http://172.16.104.140:4873/batch-processor/-/batch-processor-1.0.0.tgz#75c95c32b748e0850d10c2b168f6bdbe9891ace8"
-  integrity sha1-dclcMrdI4IUNEMKxaPa9vpiRrOg=
 
 batch@0.6.1:
   version "0.6.1"
@@ -3552,11 +3537,6 @@ deepmerge@^1.5.2:
   resolved "http://172.16.104.140:4873/deepmerge/-/deepmerge-1.5.2.tgz#10499d868844cdad4fee0842df8c7f6f0c95a753"
   integrity sha1-EEmdhohEza1P7ghC34x/bwyVp1M=
 
-deepmerge@^2.2.1:
-  version "2.2.1"
-  resolved "http://172.16.104.140:4873/deepmerge/-/deepmerge-2.2.1.tgz#5d3ff22a01c00f645405a2fbc17d0778a1801170"
-  integrity sha1-XT/yKgHAD2RUBaL7wX0HeKGAEXA=
-
 default-compare@^1.0.0:
   version "1.0.0"
   resolved "http://172.16.104.140:4873/default-compare/-/default-compare-1.0.0.tgz#cb61131844ad84d84788fb68fd01681ca7781a2f"
@@ -3883,13 +3863,6 @@ elegant-spinner@^1.0.1:
   version "1.0.1"
   resolved "http://172.16.104.140:4873/elegant-spinner/-/elegant-spinner-1.0.1.tgz#db043521c95d7e303fd8f345bedc3349cfb0729e"
   integrity sha1-2wQ1IcldfjA/2PNFvtwzSc+wcp4=
-
-element-resize-detector@^1.2.0:
-  version "1.2.1"
-  resolved "http://172.16.104.140:4873/element-resize-detector/-/element-resize-detector-1.2.1.tgz#b0305194447a4863155e58f13323a0aef30851d1"
-  integrity sha1-sDBRlER6SGMVXljxMyOgrvMIUdE=
-  dependencies:
-    batch-processor "1.0.0"
 
 elliptic@^6.5.3:
   version "6.5.3"
@@ -5318,6 +5291,20 @@ gulp-replace@^1.0.0:
     readable-stream "^2.0.1"
     replacestream "^4.0.0"
 
+gulp-sass@^4.1.0:
+  version "4.1.0"
+  resolved "http://172.16.104.140:4873/gulp-sass/-/gulp-sass-4.1.0.tgz#486d7443c32d42bf31a6b1573ebbdaa361de7427"
+  integrity sha1-SG10Q8MtQr8xprFXPrvao2HedCc=
+  dependencies:
+    chalk "^2.3.0"
+    lodash "^4.17.11"
+    node-sass "^4.8.3"
+    plugin-error "^1.0.1"
+    replace-ext "^1.0.0"
+    strip-ansi "^4.0.0"
+    through2 "^2.0.0"
+    vinyl-sourcemaps-apply "^0.2.0"
+
 gulp-watch@^5.0.1:
   version "5.0.1"
   resolved "http://172.16.104.140:4873/gulp-watch/-/gulp-watch-5.0.1.tgz#83d378752f5bfb46da023e73c17ed1da7066215d"
@@ -6365,11 +6352,6 @@ js-beautify@^1.11.0:
     mkdirp "^1.0.4"
     nopt "^5.0.0"
 
-js-calendar@^1.2.3:
-  version "1.2.3"
-  resolved "http://172.16.104.140:4873/js-calendar/-/js-calendar-1.2.3.tgz#a583b0644b4e695ba394f344d103dbcc7a7a7d3e"
-  integrity sha1-pYOwZEtOaVujlPNE0QPbzHp6fT4=
-
 js-message@1.0.5:
   version "1.0.5"
   resolved "http://172.16.104.140:4873/js-message/-/js-message-1.0.5.tgz#2300d24b1af08e89dd095bc1a4c9c9cfcb892d15"
@@ -6785,11 +6767,6 @@ lodash.memoize@^4.1.2:
   version "4.1.2"
   resolved "http://172.16.104.140:4873/lodash.memoize/-/lodash.memoize-4.1.2.tgz#bcc6c49a42a2840ed997f323eada5ecd182e0bfe"
   integrity sha1-vMbEmkKihA7Zl/Mj6tpezRguC/4=
-
-lodash.throttle@^4.1.1:
-  version "4.1.1"
-  resolved "http://172.16.104.140:4873/lodash.throttle/-/lodash.throttle-4.1.1.tgz#c23e91b710242ac70c37f1e1cda9274cc39bf2f4"
-  integrity sha1-wj6RtxAkKscMN/HhzaknTMOb8vQ=
 
 lodash.transform@^4.6.0:
   version "4.6.0"
@@ -7481,7 +7458,7 @@ node-releases@^1.1.60:
   resolved "http://172.16.104.140:4873/node-releases/-/node-releases-1.1.60.tgz#6948bdfce8286f0b5d0e5a88e8384e954dfe7084"
   integrity sha1-aUi9/OgobwtdDlqI6DhOlU3+cIQ=
 
-node-sass@^4.12.0:
+node-sass@^4.12.0, node-sass@^4.8.3:
   version "4.14.1"
   resolved "http://172.16.104.140:4873/node-sass/-/node-sass-4.14.1.tgz#99c87ec2efb7047ed638fb4c9db7f3a42e2217b5"
   integrity sha1-mch+wu+3BH7WOPtMnbfzpC4iF7U=
@@ -8232,7 +8209,7 @@ please-upgrade-node@^3.1.1:
   dependencies:
     semver-compare "^1.0.0"
 
-plugin-error@1.0.1:
+plugin-error@1.0.1, plugin-error@^1.0.1:
   version "1.0.1"
   resolved "http://172.16.104.140:4873/plugin-error/-/plugin-error-1.0.1.tgz#77016bd8919d0ac377fdcdd0322328953ca5781c"
   integrity sha1-dwFr2JGdCsN3/c3QMiMolTyleBw=
@@ -8248,11 +8225,6 @@ pnp-webpack-plugin@^1.6.4:
   integrity sha1-yXEaxNxIpoXauvyG+Lbdn434QUk=
   dependencies:
     ts-pnp "^1.1.6"
-
-popper.js@^1.14.6:
-  version "1.16.1"
-  resolved "http://172.16.104.140:4873/popper.js/-/popper.js-1.16.1.tgz#2a223cb3dc7b6213d740e40372be40de43e65b1b"
-  integrity sha1-KiI8s9x7YhPXQOQDcr5A3kPmWxs=
 
 portfinder@^1.0.26:
   version "1.0.28"
@@ -9683,7 +9655,7 @@ source-map@^0.4.2:
   dependencies:
     amdefine ">=0.0.4"
 
-source-map@^0.5.0, source-map@^0.5.6, source-map@~0.5.0:
+source-map@^0.5.0, source-map@^0.5.1, source-map@^0.5.6, source-map@~0.5.0:
   version "0.5.7"
   resolved "http://172.16.104.140:4873/source-map/-/source-map-0.5.7.tgz#8a039d2d1021d22d1ea14c80d8ea468ba2ef3fcc"
   integrity sha1-igOdLRAh0i0eoUyA2OpGi6LvP8w=
@@ -10264,11 +10236,6 @@ timsort@^0.3.0:
   resolved "http://172.16.104.140:4873/timsort/-/timsort-0.3.0.tgz#405411a8e7e6339fe64db9a234de11dc31e02bd4"
   integrity sha1-QFQRqOfmM5/mTbmiNN4R3DHgK9Q=
 
-tinycolor2@^1.4.1:
-  version "1.4.1"
-  resolved "http://172.16.104.140:4873/tinycolor2/-/tinycolor2-1.4.1.tgz#f4fad333447bc0b07d4dc8e9209d8f39a8ac77e8"
-  integrity sha1-9PrTM0R7wLB9TcjpIJ2POaisd+g=
-
 tmp@^0.0.33:
   version "0.0.33"
   resolved "http://172.16.104.140:4873/tmp/-/tmp-0.0.33.tgz#6d34335889768d21b2bcda0aa277ced3b1bfadf9"
@@ -10702,11 +10669,6 @@ uuid@^3.3.2, uuid@^3.4.0:
   resolved "http://172.16.104.140:4873/uuid/-/uuid-3.4.0.tgz#b23e4358afa8a202fe7a100af1f5f883f02007ee"
   integrity sha1-sj5DWK+oogL+ehAK8fX4g/AgB+4=
 
-v-click-outside-x@^3.7.1:
-  version "3.7.1"
-  resolved "http://172.16.104.140:4873/v-click-outside-x/-/v-click-outside-x-3.7.1.tgz#aa03eaa0e41e44cb5207dcf86c2d9f0dd64084c1"
-  integrity sha1-qgPqoOQeRMtSB9z4bC2fDdZAhME=
-
 v8-compile-cache@^2.0.3, v8-compile-cache@^2.1.1:
   version "2.1.1"
   resolved "http://172.16.104.140:4873/v8-compile-cache/-/v8-compile-cache-2.1.1.tgz#54bc3cdd43317bca91e35dcaf305b1a7237de745"
@@ -10732,16 +10694,6 @@ value-or-function@^3.0.0:
   resolved "http://172.16.104.140:4873/value-or-function/-/value-or-function-3.0.0.tgz#1c243a50b595c1be54a754bfece8563b9ff8d813"
   integrity sha1-HCQ6ULWVwb5Up1S/7OhWO5/42BM=
 
-vant@^2.10.6:
-  version "2.10.6"
-  resolved "http://172.16.104.140:4873/vant/-/vant-2.10.6.tgz#64259be294f5b8f5f89fe3c21fdac82c4f2a0175"
-  integrity sha1-ZCWb4pT1uPX4n+PCH9rILE8qAXU=
-  dependencies:
-    "@babel/runtime" "7.x"
-    "@vant/icons" "1.3.0"
-    "@vue/babel-helper-vue-jsx-merge-props" "^1.0.0"
-    vue-lazyload "1.2.3"
-
 vary@~1.1.2:
   version "1.1.2"
   resolved "http://172.16.104.140:4873/vary/-/vary-1.1.2.tgz#2299f02c6ded30d4a5961b0b9f74524a18f634fc"
@@ -10760,20 +10712,6 @@ verror@1.10.0:
     assert-plus "^1.0.0"
     core-util-is "1.0.2"
     extsprintf "^1.2.0"
-
-view-design@^4.1.3:
-  version "4.3.2"
-  resolved "http://172.16.104.140:4873/view-design/-/view-design-4.3.2.tgz#6f081c673b7742039bb38a3a51938efabb60d0a2"
-  integrity sha1-bwgcZzt3QgObs4o6UZOO+rtg0KI=
-  dependencies:
-    async-validator "^3.3.0"
-    deepmerge "^2.2.1"
-    element-resize-detector "^1.2.0"
-    js-calendar "^1.2.3"
-    lodash.throttle "^4.1.1"
-    popper.js "^1.14.6"
-    tinycolor2 "^1.4.1"
-    v-click-outside-x "^3.7.1"
 
 vinyl-file@^2.0.0:
   version "2.0.0"
@@ -10823,6 +10761,13 @@ vinyl-sourcemap@^1.1.0:
     remove-bom-buffer "^3.0.0"
     vinyl "^2.0.0"
 
+vinyl-sourcemaps-apply@^0.2.0:
+  version "0.2.1"
+  resolved "http://172.16.104.140:4873/vinyl-sourcemaps-apply/-/vinyl-sourcemaps-apply-0.2.1.tgz#ab6549d61d172c2b1b87be5c508d239c8ef87705"
+  integrity sha1-q2VJ1h0XLCsbh75cUI0jnI74dwU=
+  dependencies:
+    source-map "^0.5.1"
+
 vinyl@^1.1.0:
   version "1.2.0"
   resolved "http://172.16.104.140:4873/vinyl/-/vinyl-1.2.0.tgz#5c88036cf565e5df05558bfc911f8656df218884"
@@ -10865,11 +10810,6 @@ vue-hot-reload-api@^2.3.0:
   version "2.3.4"
   resolved "http://172.16.104.140:4873/vue-hot-reload-api/-/vue-hot-reload-api-2.3.4.tgz#532955cc1eb208a3d990b3a9f9a70574657e08f2"
   integrity sha1-UylVzB6yCKPZkLOp+acFdGV+CPI=
-
-vue-lazyload@1.2.3:
-  version "1.2.3"
-  resolved "http://172.16.104.140:4873/vue-lazyload/-/vue-lazyload-1.2.3.tgz#901f9ec15c7e6ca78781a2bae4a343686bdedb2c"
-  integrity sha1-kB+ewVx+bKeHgaK65KNDaGve2yw=
 
 "vue-loader-v16@npm:vue-loader@^16.0.0-beta.3":
   version "16.0.0-beta.4"

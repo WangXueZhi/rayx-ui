@@ -2,9 +2,7 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
-
-// 注册组件库
-// Vue.use(VDUI)
+import './app.scss'
 
 Vue.config.productionTip = false
 

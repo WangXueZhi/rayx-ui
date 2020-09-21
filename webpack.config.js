@@ -12,7 +12,12 @@ const outputConfig = function () {
     if (buildTarget === 'lib') {
         return {
             path: path.resolve(__dirname, 'lib'),
-            filename: '[name]/index.js',
+            filename: function(file){
+                if(file.chunk.name==='index'){
+                    return 'index.js'
+                }
+                return '[name]/index.js'
+            },
             libraryTarget: 'umd',
             libraryExport: 'default',
             umdNamedDefine: true,
@@ -140,7 +145,8 @@ module.exports = {
         alias: {
             // 'vue': 'vue/dist/vue.js',
             [pkg.name]: path.resolve('./'),
-            '@': path.resolve('src')
+            '@': path.resolve('src'),
+            'demos': path.resolve('demos')
         },
         extensions: ['.css', '.js', '.vue']
     },

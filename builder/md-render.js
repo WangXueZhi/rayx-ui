@@ -5,6 +5,7 @@ var md = require('markdown-it')({
     html: true,
     linkify: true,
     highlight: function (str, lang) {
+        lang = lang ==='vue' ? 'html' : lang
         if (lang && hljs.getLanguage(lang)) {
             try {
                 return '<pre><code class="hljs" v-pre>' +
@@ -73,5 +74,3 @@ module.exports = function (mdContent) {
         demoCodeArr
     }
 }
-// let tokens = md.parseInline(fileContent, {})[0].children
-// console.log(tokens);

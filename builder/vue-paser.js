@@ -47,11 +47,6 @@ const paresExportDefault = function (path, data, code) {
       k.default = code.slice(path.node.value.start, path.node.value.end).replace(/\s/g, '')
     }
 
-    if (data.cname === 'gr-tabs') {
-      console.log(path.node.value.type)
-      // console.log(k)
-    }
-
     if(path.node.value.value){
       k.default = path.node.value.value
       k.type = typeof path.node.value.value

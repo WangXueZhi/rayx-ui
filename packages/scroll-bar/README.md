@@ -6,7 +6,7 @@
 ## 示例
 
 基本用法
-```html demo
+```vue demo
 <template>
   <ScrollBar wrapperClass="test-scroll-wrapper">
     <div class="test-scroll-item" v-for="(item, i) in data">{{item}}</div>

@@ -7,7 +7,7 @@
 
 #### 基本用法
 基本用法的描述
-```html demo
+```vue demo
 <template>
   <Table :column="column" :data="data"></Table>
 </template>

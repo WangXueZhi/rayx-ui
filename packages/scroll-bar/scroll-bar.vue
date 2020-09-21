@@ -23,7 +23,7 @@
   </div>
 </template>
 <script>
-import "./scroll-bar.scss";
+
 export default {
   name: "r-scrollbar",
   props: {
