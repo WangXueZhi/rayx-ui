@@ -30,6 +30,10 @@ const routes = [{
         path: 'start',
         component: () => import('@/views/docs/start/index.vue')
       },
+      {
+        path: 'design',
+        component: () => import('@/views/docs/design/index.vue')
+      },
       ...componentsRouters
     ]
   },
