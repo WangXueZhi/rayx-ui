@@ -7,6 +7,11 @@
           :class="{'layout-menu-item-active':currentPath===`/docs/start`}"
           @click="docChange('/docs/start')"
         >快速开始</div>
+        <div
+          class="layout-menu-item"
+          :class="{'layout-menu-item-active':currentPath===`/docs/design`}"
+          @click="docChange('/docs/design')"
+        >自定义主题</div>
         <LayoutMenuComponents />
       </div>
       <div v-if="currentPath.indexOf('/development/')===0">
