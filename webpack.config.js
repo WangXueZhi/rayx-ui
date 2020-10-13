@@ -12,8 +12,8 @@ const outputConfig = function () {
     if (buildTarget === 'lib') {
         return {
             path: path.resolve(__dirname, 'lib'),
-            filename: function(file){
-                if(file.chunk.name==='index'){
+            filename: function (file) {
+                if (file.chunk.name === 'index') {
                     return 'index.js'
                 }
                 return '[name]/index.js'
@@ -135,6 +135,20 @@ module.exports = {
                 loader: 'vue-loader'
             },
             {
+                test: /\.ts$/,
+                use: [{
+                        loader: 'babel-loader'
+                    },
+                    {
+                        loader: 'ts-loader',
+                        options: {
+                            transpileOnly: true,
+                            appendTsSuffixTo: ['\\.vue$']
+                        }
+                    }
+                ]
+            },
+            {
                 test: /\.html$/,
                 loader: 'html-loader'
             }, ...cssLoaderRules()
@@ -144,11 +158,11 @@ module.exports = {
     resolve: {
         alias: {
             // 'vue': 'vue/dist/vue.js',
-            [pkg.name]: path.resolve('./'),
+            'rayx-ui': path.resolve('./'),
             '@': path.resolve('src'),
             'demos': path.resolve('demos')
         },
-        extensions: ['.css', '.js', '.vue']
+        extensions: ['.ts', '.tsx', '.css', '.js', '.vue']
     },
     plugins: pluginsConfig()
 };

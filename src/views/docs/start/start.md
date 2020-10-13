@@ -10,8 +10,8 @@ yarn add rayx-ui
 
 ### CDN
 ```html
-<link href='//xxx.xxx.cn/rayx-ui/dist/index/style.css'/>
-<script src='//xxx.xxx.cn/rayx-ui/dist/index/index.js'></script>
+<link href='//xxx.xxx.cn/rayx-ui/index.css'/>
+<script src='//xxx.xxx.cn/rayx-ui/index.js'></script>
 ```
 
 
@@ -24,9 +24,9 @@ import App from "components/app.vue";
 import Routers from "./router.js";
 
 // 主要是这里
-import RayxUI from "rayx-ui";
-import "rayx-ui/dist/index/style.css";
-Vue.use(RayxUI);
+import GrUI from "rayx-ui";
+import "rayx-ui/lib/index";
+Vue.use(GrUI);
 
 Vue.use(VueRouter);
 const RouterConfig = {
@@ -57,7 +57,10 @@ module.exports = {
   plugins: [
     ['import', {
       libraryName: 'rayx-ui',
-      libraryDirectory: 'packages'
+      libraryDirectory: 'packages',
+      style: (name) => {
+        return `${name}/${name.split('/').pop()}.css`;
+      },
     }, 'rayx-ui']
   ]
 }

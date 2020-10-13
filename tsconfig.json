@@ -1,0 +1,38 @@
+{
+  "compilerOptions": {
+    "target": "esnext",
+    "jsx": "preserve",
+    "jsxFactory": "VueTsxSupport",
+    "outDir": "./publish",
+    "importHelpers": true,
+    "declaration": true,
+    "allowJs": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": false,
+    "forceConsistentCasingInFileNames": true,
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noImplicitAny": true,
+    "experimentalDecorators": true,
+    "sourceMap": true,
+    "baseUrl": "./packages-ts",
+    "types": ["webpack-env", "jest"],
+    "paths": {
+      "@/*": ["./*"]
+    },
+    "lib": ["esnext", "dom", "dom.iterable", "scripthost"]
+  },
+  "include": [
+    "node_modules/vue-tsx-support/enable-check.d.ts",
+    "packages-ts/**/*.ts",
+    "packages-ts/**/*.tsx",
+    "packages-ts/**/*.vue",
+    "packages/**/*.vue",
+    "file.ts"
+  ],
+  "exclude": ["node_modules"]
+}

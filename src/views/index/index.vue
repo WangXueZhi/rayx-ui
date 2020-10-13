@@ -6,17 +6,17 @@
         <span>Vue</span>
       </div>
       <div class="ui-name-cn">
-        快速搭建组件库系统
+        快速搭建vue组件库
         <br />开箱即用的组件库脚手架
       </div>
       <div class="ui-button">
         <Button colorType="primary" type="ghost" circle @click="componentDoc">组件文档</Button>
-        <Button colorType="primary" type="ghost" circle @click="architectureDoc">架构</Button>
-        <Button colorType="primary" type="ghost" circle @click="developmentDoc">组件开发规范</Button>
+        <Button colorType="primary" type="ghost" circle @click="architectureDoc">架构说明</Button>
+        <Button colorType="primary" type="ghost" circle @click="developmentDoc">组件开发</Button>
       </div>
     </div>
     <div class="home-markdown">
-      <div class="home-markdown-title">快速开始</div>
+      <div class="home-markdown-title">快速开始开发组件</div>
       <vue-markdown>{{ start }}</vue-markdown>
     </div>
   </div>

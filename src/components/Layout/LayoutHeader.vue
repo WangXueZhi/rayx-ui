@@ -3,7 +3,7 @@
     <div class="layout-header-left">
       <div class="layout-header-logo">
         <img :src="logo" />
-        rayx-ui
+        Rayx UI
       </div>
     </div>
     <div class="layout-header-right">

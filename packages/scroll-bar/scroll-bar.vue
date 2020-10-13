@@ -23,7 +23,6 @@
   </div>
 </template>
 <script>
-
 export default {
   name: "r-scrollbar",
   props: {

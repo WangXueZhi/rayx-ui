@@ -74,3 +74,5 @@ module.exports = function (mdContent) {
         demoCodeArr
     }
 }
+// let tokens = md.parseInline(fileContent, {})[0].children
+// console.log(tokens);

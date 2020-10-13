@@ -1,4 +1,4 @@
-# 约定
+# 创建组件
 
 ## 组件命名
 我们统一使用全小写命名组件，例如：```button```，如果是多单词命名，必须使用```kebab-case```（短横线分隔）的方式命名组件，比如 ```my-component```
@@ -23,7 +23,7 @@ packages
 ```
 
 ```index.js```文件的示例：
-```html
+```js
 import Button from './button.vue'
 
 // 为组件提供 install 安装方法，供按需引入

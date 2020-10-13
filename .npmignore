@@ -1,15 +1,15 @@
 .DS_Store
 node_modules
 /dist
-/lib
 /demos
+/tpl
+/builder
+/src
+/public
+file.ts
+gulpfile.js
+webpack.config.js
 webpack.components.entrys.js
-/src/views/docs/components
-/src/components/Layout/LayoutMenuComponents.vue
-/packages/index.js
-/packages/index.scss
-/src/router/componentsRouters.js
-/ts-test
 
 # local env files
 .env.local

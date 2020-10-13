@@ -43,14 +43,7 @@ export default {
     disabled: {
       type: Boolean,
       default: false,
-    },
-    /**
-     * class
-     */
-    class: {
-      type: String | Array | Object,
-      default: '',
-    },
+    }
   },
   methods: {
     click() {

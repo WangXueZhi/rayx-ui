@@ -19,7 +19,7 @@
           class="layout-menu-item"
           :class="{'layout-menu-item-active':currentPath==='/development/base'}"
           @click="docChange('/development/base')"
-        >基本约定</div>
+        >创建组件</div>
         <div
           class="layout-menu-item"
           :class="{'layout-menu-item-active':currentPath==='/development/component'}"

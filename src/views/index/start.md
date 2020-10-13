@@ -1,3 +1,6 @@
+下载仓库
+http://172.16.104.140/frontlibrary/lib.ui
+
 安装依赖
 ```
 yarn 或者 npm i

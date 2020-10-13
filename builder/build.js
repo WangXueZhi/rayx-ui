@@ -11,19 +11,37 @@ const getComponentsData = function () {
     for (let i = 0; i < files.length; i++) {
         const stats = fs.statSync('./packages/' + files[i])
         if (stats.isDirectory() && files[i] !== 'styles') {
-            // vue
-            const vueFileContent = fs.readFileSync('./packages/' + files[i] + '/' + files[i] + '.vue', 'utf-8')
-            const matchReg = /<script(?:\s+[^>]*)?>([\s\S]+?)<\/script\s*>/
-            const code = matchReg.exec(vueFileContent)[1]
+            let conmponentData = {
+                props: [],
+                methods: []
+            }
 
-            const conmponentData = vuePaserDoAst(code)
+            // index.js
+            const indexPath = path.resolve(__dirname, '../packages/' + files[i] + '/' + 'index.js')
+            if (!fs.existsSync(indexPath)) {
+                throw new Error(`组件${files[i]}缺少index.js`);
+            }
+
+            // vue
+            const vuePath = path.resolve(__dirname, '../packages/' + files[i] + '/' + files[i] + '.vue')
+            if (fs.existsSync(vuePath)) {
+                const vueFileContent = fs.readFileSync(vuePath, 'utf-8')
+                const matchReg = /<script(?:\s+[^>]*)?>([\s\S]+?)<\/script\s*>/
+                const code = matchReg.exec(vueFileContent)[1]
+                conmponentData = vuePaserDoAst(code)
+            }
+
             const {
                 props,
                 methods
             } = conmponentData
 
             // md
-            const mdFileContent = fs.readFileSync('./packages/' + files[i] + '/README.md', 'utf-8')
+            const mdPath = path.resolve(__dirname, '../packages/' + files[i] + '/README.md')
+            if (!fs.existsSync(mdPath)) {
+                throw new Error(`组件${files[i]}缺少README.md`);
+            }
+            const mdFileContent = fs.readFileSync(mdPath, 'utf-8')
             let propsTableMd = `## props\n| 参数 | 说明 | 类型 | 默认值 |\n| --- | --- | --- | --- |\n`
             let methodsTableMd = `## methods\n| 方法名 | 说明 |\n| --- | --- |\n`
 
@@ -84,7 +102,7 @@ const replaceTplAndBuildToTarget = function (tplPath, replaceList, targetPath) {
     if (!fs.existsSync(targetPath)) {
         fs.openSync(targetPath, 'w+')
     }
-    
+
     fs.writeFileSync(targetPath, content)
 }
 
