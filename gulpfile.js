@@ -38,6 +38,7 @@ const lib = function () {
 // 开发服务
 const dev = function (cb) {
     console.log('dev start', new Date())
+    
     shell.exec('npm run open', {
         async: true,
         silent: false
@@ -50,9 +51,13 @@ const watch = function (cb) {
     gulpWatch('packages/**/**', function (file) {
         const filePath = path.resolve(file.history[0])
         console.log(filePath)
-        console.log(!filePath.includes('\\packages\\index.js') && !filePath.includes('\\packages\\index.scss'))
         if (!filePath.includes('\\packages\\index.js') && !filePath.includes('\\packages\\index.scss')) {
-            buildAll();
+            const ext = filePath.split('.').pop()
+            if(ext =='scss' || ext =='less' || ext =='css'){
+                libAll()
+            } else {
+                buildAll();
+            }
         }
     });
     cb()

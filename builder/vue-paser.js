@@ -24,8 +24,9 @@ const parseBinaryExpression = function (node) {
   return str
 }
 
-const paresExportDefault = function (path, data, code) {
-  if (path.node.type === 'ObjectProperty' && path.node.key.name === 'name') {
+const paresExportDefault = function (path, data, code, compath) {
+  
+  if (path.node.type === 'ObjectProperty' && path.node.key.name === 'name' && !isProps) {
     data.cname = path.node.value.value
   }
 
@@ -133,7 +134,8 @@ const getCommentBlockItem = function (leadingComments) {
   })[0]
 }
 
-const doAst = function (code) {
+const doAst = function (code, compath) {
+  console.log(compath)
   const data = {
     cname: '',
     props: [],
@@ -148,7 +150,11 @@ const doAst = function (code) {
     enter(path) {
       // 默认导出为对象表达式，直接解析
       if (isExportDefaultDeclaration === true && defaultExportType === 'ObjectExpression') {
-        paresExportDefault(path, data, code)
+        // console.log('cname: >>>>>>>> ',data.cname)
+        // if(compath.includes('icon.vue')){
+        //   console.log('icon.vue')
+        // }
+        paresExportDefault(path, data, code, compath)
       }
 
       if (path.node.type === 'ExportDefaultDeclaration') {

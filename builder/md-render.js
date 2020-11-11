@@ -1,11 +1,11 @@
 var hljs = require('highlight.js');
 
-// 启用所有
+// 初始化配置
 var md = require('markdown-it')({
     html: true,
     linkify: true,
     highlight: function (str, lang) {
-        lang = lang ==='vue' ? 'html' : lang
+        lang = lang === 'vue' ? 'html' : lang
         if (lang && hljs.getLanguage(lang)) {
             try {
                 return '<pre><code class="hljs" v-pre>' +
@@ -49,6 +49,17 @@ module.exports = function (mdContent) {
             </div>
             <div class="ra-docs-demo-control" @click="demoControlShowCodeTotgal(${demoIndex})">
                 {{demoControlShowCode[${demoIndex}] && demoControlShowCode[${demoIndex}].show?'隐藏代码':'显示代码'}}
+            </div>
+        </div>`
+
+            demoImportArr.push(`import demo${demoIndex} from "./demo${demoIndex}.vue";`)
+            demoComponentsArr.push(`demo${demoIndex}`)
+            demoCodeArr.push(tokens[idx].content)
+            demoIndex++
+        } else if (token.info.includes(' run') || token.info.includes('run ')) {
+            text = `<div class="ra-docs-demo-examp">
+            <div class="ra-docs-demo-comps">
+                <demo${demoIndex}></demo${demoIndex}>
             </div>
         </div>`
 

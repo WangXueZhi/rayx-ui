@@ -15,37 +15,21 @@ export default {
   name: "r-button",
   props: {
     /**
-     * 这个属性将会被展示到文档中
+     * 这个属性将会被解析
      * 颜色类型：```default``` / ```primary``` / ```info``` / ```success``` / ```warning``` / ```error```
      */
     colorType: {
       type: String,
       default: "default",
     },
-    /**
-     * 这个属性将会被展示到文档中
-     * 按钮类型：```default``` / ```ghost``` / ```dashed```
-     */
-    type: {
-      type: String,
-      default: "default",
-    },
-    /**
-     * 这个属性将会被展示到文档中
-     * 最大圆角
-     */
-    circle: {
-      type: Boolean,
-      default: false,
-    },
-    // 这个属性将不会被展示到文档中
+    // 这个属性将不会被解析
     disabled: {
       type: Boolean,
       default: false,
     },
   },
   methods: {
-    // 这个方法将不会被展示到文档中
+    // 这个方法将不会被解析
     click() {
       if (!this.disabled) {
         this.$emit("click");
@@ -54,19 +38,4 @@ export default {
   },
 };
 </script>
-```
-
-## 注意
-脚手架只提供了scss的支持，如果你想用less，在webpack.config.js中配置less-loader就可以
-
-vue组件必须引用自己的样式文件：
-```html
-<script>
-import './button.scss' // 方式一
-export default {
-  name: 'r-button',
-  props: {
-...
-</script>
-<style lang="scss" src="./button.scss"></style> // 方式二
 ```

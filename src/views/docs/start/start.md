@@ -24,9 +24,9 @@ import App from "components/app.vue";
 import Routers from "./router.js";
 
 // 主要是这里
-import GrUI from "rayx-ui";
+import RayxUi from "rayx-ui";
 import "rayx-ui/lib/index";
-Vue.use(GrUI);
+Vue.use(RayxUi);
 
 Vue.use(VueRouter);
 const RouterConfig = {

@@ -11,57 +11,68 @@ const getComponentsData = function () {
     for (let i = 0; i < files.length; i++) {
         const stats = fs.statSync('./packages/' + files[i])
         if (stats.isDirectory() && files[i] !== 'styles') {
-            let conmponentData = {
-                props: [],
-                methods: []
+            let compData = {
+                fname: files[i]
             }
 
-            // index.js
-            const indexPath = path.resolve(__dirname, '../packages/' + files[i] + '/' + 'index.js')
-            if (!fs.existsSync(indexPath)) {
-                throw new Error(`组件${files[i]}缺少index.js`);
-            }
+            let conmponentVueData
+
+            // // index.js
+            // const indexPath = path.resolve(__dirname, '../packages/' + files[i] + '/' + 'index.js')
+            // if (!fs.existsSync(indexPath)) {
+            //     throw new Error(`组件${files[i]}缺少index.js`);
+            // }
 
             // vue
             const vuePath = path.resolve(__dirname, '../packages/' + files[i] + '/' + files[i] + '.vue')
+
             if (fs.existsSync(vuePath)) {
+                // console.log(vuePath + '>>>' + i)
                 const vueFileContent = fs.readFileSync(vuePath, 'utf-8')
                 const matchReg = /<script(?:\s+[^>]*)?>([\s\S]+?)<\/script\s*>/
                 const code = matchReg.exec(vueFileContent)[1]
-                conmponentData = vuePaserDoAst(code)
+                conmponentVueData = vuePaserDoAst(code, vuePath + '>>>' + i)
+                compData = {
+                    ...compData,
+                    ...conmponentVueData
+                }
             }
-
-            const {
-                props,
-                methods
-            } = conmponentData
 
             // md
             const mdPath = path.resolve(__dirname, '../packages/' + files[i] + '/README.md')
-            if (!fs.existsSync(mdPath)) {
-                throw new Error(`组件${files[i]}缺少README.md`);
+            const hasMarkdown = fs.existsSync(mdPath)
+            if (hasMarkdown) {
+                let mdContent = fs.readFileSync(mdPath, 'utf-8')
+                let propsTableMd = `## props\n| 参数 | 说明 | 类型 | 默认值 |\n| --- | --- | --- | --- |\n`
+                let methodsTableMd = `## methods\n| 方法名 | 说明 |\n| --- | --- |\n`
+
+                if (conmponentVueData && conmponentVueData.props && Array.isArray(conmponentVueData.props) && conmponentVueData.methods && Array.isArray(conmponentVueData.methods)) {
+                    conmponentVueData.props.forEach(item => {
+                        propsTableMd += `| ${item.name} | ${item.comment} | ${item.type} | ${item.default} |\n`
+                    })
+
+                    conmponentVueData.methods.forEach(item => {
+                        methodsTableMd += `| ${item.name} | ${item.comment} |\n`
+                    })
+                }
+
+                if (propsTableMd) {
+                    mdContent = mdContent.replace(/<!-- props -->/gm, propsTableMd)
+                }
+                if (methodsTableMd) {
+                    mdContent = mdContent.replace(/<!-- methods -->/gm, methodsTableMd)
+                }
+
+                const typeMatch = mdContent.match(/(?<=<!-- type:\s*).*(?=-->)/m)
+                const type = typeMatch ? typeMatch[0].replace(/\s/gm, '') : ''
+                compData = {
+                    ...compData,
+                    type,
+                    ...mdRender(mdContent)
+                }
             }
-            const mdFileContent = fs.readFileSync(mdPath, 'utf-8')
-            let propsTableMd = `## props\n| 参数 | 说明 | 类型 | 默认值 |\n| --- | --- | --- | --- |\n`
-            let methodsTableMd = `## methods\n| 方法名 | 说明 |\n| --- | --- |\n`
 
-            props.forEach(item => {
-                propsTableMd += `| ${item.name} | ${item.comment} | ${item.type} | ${item.default} |\n`
-            })
-
-            methods.forEach(item => {
-                methodsTableMd += `| ${item.name} | ${item.comment} |\n`
-            })
-
-            const mdContent = mdFileContent.replace(/<!-- props -->/gm, propsTableMd).replace(/<!-- methods -->/gm, methodsTableMd)
-            const typeMatch = mdContent.match(/(?<=<!-- type:\s*).*(?=-->)/m)
-            const type = typeMatch ? typeMatch[0].replace(/\s/gm, '') : ''
-            arr.push({
-                fname: files[i],
-                type,
-                ...conmponentData,
-                ...mdRender(mdContent)
-            })
+            arr.push(compData)
         }
     }
     return arr
@@ -125,6 +136,8 @@ const addMenuComponentsListData = function (sourceArr, data) {
 
 const build = function (cb) {
     const datas = getComponentsData()
+    // console.log(datas)
+    // return
 
     const routersContent = [] // 组件路由数组
     const menuComponentsList = [] // 菜单中的组件列表
@@ -135,55 +148,64 @@ const build = function (cb) {
     let menuComponentsListData = [] // 组件列表数据
 
     datas.forEach(item => {
-        menuComponentsListData = addMenuComponentsListData(menuComponentsListData, {
-            type: item.type,
-            fname: item.fname
-        })
-
         // 创建组件路由数组
         routersContent.push(fs.readFileSync(TPL_PATH_ROUTER, 'utf-8')
             .replace(/__COMPNENT_NAME__/g, item.fname))
 
-        // 创建菜单中的组件列表
-        menuComponentsList.push(`<div class="layout-menu-item" @click="docChange('/docs/components/${item.fname}')">${item.fname}</div>`)
-        // webpack构建入口
-        webpackComponentsList.push(`    '${item.fname}': './packages/${item.fname}/index.js',`)
-        // 组件入口导入列表
-        package_index_imports.push(`import ${util.cpNameTransfer(item.fname)} from './${item.fname}'`)
-        // 组件入口组件列表
-        package_index_components.push(util.cpNameTransfer(item.fname))
-        // 组件入口导入样式列表
-        package_index_imports_style.push(`@import "./${item.fname}/${item.fname}";`)
+        if (item.cname) {
+            // webpack构建入口
+            webpackComponentsList.push(`    '${item.fname}': './packages/${item.fname}/index.js',`)
+            // 组件入口导入列表
+            package_index_imports.push(`import ${util.cpNameTransfer(item.fname)} from './${item.fname}'`)
+            // 组件入口组件列表
+            package_index_components.push(util.cpNameTransfer(item.fname))
+            // 组件入口导入样式列表
+            package_index_imports_style.push(`@import "./${item.fname}/${item.fname}";`)
+        }
 
-        // 创建docs
+        // 创建demos目录
         const DEMO_PATH = path.resolve(__dirname, `../demos`)
-        const DOC_PATH = path.resolve(__dirname, `../demos/${item.fname}`)
         if (!fs.existsSync(DEMO_PATH)) {
             fs.mkdirSync(DEMO_PATH);
         }
-        if (!fs.existsSync(DOC_PATH)) {
-            fs.mkdirSync(DOC_PATH);
+
+        // demo 和 菜单列表
+        if (item.demoText) {
+            // 菜单列表数据
+            menuComponentsListData = addMenuComponentsListData(menuComponentsListData, {
+                type: item.type,
+                fname: item.fname
+            })
+            // 菜单代码
+            menuComponentsList.push(`<div class="layout-menu-item" @click="docChange('/docs/components/${item.fname}')">${item.fname}</div>`)
+
+            const DOC_PATH = path.resolve(__dirname, `../demos/${item.fname}`)
+            if (!fs.existsSync(DOC_PATH)) {
+                fs.mkdirSync(DOC_PATH);
+            }
+
+            // 生成doc代码
+            replaceTplAndBuildToTarget(TPL_PATH_DOC, [{
+                tplText: /__DEMO_TEXT__/g,
+                value: item.demoText
+            }, {
+                tplText: /__DEMO_IMPORT__/g,
+                value: item.demoImportText
+            }, {
+                tplText: /__COMPNENT_NAME__/g,
+                value: item.fname
+            }, {
+                tplText: /__DEMO_COMPONENT_LIST__/g,
+                value: item.demoComponentsText
+            }], `${DOC_PATH}/index.vue`)
+
+            if (item.demoCodeArr && Array.isArray(item.demoCodeArr)) {
+                buildDemos(item.demoCodeArr, DOC_PATH)
+            }
         }
 
         // // 美化示例代码
         // const butifyedExamples = beautifyExampleCode(item.examples)
-
-        // 生成doc代码
-        replaceTplAndBuildToTarget(TPL_PATH_DOC, [{
-            tplText: /__DEMO_TEXT__/g,
-            value: item.demoText
-        }, {
-            tplText: /__DEMO_IMPORT__/g,
-            value: item.demoImportText
-        }, {
-            tplText: /__COMPNENT_NAME__/g,
-            value: item.fname
-        }, {
-            tplText: /__DEMO_COMPONENT_LIST__/g,
-            value: item.demoComponentsText
-        }], `${DOC_PATH}/index.vue`)
-
-        buildDemos(item.demoCodeArr, DOC_PATH)
     })
 
     // package组件入口

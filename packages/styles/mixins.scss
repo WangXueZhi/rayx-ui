@@ -1,0 +1,30 @@
+@mixin utils-clearfix {
+    $selector: &;
+
+    @at-root {
+
+        #{$selector}::before,
+        #{$selector}::after {
+            display: table;
+            content: "";
+        }
+
+        #{$selector}::after {
+            clear: both
+        }
+    }
+}
+
+@mixin utils-ellipsis {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+@mixin when($state) {
+    @at-root {
+      &.#{$state-prefix + $state} {
+        @content;
+      }
+    }
+  }

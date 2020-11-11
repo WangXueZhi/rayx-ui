@@ -1,0 +1,19 @@
+@import './var.scss';
+
+.ra-color{
+    &-primary{
+        color:  $--color-primary;
+    }
+    &-success{
+        color:  $--color-success;
+    }
+    &-warning{
+        color:  $--color-warning;
+    }
+    &-error{
+        color:  $--color-error;
+    }
+    &-info{
+        color:  $--color-info;
+    }
+}

@@ -11,7 +11,7 @@
       </div>
       <div class="ui-button">
         <Button colorType="primary" type="ghost" circle @click="componentDoc">组件文档</Button>
-        <Button colorType="primary" type="ghost" circle @click="architectureDoc">架构说明</Button>
+        <Button colorType="primary" type="ghost" circle @click="architectureDoc">脚手架说明</Button>
         <Button colorType="primary" type="ghost" circle @click="developmentDoc">组件开发</Button>
       </div>
     </div>
