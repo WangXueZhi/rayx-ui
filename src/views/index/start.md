@@ -1,5 +1,5 @@
 下载仓库
-http://172.16.104.140/frontlibrary/lib.ui
+https://gitee.com/GeBiLaoWan/rayx-vue-components-lib.git
 
 安装依赖
 ```

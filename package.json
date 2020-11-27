@@ -116,6 +116,6 @@
   ],
   "repository": {
     "type": "git",
-    "url": "http://172.16.104.140/frontlibrary/lib.ui"
+    "url": "https://gitee.com/GeBiLaoWan/rayx-vue-components-lib.git"
   }
 }
