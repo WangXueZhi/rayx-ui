@@ -148,9 +148,6 @@ const build = function (cb) {
     let menuComponentsListData = [] // 组件列表数据
 
     datas.forEach(item => {
-        // 创建组件路由数组
-        routersContent.push(fs.readFileSync(TPL_PATH_ROUTER, 'utf-8')
-            .replace(/__COMPNENT_NAME__/g, item.fname))
 
         if (item.cname) {
             // webpack构建入口
@@ -201,6 +198,10 @@ const build = function (cb) {
 
             if (item.demoCodeArr && Array.isArray(item.demoCodeArr)) {
                 buildDemos(item.demoCodeArr, DOC_PATH)
+
+                // 创建组件路由数组
+                routersContent.push(fs.readFileSync(TPL_PATH_ROUTER, 'utf-8')
+                    .replace(/__COMPNENT_NAME__/g, item.fname))
             }
         }
 
