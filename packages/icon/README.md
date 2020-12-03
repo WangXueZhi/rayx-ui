@@ -9,7 +9,7 @@
 ```vue demo
 <template>
   <div class="demo-wrapper">
-    <Icon name="iconcanshupeizhi1" class="demo-icon" />
+    <Icon name="icon-email" class="demo-icon" />
   </div>
 </template>
 <script>
@@ -33,7 +33,13 @@ export default {
 <template>
   <div class="demo-wrapper">
     <div class="demo-wrapper-all-icons-search">
-      <Input size="big" style="width: 500px" textAlign="center" placeholder="搜索图标，输入名称或描述" v-model="searchText" />
+      <Input
+        size="big"
+        style="width: 500px"
+        textAlign="center"
+        placeholder="搜索图标，输入名称或描述"
+        v-model="searchText"
+      />
     </div>
     <Row v-for="(rowItem, index) in icons" :key="index" class="demo-icon-row">
       <Col
@@ -56,62 +62,105 @@ export default {
 <script>
 import { Icon, Row, Col, Input } from "rayx-ui";
 const iconList = [
-  { name: "iconyunhangmoni1", desc: "运行模拟" },
-  { name: "iconpeizhidaochu1", desc: "配置导出" },
-  { name: "iconzantingmoni1", desc: "暂停模拟" },
-  { name: "iconhengduanmian1", desc: "横断面" },
-  { name: "iconzongduanmian1", desc: "纵断面" },
-  { name: "iconxiazai1", desc: "下载" },
-  { name: "iconzidongshuaiding1", desc: "自动率定" },
-  { name: "iconzidongshuaidingrizhi1", desc: "自动率定日志" },
-  { name: "iconzidongshuaidingjieguo1", desc: "自动率定结果" },
-  { name: "iconmonirizhi1", desc: "模拟日志" },
-  { name: "iconmonijieguo1", desc: "模拟结果" },
-  { name: "iconshoudongshuaiding1", desc: "手动率定" },
-  { name: "iconcanshupeizhi1", desc: "参数配置" },
-  { name: "iconshoudongshuaidingrizhi1", desc: "手动率定日志" },
-  { name: "iconshoudongshuaidingjieguo1", desc: "手动率定结果" },
-  { name: "iconshanchuhang", desc: "删除行" },
-  { name: "iconshangtianjiahang", desc: "上添加行" },
-  { name: "iconshanchulie", desc: "删除列" },
-  { name: "iconzuotianjialie", desc: "左添加列" },
-  { name: "iconyoutianjialie", desc: "右添加列" },
-  { name: "iconxiatianjiahang", desc: "下添加行" },
-  { name: "iconshanchu", desc: "删除" },
-  { name: "icondaoru", desc: "导入" },
+  { name: "icon-email", desc: "email" },
+  { name: "icon-copy", desc: "copy" },
+  { name: "icon-user", desc: "user" },
+  { name: "icon-international", desc: "international" },
+  { name: "icon-refresh", desc: "refresh" },
+  { name: "icon-close_filled", desc: "close_filled" },
+  { name: "icon-check", desc: "check" },
+  { name: "icon-close", desc: "close" },
+  { name: "icon-check_filled", desc: "check_filled" },
+  { name: "icon-info_filled", desc: "info_filled" },
+  { name: "icon-info", desc: "info" },
+  { name: "icon-help_filled", desc: "help_filled" },
+  { name: "iconicon-test34", desc: "help" },
+  { name: "iconicon-test35", desc: "caution" },
+  { name: "iconicon-test36", desc: "caution_filled" },
+  { name: "iconicon-test37", desc: "star" },
+  { name: "iconicon-test38", desc: "star_filled" },
+  { name: "iconicon-test39", desc: "arrow_up" },
+  { name: "iconicon-test40", desc: "arrow_left" },
+  { name: "iconicon-test41", desc: "arrow_down" },
+  { name: "iconicon-test42", desc: "arrow_right" },
+  { name: "iconicon-test43", desc: "page_turning_left" },
+  { name: "iconicon-test44", desc: "page_turning_right" },
+  { name: "iconicon-test45", desc: "show_less" },
+  { name: "iconicon-test46", desc: "show_more" },
+  { name: "iconicon-test47", desc: "social_fb" },
+  { name: "iconicon-test48", desc: "social_linkedin" },
+  { name: "iconicon-test49", desc: "social_sina" },
+  { name: "iconicon-test50", desc: "social_google" },
+  { name: "iconicon-test51", desc: "social_github" },
+  { name: "iconicon-test52", desc: "social_twitter" },
+  { name: "iconicon-test53", desc: "applets" },
+  { name: "iconicon-test54", desc: "social_wechat" },
+  { name: "iconicon-test55", desc: "go-to-link" },
+  { name: "iconicon-test56", desc: "benefits" },
+  { name: "icondingtalk", desc: "dingtalk" },
+  { name: "iconalipay", desc: "alipay" },
+  { name: "icontaobao", desc: "taobao" },
+  { name: "iconicon-test57", desc: "1688" },
+  { name: "iconicon-test", desc: "view" },
+  { name: "iconicon-test1", desc: "view_off" },
+  { name: "iconicon-test2", desc: "message" },
+  { name: "iconicon-test3", desc: "message_unread" },
+  { name: "iconicon-test4", desc: "order" },
+  { name: "iconicon-test5", desc: "cart_empty" },
+  { name: "iconicon-test6", desc: "cart" },
+  { name: "iconicon-test7", desc: "search" },
+  { name: "iconicon-test8", desc: "edit" },
+  { name: "iconicon-test9", desc: "link" },
+  { name: "iconicon-test10", desc: "share" },
+  { name: "iconicon-test11", desc: "setting" },
+  { name: "iconicon-test12", desc: "upload" },
+  { name: "iconicon-test13", desc: "download" },
+  { name: "iconicon-test14", desc: "play" },
+  { name: "iconicon-test15", desc: "region" },
+  { name: "iconicon-test16", desc: "lock" },
+  { name: "iconicon-test17", desc: "unlock" },
+  { name: "iconicon-test18", desc: "flow" },
+  { name: "iconicon-test19", desc: "filter" },
+  { name: "iconicon-test20", desc: "calculator" },
+  { name: "iconicon-test21", desc: "image" },
 ];
 export default {
   components: {
     Icon,
     Row,
     Col,
-    Input
+    Input,
   },
   computed: {
-    icons(){
-      const arr = []
+    icons() {
+      const arr = [];
 
-      const filterList = this.searchText ? iconList.filter((item)=>{
-        return item.name.includes(this.searchText) || item.desc.includes(this.searchText)
-      }) : iconList
+      const filterList = this.searchText
+        ? iconList.filter((item) => {
+            return (
+              item.name.includes(this.searchText) ||
+              item.desc.includes(this.searchText)
+            );
+          })
+        : iconList;
 
-      for(let i=0; i<filterList.length; i++){
-          const item = filterList[i]
-          if(arr.length < 1){
-              arr[0] = []
-          }
-          if(arr[arr.length-1].length < 4){
-              arr[arr.length-1].push(item)
-          } else {
-              arr[arr.length] = [item]
-          }
+      for (let i = 0; i < filterList.length; i++) {
+        const item = filterList[i];
+        if (arr.length < 1) {
+          arr[0] = [];
+        }
+        if (arr[arr.length - 1].length < 4) {
+          arr[arr.length - 1].push(item);
+        } else {
+          arr[arr.length] = [item];
+        }
       }
-      return arr
-    }
+      return arr;
+    },
   },
   data() {
     return {
-      searchText: ''
+      searchText: "",
     };
   },
 };
@@ -137,7 +186,7 @@ export default {
 .demo-icon-name {
   font-size: 12px;
 }
-.demo-wrapper-all-icons-search{
+.demo-wrapper-all-icons-search {
   display: flex;
   justify-content: center;
   margin-bottom: 50px;

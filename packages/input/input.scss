@@ -5,7 +5,7 @@
     width: 100%;
     position: relative;
     vertical-align: middle;
-    line-height: normal;
+    font-size: 14px;
 
     .r-input-inner {
         display: inline-block;
@@ -19,6 +19,7 @@
         background-color: #fff;
         background-image: none;
         position: relative;
+        box-sizing: border-box;
         cursor: text;
         transition: border .2s ease-in-out, background .2s ease-in-out, box-shadow .2s ease-in-out;
 
@@ -54,6 +55,7 @@
     // }
 
     &.r-input--small {
+        font-size: 12px;
         .r-input-inner {
             padding: 1px 7px;
             height: 24px;
@@ -62,15 +64,11 @@
     }
 
     &.r-input--big {
+        font-size: 16px;
         .r-input-inner {
             font-size: 16px;
             padding: 6px 7px;
             height: 40px;
-        }
-
-        .r-input-inner--prefix,
-        .r-input-inner--suffix {
-            font-size: 16px;
         }
     }
 
@@ -87,7 +85,6 @@
         display: flex;
         align-items: center;
         padding: 0 7px;
-        font-size: 14px;
 
         &>* {
             line-height: 1;
@@ -105,6 +102,9 @@
     &.r-input-pend {
         display: inline-flex;
         align-items: stretch;
+        &>* {
+            line-height: 1;
+        }
 
         .r-input-inner {
             flex-shrink: 1;
@@ -113,7 +113,7 @@
         .r-input-pend__prepend,
         .r-input-pend__append {
             flex-shrink: 0;
-            display: inline-flex;
+            display: flex;
             align-items: center;
         }
 
@@ -134,6 +134,8 @@
             background-color: #f8f8f9;
             border: 1px solid #dcdee2;
             border-radius: 4px;
+            display: flex;
+            align-items: center;
         }
 
         .r-input-pend__prepend {

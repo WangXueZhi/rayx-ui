@@ -1,25 +1,32 @@
 <template>
-  <!-- <i
-    class="r-icon iconfont"
-    :class="{
-      [name]: !!name,
-    }"
-  ></i> -->
-  <svg class="r-icon" aria-hidden="true">
+  <svg
+    class="r-icon"
+    aria-hidden="true"
+    :width="size"
+    :height="size"
+    :style="{ fontSize: size }"
+  >
     <use :xlink:href="`#${name}`"></use>
   </svg>
 </template>
 <script>
 export default {
-  name: 'r-icon',
+  name: "r-icon",
   props: {
     /**
      * icon 名称
      */
     name: {
       type: String,
-      default: '',
+      default: ""
     },
+    size: {
+      type: Number,
+      default: 16
+    }
+  },
+  created() {
+    window.R_ICON_FONT_COMPONENT.loadScript();
   }
-}
+};
 </script>
