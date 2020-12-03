@@ -1,5 +1,7 @@
 下载仓库
-https://gitee.com/GeBiLaoWan/rayx-vue-components-lib.git
+
+[github](https://github.com/WangXueZhi/rayx-ui.git) | [gitee](https://gitee.com/GeBiLaoWan/rayx-vue-components-lib.git)
+
 
 安装依赖
 ```

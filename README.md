@@ -27,17 +27,17 @@ yarn lib 或者 npm run lib
 
 ## 组件开发文档
 
-[组件开发规范-创建组件](https://gitee.com/GeBiLaoWan/rayx-vue-components-lib/blob/master/src/views/development/base/base.md)
+[组件开发规范-创建组件](https://github.com/WangXueZhi/rayx-ui/blob/master/src/views/development/base/base.md)
 
-[组件开发规范-组件编写](https://gitee.com/GeBiLaoWan/rayx-vue-components-lib/blob/master/src/views/development/component/base.md)
+[组件开发规范-组件编写](https://github.com/WangXueZhi/rayx-ui/blob/master/src/views/development/component/base.md)
 
-[组件开发规范-markdown编写](https://gitee.com/GeBiLaoWan/rayx-vue-components-lib/blob/master/src/views/development/md/base.md)
+[组件开发规范-markdown编写](https://github.com/WangXueZhi/rayx-ui/blob/master/src/views/development/md/base.md)
 
-[脚手架说明-流程和构建](https://gitee.com/GeBiLaoWan/rayx-vue-components-lib/blob/master/src/views/architecture/base/base.md)
+[脚手架说明-流程和构建](https://github.com/WangXueZhi/rayx-ui/blob/master/src/views/architecture/base/base.md)
 
-[脚手架说明-markdown解析](https://gitee.com/GeBiLaoWan/rayx-vue-components-lib/blob/master/src/views/architecture/md/base.md)
+[脚手架说明-markdown解析](https://github.com/WangXueZhi/rayx-ui/blob/master/src/views/architecture/md/base.md)
 
-[脚手架说明-vue解析](https://gitee.com/GeBiLaoWan/rayx-vue-components-lib/blob/master/src/views/architecture/vue/base.md)
+[脚手架说明-vue解析](https://github.com/WangXueZhi/rayx-ui/blob/master/src/views/architecture/vue/base.md)
 
 
 
