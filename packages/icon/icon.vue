@@ -11,7 +11,7 @@
 </template>
 <script>
 export default {
-  name: "r-icon",
+  name: "rIcon",
   props: {
     /**
      * icon 名称

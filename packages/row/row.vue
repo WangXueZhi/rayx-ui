@@ -13,8 +13,7 @@
 </template>
 <script>
 export default {
-  name: 'r-row',
-  componentName: 'r-row',
+  name: 'rRow',
   props: {
     /**
      * 栅格间隔

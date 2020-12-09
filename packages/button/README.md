@@ -12,23 +12,15 @@
 <template>
   <div class="demo-wrapper">
     <div class="demo-button-Type">
-      <Button hide>默认色</Button>
-      <Button colorType="primary">主色</Button>
-      <Button colorType="info">信息色</Button>
-      <Button colorType="success">成功色</Button>
-      <Button colorType="warning">警告色</Button>
-      <Button colorType="error">错误色</Button>
+      <r-button hide>默认色</r-button>
+      <r-button colorType="primary">主色</r-button>
+      <r-button colorType="info">信息色</r-button>
+      <r-button colorType="success">成功色</r-button>
+      <r-button colorType="warning">警告色</r-button>
+      <r-button colorType="error">错误色</r-button>
     </div>
   </div>
 </template>
-<script>
-  import { Button } from "rayx-ui";
-  export default {
-    components: {
-      Button,
-    },
-  };
-</script>
 ```
 
 类型
@@ -37,19 +29,11 @@
 <template>
   <div class="demo-wrapper">
     <div class="demo-button-Type">
-      <Button colorType="primary" type="ghost">幽灵按钮</Button>
-      <Button colorType="primary" type="dashed">虚线边框</Button>
+      <r-button colorType="primary" type="ghost">幽灵按钮</r-button>
+      <r-button colorType="primary" type="dashed">虚线边框</r-button>
     </div>
   </div>
 </template>
-<script>
-  import { Button } from "rayx-ui";
-  export default {
-    components: {
-      Button,
-    },
-  };
-</script>
 ```
 
 形状
@@ -58,19 +42,11 @@
 <template>
   <div class="demo-wrapper">
     <div class="demo-button-Type">
-      <Button colorType="primary" type="ghost" circle>幽灵按钮</Button>
-      <Button colorType="primary" type="dashed" circle>按</Button>
+      <r-button colorType="primary" type="ghost" circle>幽灵按钮</r-button>
+      <r-button colorType="primary" type="dashed" circle>按</r-button>
     </div>
   </div>
 </template>
-<script>
-  import { Button } from "rayx-ui";
-  export default {
-    components: {
-      Button,
-    },
-  };
-</script>
 ```
 <!-- props -->
 

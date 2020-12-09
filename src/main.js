@@ -7,6 +7,10 @@ import './app.scss'
 import NProgress from 'nprogress'
 import 'nprogress/nprogress.css'
 
+import RayxUi from '../packages'
+import '../packages/index.scss'
+Vue.use(RayxUi)
+
 
 // 配置NProgress进度条选项  —— 动画效果
 NProgress.configure({ ease: 'ease', speed: 500 })

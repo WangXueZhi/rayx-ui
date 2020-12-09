@@ -11,26 +11,17 @@
 ```vue demo
 <template>
   <div class="demo-wrapper">
-    <Row>
-      <Col :span="12"><div class="col-block-primary">span-12</div></Col>
-      <Col :span="12"><div class="col-block-primary">span-12</div></Col>
-    </Row>
-    <Row>
-      <Col :span="8"><div class="col-block-primary">span-8</div></Col>
-      <Col :span="8"><div class="col-block-primary">span-8</div></Col>
-      <Col :span="8"><div class="col-block-primary">span-8</div></Col>
-    </Row>
+    <r-row>
+      <r-col :span="12"><div class="col-block-primary">span-12</div></r-col>
+      <r-col :span="12"><div class="col-block-primary">span-12</div></r-col>
+    </r-row>
+    <r-row>
+      <r-col :span="8"><div class="col-block-primary">span-8</div></r-col>
+      <r-col :span="8"><div class="col-block-primary">span-8</div></r-col>
+      <r-col :span="8"><div class="col-block-primary">span-8</div></r-col>
+    </r-row>
   </div>
 </template>
-<script>
-import { Row, Col } from "rayx-ui";
-export default {
-  components: {
-    Row,
-    Col,
-  },
-};
-</script>
 <style lang="scss">
 @import "rayx-ui/packages/styles/var.scss";
 .demo-wrapper {
@@ -61,27 +52,18 @@ export default {
 ```vue demo
 <template>
   <div class="demo-wrapper">
-    <Row :gutter="10">
-      <Col :span="8"><div class="col-block-primary">span-8</div></Col>
-      <Col :span="8"><div class="col-block-primary">span-8</div></Col>
-      <Col :span="8"><div class="col-block-primary">span-8</div></Col>
-    </Row>
-    <Row :gutter="10">
-      <Col :span="8"><div class="col-block-primary">span-8</div></Col>
-      <Col :span="8"><div class="col-block-primary">span-8</div></Col>
-      <Col :span="8"><div class="col-block-primary">span-8</div></Col>
-    </Row>
+    <r-row :gutter="10">
+      <r-col :span="8"><div class="col-block-primary">span-8</div></r-col>
+      <r-col :span="8"><div class="col-block-primary">span-8</div></r-col>
+      <r-col :span="8"><div class="col-block-primary">span-8</div></r-col>
+    </r-row>
+    <r-row :gutter="10">
+      <r-col :span="8"><div class="col-block-primary">span-8</div></r-col>
+      <r-col :span="8"><div class="col-block-primary">span-8</div></r-col>
+      <r-col :span="8"><div class="col-block-primary">span-8</div></r-col>
+    </r-row>
   </div>
 </template>
-<script>
-import { Row, Col } from "rayx-ui";
-export default {
-  components: {
-    Row,
-    Col,
-  },
-};
-</script>
 <style lang="scss">
 @import "rayx-ui/packages/styles/var.scss";
 .demo-wrapper {
@@ -112,28 +94,19 @@ export default {
 ```vue demo
 <template>
   <div class="demo-wrapper">
-    <Row :gutter="10">
-      <Col :span="12"><div class="col-block-primary">span-12</div></Col>
-      <Col :span="12"><div class="col-block-primary">span-12</div></Col>
-    </Row>
-    <Row :gutter="10">
-      <Col :span="4"><div class="col-block-primary">span-4</div></Col>
-      <Col :span="4"><div class="col-block-primary">span-4</div></Col>
-      <Col :span="4"><div class="col-block-primary">span-4</div></Col>
-      <Col :span="6"><div class="col-block-primary">span-6</div></Col>
-      <Col :span="6"><div class="col-block-primary">span-6</div></Col>
-    </Row>
+    <r-row :gutter="10">
+      <r-col :span="12"><div class="col-block-primary">span-12</div></r-col>
+      <r-col :span="12"><div class="col-block-primary">span-12</div></r-col>
+    </r-row>
+    <r-row :gutter="10">
+      <r-col :span="4"><div class="col-block-primary">span-4</div></r-col>
+      <r-col :span="4"><div class="col-block-primary">span-4</div></r-col>
+      <r-col :span="4"><div class="col-block-primary">span-4</div></r-col>
+      <r-col :span="6"><div class="col-block-primary">span-6</div></r-col>
+      <r-col :span="6"><div class="col-block-primary">span-6</div></r-col>
+    </r-row>
   </div>
 </template>
-<script>
-import { Row, Col } from "rayx-ui";
-export default {
-  components: {
-    Row,
-    Col,
-  },
-};
-</script>
 <style lang="scss">
 @import "rayx-ui/packages/styles/var.scss";
 .demo-wrapper {
@@ -165,30 +138,21 @@ export default {
 <template>
   <div class="demo-wrapper">
     <p>距左偏移</p>
-    <Row>
-      <Col :span="6"><div class="col-block-primary">span-6</div></Col>
-      <Col :span="6" :offset="6"><div class="col-block-primary">span-6 offset-6</div></Col>
-    </Row>
-    <Row>
-      <Col :span="6" :offset="6"><div class="col-block-primary">span-6 offset-6</div></Col>
-      <Col :span="6" :offset="6"><div class="col-block-primary">span-6 offset-6</div></Col>
-    </Row>
+    <r-row>
+      <r-col :span="6"><div class="col-block-primary">span-6</div></r-col>
+      <r-col :span="6" :offset="6"><div class="col-block-primary">span-6 offset-6</div></r-col>
+    </r-row>
+    <r-row>
+      <r-col :span="6" :offset="6"><div class="col-block-primary">span-6 offset-6</div></r-col>
+      <r-col :span="6" :offset="6"><div class="col-block-primary">span-6 offset-6</div></r-col>
+    </r-row>
     <p>通过设置push和pull来改变栅格的顺序</p>
-    <Row>
-      <Col :span="18" :push="6"><div class="col-block-primary">span-18 push-6</div></Col>
-      <Col :span="6" :pull="18"><div class="col-block-primary">span-6 pull-18</div></Col>
-    </Row>
+    <r-row>
+      <r-col :span="18" :push="6"><div class="col-block-primary">span-18 push-6</div></r-col>
+      <r-col :span="6" :pull="18"><div class="col-block-primary">span-6 pull-18</div></r-col>
+    </r-row>
   </div>
 </template>
-<script>
-import { Row, Col } from "rayx-ui";
-export default {
-  components: {
-    Row,
-    Col,
-  },
-};
-</script>
 <style lang="scss">
 @import "rayx-ui/packages/styles/var.scss";
 .demo-wrapper {
@@ -220,59 +184,50 @@ Flex布局
 <template>
   <div class="demo-wrapper">
     <p>justify-content: flex-start</p>
-    <Row flexMode>
-      <Col :span="6"><div class="col-block-primary">span-6</div></Col>
-      <Col :span="6"><div class="col-block-primary">span-6</div></Col>
-    </Row>
+    <r-row flexMode>
+      <r-col :span="6"><div class="col-block-primary">span-6</div></r-col>
+      <r-col :span="6"><div class="col-block-primary">span-6</div></r-col>
+    </r-row>
     <p>justify-content: flex-end</p>
-    <Row flexMode justify="end">
-      <Col :span="6"><div class="col-block-primary">span-6</div></Col>
-      <Col :span="6"><div class="col-block-primary">span-6</div></Col>
-    </Row>
+    <r-row flexMode justify="end">
+      <r-col :span="6"><div class="col-block-primary">span-6</div></r-col>
+      <r-col :span="6"><div class="col-block-primary">span-6</div></r-col>
+    </r-row>
     <p>justify-content: center</p>
-    <Row flexMode justify="center">
-      <Col :span="6"><div class="col-block-primary">span-6</div></Col>
-      <Col :span="6"><div class="col-block-primary">span-6</div></Col>
-    </Row>
+    <r-row flexMode justify="center">
+      <r-col :span="6"><div class="col-block-primary">span-6</div></r-col>
+      <r-col :span="6"><div class="col-block-primary">span-6</div></r-col>
+    </r-row>
     <p>justify-content: space-around</p>
-    <Row flexMode justify="space-around">
-      <Col :span="6"><div class="col-block-primary">span-6</div></Col>
-      <Col :span="6"><div class="col-block-primary">span-6</div></Col>
-    </Row>
+    <r-row flexMode justify="space-around">
+      <r-col :span="6"><div class="col-block-primary">span-6</div></r-col>
+      <r-col :span="6"><div class="col-block-primary">span-6</div></r-col>
+    </r-row>
     <p>justify-content: space-between</p>
-    <Row flexMode justify="space-between">
-      <Col :span="6"><div class="col-block-primary">span-6</div></Col>
-      <Col :span="6"><div class="col-block-primary">span-6</div></Col>
-    </Row>
+    <r-row flexMode justify="space-between">
+      <r-col :span="6"><div class="col-block-primary">span-6</div></r-col>
+      <r-col :span="6"><div class="col-block-primary">span-6</div></r-col>
+    </r-row>
     <p>align-items: center</p>
-    <Row flexMode align="middle">
-      <Col :span="6"><div style="height: 70px" class="col-block-primary">span-6</div></Col>
-      <Col :span="6"><div style="height: 100px" class="col-block-primary">span-6</div></Col>
-      <Col :span="6"><div class="col-block-primary">span-6</div></Col>
-    </Row>
+    <r-row flexMode align="middle">
+      <r-col :span="6"><div style="height: 70px" class="col-block-primary">span-6</div></r-col>
+      <r-col :span="6"><div style="height: 100px" class="col-block-primary">span-6</div></r-col>
+      <r-col :span="6"><div class="col-block-primary">span-6</div></r-col>
+    </r-row>
     <p>align-items: flex-end</p>
-    <Row flexMode align="bottom">
-      <Col :span="6"><div style="height: 70px" class="col-block-primary">span-6</div></Col>
-      <Col :span="6"><div style="height: 100px" class="col-block-primary">span-6</div></Col>
-      <Col :span="6"><div class="col-block-primary">span-6</div></Col>
-    </Row>
+    <r-row flexMode align="bottom">
+      <r-col :span="6"><div style="height: 70px" class="col-block-primary">span-6</div></r-col>
+      <r-col :span="6"><div style="height: 100px" class="col-block-primary">span-6</div></r-col>
+      <r-col :span="6"><div class="col-block-primary">span-6</div></r-col>
+    </r-row>
     <p>order 排序</p>
-    <Row flexMode>
-      <Col :span="6" order="3"><div class="col-block-primary">1 | order-3</div></Col>
-      <Col :span="6" order="2"><div class="col-block-primary">2 | order-2</div></Col>
-      <Col :span="6" order="1"><div class="col-block-primary">3 | order-1</div></Col>
-    </Row>
+    <r-row flexMode>
+      <r-col :span="6" order="3"><div class="col-block-primary">1 | order-3</div></r-col>
+      <r-col :span="6" order="2"><div class="col-block-primary">2 | order-2</div></r-col>
+      <r-col :span="6" order="1"><div class="col-block-primary">3 | order-1</div></r-col>
+    </r-row>
   </div>
 </template>
-<script>
-import { Row, Col } from "rayx-ui";
-export default {
-  components: {
-    Row,
-    Col,
-  },
-};
-</script>
 <style lang="scss">
 @import "rayx-ui/packages/styles/var.scss";
 .demo-wrapper {
@@ -298,7 +253,7 @@ export default {
 </style>
 ```
 
-## Row props
+## r-row props
 
 | 名称    | 说明     | 类型    | 默认值 |
 | ------- | -------- | --------- | --------- |
@@ -307,7 +262,7 @@ export default {
 | align | flex 布局下的垂直对齐方式，可选值为top、middle、bottom | String  | '' |
 | justify | flex 布局下的水平排列方式，可选值为start、end、center、space-around、space-between | String  | '' |
 
-## Col props
+## r-col props
 
 | 名称    | 说明     | 类型    | 默认值 |
 | ------- | -------- | --------- | --------- |

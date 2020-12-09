@@ -55,13 +55,9 @@
   </div>
 </template>
 <script>
-import Icon from '../icon'
 export default {
-  name: 'r-icon',
+  name: 'rInput',
   inheritAttrs: false,
-  components: {
-    Icon,
-  },
   props: {
     /**
      * 值

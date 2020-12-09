@@ -9,17 +9,9 @@
 ```vue demo
 <template>
   <div class="demo-wrapper">
-    <Icon name="icon-email" class="demo-icon" />
+    <r-icon name="icon-email" class="demo-icon" />
   </div>
 </template>
-<script>
-import { Icon } from "rayx-ui";
-export default {
-  components: {
-    Icon,
-  },
-};
-</script>
 <style>
 .demo-icon {
   font-size: 25px;
@@ -33,7 +25,7 @@ export default {
 <template>
   <div class="demo-wrapper">
     <div class="demo-wrapper-all-icons-search">
-      <Input
+      <r-input
         size="big"
         style="width: 500px"
         textAlign="center"
@@ -41,26 +33,25 @@ export default {
         v-model="searchText"
       />
     </div>
-    <Row v-for="(rowItem, index) in icons" :key="index" class="demo-icon-row">
-      <Col
+    <r-row v-for="(rowItem, index) in icons" :key="index" class="demo-icon-row">
+      <r-col
         v-for="item in rowItem"
         :key="item.name"
         :span="6"
         class="demo-icon-col"
       >
         <div>
-          <div><Icon :name="item.name" class="demo-icon" /></div>
+          <div><r-icon :name="item.name" class="demo-icon" /></div>
           <div>
             <div class="demo-icon-desc">{{ item.desc }}</div>
             <div class="demo-icon-name">{{ item.name }}</div>
           </div>
         </div>
-      </Col>
-    </Row>
+      </r-col>
+    </r-row>
   </div>
 </template>
 <script>
-import { Icon, Row, Col, Input } from "rayx-ui";
 const iconList = [
   { name: "icon-email", desc: "email" },
   { name: "icon-copy", desc: "copy" },
@@ -125,12 +116,6 @@ const iconList = [
   { name: "iconicon-test21", desc: "image" },
 ];
 export default {
-  components: {
-    Icon,
-    Row,
-    Col,
-    Input,
-  },
   computed: {
     icons() {
       const arr = [];

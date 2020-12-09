@@ -14,7 +14,7 @@
 </template>
 <script>
 export default {
-  name: 'r-button',
+  name: 'rButton',
   props: {
     /**
      * 颜色类型：default | primary | info | success | warning | error

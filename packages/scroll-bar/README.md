@@ -8,16 +8,12 @@
 基本用法
 ```vue demo
 <template>
-  <ScrollBar wrapperClass="test-scroll-wrapper">
+  <r-scroll-bar wrapperClass="test-scroll-wrapper">
     <div class="test-scroll-item" v-for="(item, i) in data">{{item}}</div>
-  </ScrollBar>
+  </r-scroll-bar>
 </template>
 <script>
-import { ScrollBar } from "rayx-ui";
 export default {
-  components: {
-    ScrollBar
-  },
   data(){
     return {
       data: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]

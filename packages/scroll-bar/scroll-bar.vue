@@ -24,7 +24,7 @@
 </template>
 <script>
 export default {
-  name: "r-scrollbar",
+  name: "rScrollBar",
   props: {
     /**
      * 类型

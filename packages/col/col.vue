@@ -11,7 +11,7 @@
 </template>
 <script>
 export default {
-  name: 'r-col',
+  name: 'rCol',
   props: {
     /**
      * 栅格的占位格数，可选值为0~24的整数，为 0 时，相当于display:none
@@ -53,7 +53,7 @@ export default {
     gutter() {
       let parent = this.$parent;
       
-      while (parent && parent.$vnode.componentOptions.Ctor.options.name !== 'r-row') {
+      while (parent && parent.$vnode.componentOptions.Ctor.options.name !== 'rRow') {
         parent = parent.$parent;
       }
       

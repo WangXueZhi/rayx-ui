@@ -12,21 +12,13 @@
 <template>
   <div class="demo-wrapper">
     <p>默认输入框</p>
-    <Input style="width: 300px" />
+    <r-input style="width: 300px" />
     <p>密码输入框</p>
-    <Input type="password" style="width: 300px" placeholder="请输入密码" />
+    <r-input type="password" style="width: 300px" placeholder="请输入密码" />
     <p>文本域</p>
-    <Input type="textarea" style="width: 300px" />
+    <r-input type="textarea" style="width: 300px" />
   </div>
 </template>
-<script>
-import { Input } from "rayx-ui";
-export default {
-  components: {
-    Input,
-  },
-};
-</script>
 ```
 
 ### 尺寸
@@ -34,19 +26,11 @@ export default {
 ```vue demo
 <template>
   <div class="demo-wrapper">
-    <Input style="width: 200px" size="big" placeholder="大" />
-    <Input style="width: 200px" placeholder="默认" />
-    <Input style="width: 200px" size="small" placeholder="小" />
+    <r-input style="width: 200px" size="big" placeholder="大" />
+    <r-input style="width: 200px" placeholder="默认" />
+    <r-input style="width: 200px" size="small" placeholder="小" />
   </div>
 </template>
-<script>
-import { Input } from "rayx-ui";
-export default {
-  components: {
-    Input,
-  },
-};
-</script>
 ```
 
 ### 输入框内前置和后置内容
@@ -54,24 +38,15 @@ export default {
 ```vue demo
 <template>
   <div class="demo-wrapper">
-    <Input style="width: 200px">
+    <r-input style="width: 200px">
       <div slot="prefix">面积</div>
       <div slot="suffix">m²</div>
-    </Input>
-    <Input style="width: 200px">
-      <Icon name="iconcanshupeizhi1" slot="prefix" />
-    </Input>
+    </r-input>
+    <r-input style="width: 200px">
+      <r-icon name="icon-email" slot="prefix" />
+    </r-input>
   </div>
 </template>
-<script>
-import { Input, Icon } from "rayx-ui";
-export default {
-  components: {
-    Input,
-    Icon,
-  },
-};
-</script>
 ```
 
 ### 输入框外前置和后置内容，组模式
@@ -80,32 +55,23 @@ export default {
 <template>
   <div class="demo-wrapper">
     <p>默认模式</p>
-    <Input style="width: 200px">
+    <r-input style="width: 200px">
       <div slot="prepend">面积</div>
       <div slot="append">m²</div>
-    </Input>
+    </r-input>
     <p>组模式</p>
-    <Input style="width: 200px" groupMode>
+    <r-input style="width: 200px" groupMode>
       <div slot="prepend">面积</div>
       <div slot="append">m²</div>
-    </Input>
-    <Input style="width: 200px" groupMode>
+    </r-input>
+    <r-input style="width: 200px" groupMode>
       <div slot="prepend">面积</div>
-    </Input>
-    <Input style="width: 200px" groupMode>
+    </r-input>
+    <r-input style="width: 200px" groupMode>
       <div slot="append">m²</div>
-    </Input>
+    </r-input>
   </div>
 </template>
-<script>
-import { Input, Icon } from "rayx-ui";
-export default {
-  components: {
-    Input,
-    Icon,
-  },
-};
-</script>
 ```
 
 ### 文字居中
@@ -113,17 +79,9 @@ export default {
 ```vue demo
 <template>
   <div class="demo-wrapper">
-    <Input style="width: 300px" textAlign="center" />
+    <r-input style="width: 300px" textAlign="center" />
   </div>
 </template>
-<script>
-import { Input } from "rayx-ui";
-export default {
-  components: {
-    Input,
-  },
-};
-</script>
 ```
 
 ### 双向绑定
@@ -131,16 +89,12 @@ export default {
 ```vue demo
 <template>
   <div class="demo-wrapper">
-    <Input style="width: 300px" v-model="inputValue" />
+    <r-input style="width: 300px" v-model="inputValue" />
     <p>{{ inputValue }}</p>
   </div>
 </template>
 <script>
-import { Input } from "rayx-ui";
 export default {
-  components: {
-    Input,
-  },
   data() {
     return {
       inputValue: 123,
@@ -158,17 +112,17 @@ export default {
     <div class="demo-input-event">
       <div>
         <p>enter</p>
-        <Input style="width: 300px" @enter="onEnter" />
+        <r-input style="width: 300px" @enter="onEnter" />
         <p>change</p>
-        <Input style="width: 300px" @change="onChange" />
+        <r-input style="width: 300px" @change="onChange" />
         <p>聚焦</p>
-        <Input style="width: 300px" @focus="onFocus" />
+        <r-input style="width: 300px" @focus="onFocus" />
         <p>失焦</p>
-        <Input style="width: 300px" @blur="onBlur" />
+        <r-input style="width: 300px" @blur="onBlur" />
         <p>清空</p>
-        <Input style="width: 300px" @clear="onClear" />
+        <r-input style="width: 300px" @clear="onClear" />
         <p>输入</p>
-        <Input style="width: 300px" @input="onInput"/>
+        <r-input style="width: 300px" @input="onInput"/>
       </div>
       <div class="demo-input-event-name">
         <p>触发事件：{{eve || '无'}}</p>
@@ -177,11 +131,7 @@ export default {
   </div>
 </template>
 <script>
-import { Input } from "rayx-ui";
 export default {
-  components: {
-    Input,
-  },
   data() {
     return {
       eve: "",
