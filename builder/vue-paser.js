@@ -60,10 +60,14 @@ const paresExportDefault = function (path, data, code, compath) {
         let v = ''
 
         // 基本数据类型
-        if(item.value && (item.value.value || item.value.value===false)){
+        // if(item.value && (item.value.value || item.value.value===false)){
+        //   v = item.value.value
+        // }
+        
+        if(item.value){
           v = item.value.value
         }
-
+        
         // 对象方法类型
         if(item.type === 'ObjectMethod'){
           for( let i = 0; i<item.body.body.length; i++){
