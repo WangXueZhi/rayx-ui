@@ -3,6 +3,7 @@ const VueLoaderPlugin = require('vue-loader').VueLoaderPlugin;
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const pkg = require('./package.json')
+const webpack = require('webpack')
 
 const nodeEnv = process.env.NODE_ENV
 const buildTarget = process.env.BUILD_TARGET
@@ -63,6 +64,10 @@ const pluginsConfig = function () {
             ],
             template: 'public/index.html',
             filename: 'index.html'
+        }))
+
+        plugins.push(new webpack.DefinePlugin({
+            PKG_VERSION: JSON.stringify(pkg.version)
         }))
     }
     return plugins

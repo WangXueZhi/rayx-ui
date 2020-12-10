@@ -3,7 +3,7 @@
     <div class="layout-header-left">
       <div class="layout-header-logo">
         <img :src="logo" />
-        rayx-ui
+        rayx-ui <span>v{{version}}</span>
       </div>
     </div>
     <div class="layout-header-right">
@@ -21,6 +21,7 @@ export default {
   data() {
     return {
       activePath: "",
+      version: PKG_VERSION
     };
   },
   props: {

@@ -19,6 +19,11 @@
         .layout-header-logo {
             display: flex;
             align-items: center;
+
+            span{
+                margin-left: 20px;
+                opacity: 0.8;
+            }
         }
     }
 
