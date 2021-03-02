@@ -13,8 +13,7 @@
     "lib": "gulp lib",
     "build": "gulp build",
     "build:all": "gulp buildAll",
-    "ts": "gulp ts",
-    "cleants": "gulp cleants"
+    "create": "gulp create"
   },
   "dependencies": {
     "axios": "^0.18.0",
