@@ -74,8 +74,12 @@ const cleanEmptyInArray = function (array) {
     return newArray;
 }
 
-// 组件名格式转换
+// kebab-case（短横线命名）转换 big camel-cased (大驼峰式)
 function cpNameTransfer(name) {
+    if(!isNaN(name) || !isNaN(name[0])){
+        console.log('error: 组件名必须是非数字并且第一个字符不能为数字');
+        return
+    }   
     let nameArr = [];
     if (name.indexOf("-") >= 0) {
         nameArr = name.split("-");
@@ -88,9 +92,25 @@ function cpNameTransfer(name) {
     return nameArr.join("");
 }
 
+// big camel-cased (大驼峰式) 转换 kebab-case（短横线命名）
+function bigCamelCaseToKebabCase(name) {
+    if(!isNaN(name) || !isNaN(name[0])){
+        console.log('error: 组件名必须是非数字并且第一个字符不能为数字');
+        return
+    }  
+    var temp = name.replace(/[A-Z]/g, function (match) {	
+		return "-" + match.toLowerCase();
+  	});
+  	if(temp.slice(0,1) === '-'){ //如果首字母是大写，去掉最前面的横线
+  		temp = temp.slice(1);
+  	}
+	return temp;
+}
+
 module.exports = {
     dirListInDir,
     rmdirSync,
     cleanEmptyInArray,
-    cpNameTransfer
+    cpNameTransfer,
+    bigCamelCaseToKebabCase
 };

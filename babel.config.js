@@ -5,9 +5,9 @@ module.exports = {
   plugins: [
     ['import', {
       libraryName: 'rayx-ui',
-      libraryDirectory: 'lib',
+      libraryDirectory: 'packages',
       style: (name) => {
-        return `${name}/${name.split('/').pop()}.css`;
+        return `${name}/${name.split('/').pop()}.scss`;
       },
     }, 'rayx-ui']
   ]
