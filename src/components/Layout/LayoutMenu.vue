@@ -24,12 +24,12 @@
           class="layout-menu-item"
           :class="{'layout-menu-item-active':currentPath==='/development/component'}"
           @click="docChange('/development/component')"
-        >组件编写规范</div>
+        >组件编写说明</div>
         <div
           class="layout-menu-item"
           :class="{'layout-menu-item-active':currentPath==='/development/md'}"
           @click="docChange('/development/md')"
-        >markdown编写规范</div>
+        >markdown编写说明</div>
       </div>
       <div v-if="currentPath.indexOf('/architecture/')===0">
         <div

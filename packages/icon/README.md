@@ -6,6 +6,8 @@
 
 ## 示例
 
+svg 模式，支持多色，不支持颜色修改
+
 ```vue demo
 <template>
   <div class="demo-wrapper">
@@ -19,9 +21,25 @@
 </style>
 ```
 
+font-class 模式，支持样式自定义颜色
+
+```vue demo
+<template>
+  <div class="demo-wrapper">
+    <r-icon name="icon-email" class="demo-icon" mode="font-class" />
+  </div>
+</template>
+<style>
+.demo-icon {
+  font-size: 25px;
+  color: red;
+}
+</style>
+```
+
 ## 所有图标
 
-```vue run
+```vue demo hidecode
 <template>
   <div class="demo-wrapper">
     <div class="demo-wrapper-all-icons-search">

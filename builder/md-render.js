@@ -44,23 +44,16 @@ module.exports = function (mdContent) {
             <div class="ra-docs-demo-comps">
                 <demo${demoIndex}></demo${demoIndex}>
             </div>
-            <div class="ra-docs-demo-code" :class="{showCode: demoControlShowCode[${demoIndex}] && !!demoControlShowCode[${demoIndex}].show}">
-                ${defaultFenceRender(tokens, idx, options, env, self)}
-            </div>
-            <div class="ra-docs-demo-control" @click="demoControlShowCodeTotgal(${demoIndex})">
-                {{demoControlShowCode[${demoIndex}] && demoControlShowCode[${demoIndex}].show?'隐藏代码':'显示代码'}}
-            </div>
-        </div>`
-
-            demoImportArr.push(`import demo${demoIndex} from "./demo${demoIndex}.vue";`)
-            demoComponentsArr.push(`demo${demoIndex}`)
-            demoCodeArr.push(tokens[idx].content)
-            demoIndex++
-        } else if (token.info.includes(' run') || token.info.includes('run ')) {
-            text = `<div class="ra-docs-demo-examp">
-            <div class="ra-docs-demo-comps">
-                <demo${demoIndex}></demo${demoIndex}>
-            </div>
+            ${
+                (token.info.includes(' hidecode') || token.info.includes('hidecode ')) ? 
+                '' : 
+                `<div class="ra-docs-demo-code" :class="{showCode: demoControlShowCode[${demoIndex}] && !!demoControlShowCode[${demoIndex}].show}">
+                    ${defaultFenceRender(tokens, idx, options, env, self)}
+                </div>
+                <div class="ra-docs-demo-control" @click="demoControlShowCodeTotgal(${demoIndex})">
+                    {{demoControlShowCode[${demoIndex}] && demoControlShowCode[${demoIndex}].show?'隐藏代码':'显示代码'}}
+                </div>`
+            }
         </div>`
 
             demoImportArr.push(`import demo${demoIndex} from "./demo${demoIndex}.vue";`)
