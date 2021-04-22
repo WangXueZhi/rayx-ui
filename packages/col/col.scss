@@ -1,5 +1,9 @@
 @import '../styles/var.scss';
 
+.r-col {
+  min-height: 1px;
+}
+
 [class*="r-col-"] {
     float: left;
     box-sizing: border-box;
