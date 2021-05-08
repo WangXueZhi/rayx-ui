@@ -1,4 +1,4 @@
-import Col from "./col";
+import Col from './col.vue'
 
 // 为组件提供 install 安装方法，供按需引入
 Col.install = function (Vue) {

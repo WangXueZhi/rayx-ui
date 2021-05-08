@@ -13,6 +13,7 @@
     "lib": "gulp lib",
     "build": "gulp build",
     "build:all": "gulp buildAll",
+    "prepublish": "gulp buildAll",
     "create": "gulp create"
   },
   "dependencies": {
