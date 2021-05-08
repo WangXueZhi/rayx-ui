@@ -12,7 +12,7 @@
     .r-scrollbar__bar {
         position: absolute;
         right: 2px;
-        bottom: 2px;
+        bottom: 0;
         z-index: 1;
         border-radius: 4px;
         opacity: 0;
@@ -29,7 +29,7 @@
 
         &.is-vertical {
             width: 6px;
-            top: 2px;
+            top: 0;
 
             &>div {
                 width: 100%;
@@ -39,23 +39,15 @@
         .r-scrollbar__thumb {
             position: relative;
             display: block;
-            width: 0;
-            height: 0;
-            cursor: pointer;
-            border-radius: inherit;
+            border-radius: 4px;
             background-color: rgba(144, 147, 153, .3);
             transition: background-color .3s;
         }
-    }
 
-    &:hover {
-        &.r-scrollbar-needShowBar {
-            .r-scrollbar__bar {
-                opacity: 1;
-
-                .r-scrollbar__thumb {
-                    background-color: rgba(144, 147, 153, .5);
-                }
+        &.r-scrollbar__bar__show{
+            opacity: 1;
+            .r-scrollbar__thumb {
+                background-color: rgba(144, 147, 153, .5);
             }
         }
     }

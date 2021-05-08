@@ -20,7 +20,7 @@
             display: flex;
             align-items: center;
 
-            span{
+            span {
                 margin-left: 20px;
                 opacity: 0.8;
             }
@@ -50,9 +50,8 @@
 .layout-menu {
     width: 13%;
     position: fixed !important;
-    top: 0;
+    top: 65px;
     bottom: 0;
-    margin-top: 65px;
     border-right: 1px solid #f0f0f0;
     background-color: #fff;
 

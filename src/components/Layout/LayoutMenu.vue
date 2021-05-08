@@ -53,30 +53,30 @@
 </template>
 
 <script>
-import { ScrollBar } from "rayx-ui";
-import LayoutMenuComponents from "./LayoutMenuComponents.vue";
+import { ScrollBar } from 'rayx-ui'
+import LayoutMenuComponents from './LayoutMenuComponents.vue'
 
 export default {
-  name: "LayoutMenu",
+  name: 'LayoutMenu',
   components: { ScrollBar, LayoutMenuComponents },
-  data() {
+  data () {
     return {
-      currentPath: "",
-    };
+      currentPath: ''
+    }
   },
-  mounted() {
-    this.currentPath = this.$router.history.current.path;
+  mounted () {
+    this.currentPath = this.$router.history.current.path
   },
   methods: {
-    docChange(path) {
-      this.$router.push(path);
-    },
+    docChange (path) {
+      this.$router.push(path)
+    }
   },
   watch: {
-    $route(to, from) {
-      console.log(to.path);
-      this.currentPath = to.path;
-    },
-  },
-};
+    $route (to, from) {
+      console.log(to.path)
+      this.currentPath = to.path
+    }
+  }
+}
 </script>

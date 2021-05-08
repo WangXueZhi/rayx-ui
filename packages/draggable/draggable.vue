@@ -17,18 +17,28 @@ export default {
       type: Function,
       default: null
     },
+    // 位移X，值改变会触发moveChange规则
+    translateX: {
+      type: Number,
+      default: 0
+    },
+    // 位移Y, 值改变会触发moveChange规则
+    translateY: {
+      type: Number,
+      default: 0
+    }
   },
-  data() {
+  data () {
     return {
       left: 0,
-      top: 0,
+      top: 0
     }
   },
   computed: {},
   methods: {
-    mouseUp() {},
-    onMouseDown(e) {
-      //鼠标起始位置
+    mouseUp () {},
+    onMouseDown (e) {
+      // 鼠标起始位置
       const mX = e.clientX
       const mY = e.clientY
 
@@ -36,7 +46,7 @@ export default {
       const originTop = this.top
 
       const mouseMove = (e) => {
-        //计算鼠标的位移
+        // 计算鼠标的位移
         const mleft = e.clientX - mX
         const mtop = e.clientY - mY
         // 计算元素的位移
@@ -52,13 +62,11 @@ export default {
           ? this.moveChange(moveData)
           : moveData
 
-          console.log(moveData)
-
         if (typeof moveData === 'object') {
-          if(!moveData.left && moveData.left != 0){
+          if (!moveData.left && moveData.left !== 0) {
             throw new Error('偏移信息缺少 left 属性')
           }
-          if(!moveData.top && moveData.top != 0){
+          if (!moveData.top && moveData.top !== 0) {
             throw new Error('偏移信息缺少 top 属性')
           }
           this.left = moveData.left
@@ -75,8 +83,32 @@ export default {
       document.addEventListener('mouseup', mouseUp)
 
       return false
-    },
+    }
   },
-  mounted() {},
+  mounted () {},
+  watch: {
+    translateX (newV, oldV) {
+      if (this.moveChange) {
+        const { left } = this.moveChange({
+          left: newV,
+          top: this.top
+        })
+        this.left = left
+      } else {
+        this.left = newV
+      }
+    },
+    translateY (newV, oldV) {
+      if (this.moveChange) {
+        const { top } = this.moveChange({
+          left: this.left,
+          top: newV
+        })
+        this.top = top
+      } else {
+        this.top = newV
+      }
+    }
+  }
 }
 </script>
