@@ -17,12 +17,16 @@ export default {
       type: Function,
       default: null
     },
-    // 位移X，值改变会触发moveChange规则
+    /**
+     * 位移X，值改变会触发moveChange规则
+     */
     translateX: {
       type: Number,
       default: 0
     },
-    // 位移Y, 值改变会触发moveChange规则
+    /**
+     * 位移Y, 值改变会触发moveChange规则
+     */
     translateY: {
       type: Number,
       default: 0
