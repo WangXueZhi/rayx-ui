@@ -84,6 +84,7 @@ export default {
     },
     mouseenter () {
       this.mouseenterState = true
+      this.initScrollBarState()
     },
     mouseleave () {
       this.mouseenterState = false
@@ -96,8 +97,11 @@ export default {
       if (top > this.$refs.scrollbar_wrap.clientHeight - this.scrollBarHeight) {
         top = this.$refs.scrollbar_wrap.clientHeight - this.scrollBarHeight
       }
-      const scrollTop = top / (this.$refs.scrollbar_wrap.clientHeight - this.scrollBarHeight) * (this.$refs.scrollbar_wrap.scrollHeight -
-            this.$refs.scrollbar_wrap.clientHeight)
+      const scrollTop =
+        (top /
+          (this.$refs.scrollbar_wrap.clientHeight - this.scrollBarHeight)) *
+        (this.$refs.scrollbar_wrap.scrollHeight -
+          this.$refs.scrollbar_wrap.clientHeight)
       this.$refs.scrollbar_wrap.scrollTop = scrollTop
 
       return {
@@ -119,6 +123,9 @@ export default {
         (this.$refs.scrollbar_wrap.clientHeight /
           this.$refs.scrollbar_wrap.scrollHeight) *
         this.$refs.scrollbar_wrap.clientHeight
+      this.setNeedShowBar()
+    },
+    setNeedShowBar () {
       this.needShowBar =
         this.$refs.scrollbar_wrap.clientHeight !==
         this.$refs.scrollbar_wrap.scrollHeight
