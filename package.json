@@ -116,6 +116,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://gitee.com/GeBiLaoWan/rayx-vue-components-lib.git"
-  }
+    "url": "https://gitee.com/GeBiLaoWan/rayx-ui-vue.git"
+  },
+  "homepage": "https://wangxuezhi.github.io/rayx-ui/#/"
 }
