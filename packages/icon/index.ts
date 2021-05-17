@@ -1,4 +1,5 @@
 import Icon from './icon.vue'
+import { App } from "vue";
 // import './iconfont'
 
 // 加载在线资源
@@ -34,10 +35,8 @@ Icon.loadStyle = function () {
   }
 }
 
-// 为组件提供 install 安装方法，供按需引入
-Icon.install = function (Vue) {
-  Vue.component(Icon.name, Icon)
-  // Icon.loadScript();
+Icon.install = function (app: App) {
+  app.component(Icon.name, Icon)
 }
 
 window.R_ICON_FONT_COMPONENT = Icon

@@ -3,10 +3,10 @@
     class="ra-button"
     @click="click"
     :class="{
-      [`ra-button-${colorType}`]:colorType!=='default',
-      [`ra-button-${type}`]:type!=='default',
+      [`ra-button-${colorType}`]: colorType !== 'default',
+      [`ra-button-${type}`]: type !== 'default',
       'ra-button-circle': circle,
-      'ra-button-disabled': disabled
+      'ra-button-disabled': disabled,
     }"
   >
     <slot></slot>
@@ -21,36 +21,36 @@ export default {
      */
     colorType: {
       type: String,
-      default: 'default',
+      default: 'default'
     },
     /**
      * 按钮类型：default | ghost | dashed
      */
     type: {
       type: String,
-      default: 'default',
+      default: 'default'
     },
     /**
      * 最大圆角
      */
     circle: {
       type: Boolean,
-      default: false,
+      default: false
     },
     /**
      * 禁用
      */
     disabled: {
       type: Boolean,
-      default: false,
+      default: false
     }
   },
   methods: {
-    click() {
+    click () {
       if (!this.disabled) {
         this.$emit('click')
       }
-    },
-  },
+    }
+  }
 }
 </script>

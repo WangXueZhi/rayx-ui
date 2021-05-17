@@ -20,29 +20,29 @@ export default {
      */
     name: {
       type: String,
-      default: '',
+      default: ''
     },
     /**
      * 尺寸
      */
     size: {
       type: Number,
-      default: 16,
+      default: 16
     },
     /**
      * 模式，svg | font-class
      */
     mode: {
       type: String,
-      default: 'svg',
-    },
+      default: 'svg'
+    }
   },
-  created() {
+  created () {
     if (this.mode === 'svg') {
       window.R_ICON_FONT_COMPONENT.loadScript()
     } else {
       window.R_ICON_FONT_COMPONENT.loadStyle()
     }
-  },
+  }
 }
 </script>

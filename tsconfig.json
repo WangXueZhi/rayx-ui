@@ -19,7 +19,6 @@
     "noImplicitAny": true,
     "experimentalDecorators": true,
     "sourceMap": true,
-    "baseUrl": "./packages-ts",
     "types": ["webpack-env", "jest"],
     "paths": {
       "@/*": ["./*"]
@@ -32,7 +31,8 @@
     "packages-ts/**/*.tsx",
     "packages-ts/**/*.vue",
     "packages/**/*.vue",
-    "file.ts"
+    "packages/**/*.ts",
+    "packages/**/*.tsx"
   ],
   "exclude": ["node_modules"]
 }

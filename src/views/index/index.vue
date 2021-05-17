@@ -23,32 +23,32 @@
 </template>
 
 <script>
-import { Button } from "rayx-ui";
-import VueMarkdown from "@/components/VueMarkdown";
-import start from "./start.md";
+import { Button } from 'rayx-ui'
+import VueMarkdown from '@/components/VueMarkdown'
+import start from './start.md'
 export default {
-  name: "views.index",
+  name: 'views.index',
   components: {
     Button,
-    VueMarkdown,
+    VueMarkdown
   },
-  data() {
+  data () {
     return {
-      start: start,
-    };
+      start: start
+    }
   },
   methods: {
-    componentDoc() {
-      this.$router.push("/docs/start");
+    componentDoc () {
+      this.$router.push('/docs/start')
     },
-    developmentDoc() {
-      this.$router.push("/development/base");
+    developmentDoc () {
+      this.$router.push('/development/base')
     },
-    architectureDoc() {
-      this.$router.push("/architecture/base");
-    },
-  },
-};
+    architectureDoc () {
+      this.$router.push('/architecture/base')
+    }
+  }
+}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
@@ -92,7 +92,7 @@ export default {
     .home-markdown-title{
       font-size: 23px;
       text-align: center;
-      
+
       margin: 20px 0;
     }
   }

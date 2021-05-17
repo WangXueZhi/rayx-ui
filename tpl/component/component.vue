@@ -10,15 +10,15 @@ export default {
      */
     props1: {
       type: String,
-      default: 'default',
+      default: 'default'
     }
   },
   methods: {
-    click() {
+    click () {
       if (!this.disabled) {
         this.$emit('click')
       }
-    },
-  },
+    }
+  }
 }
 </script>

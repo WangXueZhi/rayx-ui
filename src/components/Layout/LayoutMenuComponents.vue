@@ -23,7 +23,7 @@ export default {
   },
   data() {
     return {
-      list: [{"type":"基础","list":["button","grid","icon"]},{"type":"交互","list":["draggable"]},{"type":"表单","list":["input"]},{"type":"通用","list":["scroll-bar"]}],
+      list: [{"type":"基础","list":["button","icon"]},{"type":"交互","list":["draggable"]},{"type":"表单","list":["input"]},{"type":"通用","list":["scroll-bar"]}],
       currentPath: "",
     };
   },
