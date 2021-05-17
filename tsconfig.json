@@ -32,7 +32,10 @@
     "packages-ts/**/*.vue",
     "packages/**/*.vue",
     "packages/**/*.ts",
-    "packages/**/*.tsx"
+    "packages/**/*.tsx",
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "src/**/*.vue"
   ],
   "exclude": ["node_modules"]
 }

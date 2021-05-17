@@ -5,10 +5,10 @@
 </template>
 
 <script>
-import 'highlight.js/styles/color-brewer.css'
+import { defineComponent } from 'vue'
+// import 'highlight.js/styles/color-brewer.css'
 
-export default {
-  components: {
-  }
-}
+export default defineComponent({
+
+})
 </script>

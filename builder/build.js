@@ -82,7 +82,7 @@ const TPL_PATH_DOC = path.resolve(__dirname, '../tpl/doc.vue')
 const TPL_PATH_ROUTER = path.resolve(__dirname, '../tpl/router.js')
 const TPL_PATH_COMPONENTS_LIST = path.resolve(__dirname, '../tpl/LayoutMenuComponents.vue')
 const TPL_PATH_WEBPACK_COMPONENTS_ENTRYS = path.resolve(__dirname, '../tpl/webpack.components.entrys.js')
-const TPL_PATH_PACKAGE_INDEX = path.resolve(__dirname, '../tpl/package.index.ts')
+const TPL_PATH_PACKAGE_INDEX = path.resolve(__dirname, '../tpl/package.index.js')
 const TPL_PATH_PACKAGE_INDEX_STYLE = path.resolve(__dirname, '../tpl/package.style.scss')
 
 const BUILD_PATH_ROUTERS = path.resolve(__dirname, '../src/router/componentsRouters.js')

@@ -1,10 +1,9 @@
 __PACKAGE_IMPORT_LIST__
 const components = [__PACKAGE_COMPONENTS_LIST__]
 
-const install = function (Vue) {
-  if (install.installed) return
+const install = function (app) {
   components.map(component => {
-    Vue.use(component)
+    app.component(component.name, component)
   })
 }
 //  全局引用可自动安装
