@@ -10,9 +10,9 @@
         <br />开箱即用的组件库脚手架
       </div>
       <div class="ui-button">
-        <!-- <Button colorType="primary" type="ghost" circle @click="componentDoc">组件文档</Button>
+        <Button colorType="primary" type="ghost" circle @click="componentDoc">组件文档</Button>
         <Button colorType="primary" type="ghost" circle @click="architectureDoc">脚手架说明</Button>
-        <Button colorType="primary" type="ghost" circle @click="developmentDoc">组件开发</Button> -->
+        <Button colorType="primary" type="ghost" circle @click="developmentDoc">组件开发</Button>
       </div>
     </div>
     <div class="home-markdown">
@@ -23,13 +23,13 @@
 </template>
 
 <script>
-// import { Button } from 'rayx-ui'
+import { Button } from 'rayx-ui'
 import VueMarkdown from '@/components/VueMarkdown'
 import start from './start.md'
 export default {
   name: 'views.index',
   components: {
-    // Button,
+    Button,
     VueMarkdown
   },
   data () {

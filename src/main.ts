@@ -4,15 +4,11 @@ import router from './router'
 import store from './store'
 import './app.scss'
 
-import fun from '../packages/test';
-
-fun();
-
 // import NProgress from 'nprogress'
 // import 'nprogress/nprogress.css'
 
-// import RayxUi from '../packages'
-// import '../packages/index.scss'
+import RayxUi from '../packages'
+import '../packages/index.scss'
 
 // 配置NProgress进度条选项  —— 动画效果
 // NProgress.configure({ ease: 'ease', speed: 500 })
@@ -37,7 +33,7 @@ router.afterEach(transition => {
 // Vue.config.productionTip = false
 
 const app = createApp(App)
-// app.use(RayxUi)
+app.use(RayxUi)
 app.use(router)
 app.use(store)
 app.mount('#app')

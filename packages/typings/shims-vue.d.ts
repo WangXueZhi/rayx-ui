@@ -7,7 +7,7 @@ declare module '*.vue' {
 // declare module '*.vue' {
 //   import { App, defineComponent } from 'vue'
 //   const component: ReturnType<typeof defineComponent> & {
-//     install(app: App): void,
+//     install(app: App): void;
 //     name: string
 //   }
 //   export default component

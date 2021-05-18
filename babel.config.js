@@ -16,6 +16,21 @@ module.exports = {
       style: (name) => {
         return `${name}/${name.split('/').pop()}.scss`
       }
-    }, 'rayx-ui']
+    }, 'rayx-ui'],
+    // @babel/plugin-proposal-decorators 和 @babel/plugin-proposal-class-properties 让项目中可以使用装饰器写法，但是Vue3中一般也不使用了
+    ['@babel/plugin-proposal-decorators', { // 装饰器插件
+      legacy: true
+    }],
+    '@babel/plugin-proposal-class-properties', // 类属性插件
+    [
+      '@babel/plugin-transform-runtime', // 利用runtime做helpers跟regenerator设置
+      {
+        corejs: false,
+        helpers: true,
+        useESModules: false,
+        regenerator: true,
+        absoluteRuntime: './node_modules'
+      }
+    ]
   ]
 }
