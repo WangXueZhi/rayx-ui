@@ -10,7 +10,7 @@ const getComponentsData = function () {
   const files = fs.readdirSync('./packages')
   for (let i = 0; i < files.length; i++) {
     const stats = fs.statSync('./packages/' + files[i])
-    if (stats.isDirectory() && files[i] !== 'styles') {
+    if (stats.isDirectory() && files[i] !== 'styles' && files[i] !== 'typings') {
       let compData = {
         fname: files[i]
       }

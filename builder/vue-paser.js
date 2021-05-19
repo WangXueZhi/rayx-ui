@@ -25,7 +25,6 @@ const parseBinaryExpression = function (node) {
 }
 
 const paresExportDefault = function (path, data, code, compath) {
-  
   if (path.node.type === 'ObjectProperty' && path.node.key.name === 'name' && !isProps) {
     data.cname = path.node.value.value
   }
@@ -48,33 +47,32 @@ const paresExportDefault = function (path, data, code, compath) {
       k.default = code.slice(path.node.value.start, path.node.value.end).replace(/\s/g, '')
     }
 
-    if(path.node.value.value){
+    if (path.node.value.value) {
       k.default = path.node.value.value
       k.type = typeof path.node.value.value
     }
-    
+
     // 对象类型
     if (path.node.value.type === 'ObjectExpression') {
       path.node.value.properties.forEach(item => {
-
         let v = ''
 
         // 基本数据类型
         // if(item.value && (item.value.value || item.value.value===false)){
         //   v = item.value.value
         // }
-        
-        if(item.value){
+
+        if (item.value) {
           v = item.value.value
         }
-        
+
         // 对象方法类型
-        if(item.type === 'ObjectMethod'){
-          for( let i = 0; i<item.body.body.length; i++){
+        if (item.type === 'ObjectMethod') {
+          for (let i = 0; i < item.body.body.length; i++) {
             const subItem = item.body.body[i]
-            if(subItem.type === 'ReturnStatement'){
+            if (subItem.type === 'ReturnStatement') {
               v = code.slice(subItem.argument.start, subItem.argument.end).replace(/\s/g, '').replace(/\|/g, '&#124;')
-              break;
+              break
             }
           }
         }
@@ -93,24 +91,22 @@ const paresExportDefault = function (path, data, code, compath) {
         }
         // 箭头函数类型
         if (item.value && item.value.type === 'ArrowFunctionExpression') {
-          for( let i = 0; i<item.value.body.body.length; i++){
+          for (let i = 0; i < item.value.body.body.length; i++) {
             const subItem = item.value.body.body[i]
-            if(subItem.type === 'ReturnStatement'){
+            if (subItem.type === 'ReturnStatement') {
               v = code.slice(subItem.argument.start, subItem.argument.end).replace(/\s/g, '')
-              break;
+              break
             }
           }
         }
 
         k[item.key.name] = v
 
-        k['default'] = k['default'] === undefined ? '未定义' : k['default']
+        k.default = k.default === undefined ? '未定义' : k.default
       })
     }
     data.props.push(k)
   }
-
-  
 
   // 方法
   if (isMethods === true && (path.node.type === 'ObjectMethod' || path.node.type === 'ObjectProperty') && commentBlock) {
@@ -151,7 +147,7 @@ const doAst = function (code, compath) {
   })
 
   traverse(ast, {
-    enter(path) {
+    enter (path) {
       // 默认导出为对象表达式，直接解析
       if (isExportDefaultDeclaration === true && defaultExportType === 'ObjectExpression') {
         // console.log('cname: >>>>>>>> ',data.cname)
@@ -166,7 +162,7 @@ const doAst = function (code, compath) {
         defaultExportType = path.node.declaration.type
       }
     },
-    exit(path) {
+    exit (path) {
       // 结束-默认导出为对象表达式
       if (isExportDefaultDeclaration === true && defaultExportType === 'ObjectExpression') {
         if (path.node.type === 'ExportDefaultDeclaration') {

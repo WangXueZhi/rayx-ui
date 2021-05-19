@@ -17,26 +17,26 @@
 
 <script>
 export default {
-  name: "LayoutMenuComponents",
-  mounted() {
-    this.currentPath = this.$router.history.current.path;
+  name: 'LayoutMenuComponents',
+  mounted () {
+    this.currentPath = this.$router.history.current.path
   },
-  data() {
+  data () {
     return {
       list: __LIST_DATA__,
-      currentPath: "",
-    };
+      currentPath: ''
+    }
   },
   methods: {
-    docChange(componentName) {
-      this.$router.push(componentName);
-    },
+    docChange (componentName) {
+      this.$router.push(componentName)
+    }
   },
   watch: {
-    $route(to, from) {
-      console.log(to.path);
-      this.currentPath = to.path;
-    },
-  },
-};
+    $route (to, from) {
+      console.log(to.path)
+      this.currentPath = to.path
+    }
+  }
+}
 </script>

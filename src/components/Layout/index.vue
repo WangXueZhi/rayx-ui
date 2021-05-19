@@ -1,26 +1,25 @@
 <template>
   <div class="layout-app">
-    layput
-    <!-- <LayoutHeader :logo="logo" />
+    <LayoutHeader :logo="logo" />
     <LayoutMenu />
     <LayoutWrapper>
       <router-view />
-    </LayoutWrapper> -->
+    </LayoutWrapper>
   </div>
 </template>
 
 <script>
-// import LayoutHeader from './LayoutHeader'
-// import LayoutWrapper from './LayoutWrapper'
-// import LayoutMenu from './LayoutMenu'
+import LayoutHeader from './LayoutHeader'
+import LayoutWrapper from './LayoutWrapper'
+import LayoutMenu from './LayoutMenu'
 import './index.scss'
 
 export default {
   name: 'Layout',
   components: {
-    // LayoutHeader,
-    // LayoutWrapper,
-    // LayoutMenu
+    LayoutHeader,
+    LayoutWrapper,
+    LayoutMenu
   },
   props: {
     logo: {

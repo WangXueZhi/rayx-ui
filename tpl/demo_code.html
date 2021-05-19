@@ -5,7 +5,8 @@
         <div class="ra-docs-demo-comps">
             <demo__DEMO_NUM__></demo__DEMO_NUM__>
         </div>
-        <div class="ra-docs-demo-code" :class="{showCode: demoControlShowCode[__DEMO_NUM__] && !!demoControlShowCode[__DEMO_NUM__].show}">
+        <div class="ra-docs-demo-code"
+            :class="{showCode: demoControlShowCode[__DEMO_NUM__] && !!demoControlShowCode[__DEMO_NUM__].show}">
             <pre><code class="html hljs xml" v-html="demosData[__DEMO_NUM__].code"></code></pre>
         </div>
         <div class="ra-docs-demo-control" @click="demoControlShowCodeTotgal(__DEMO_NUM__)">
