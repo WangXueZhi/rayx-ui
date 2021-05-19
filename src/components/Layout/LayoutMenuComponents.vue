@@ -16,10 +16,15 @@
 </template>
 
 <script>
-export default {
+import {
+  useRouter
+} from 'vue-router'
+import { defineComponent } from 'vue'
+export default defineComponent({
   name: 'LayoutMenuComponents',
   mounted () {
-    this.currentPath = this.$router.history.current.path
+    console.log(123)
+    // this.currentPath = this.$router.history.current.path
   },
   data () {
     return {
@@ -37,6 +42,14 @@ export default {
       console.log(to.path)
       this.currentPath = to.path
     }
+  },
+  setup () {
+    console.log(123)
+    const router = useRouter()
+    console.log(router)
+    return {
+      // currentPath: computed(() => router.history)
+    }
   }
-}
+})
 </script>

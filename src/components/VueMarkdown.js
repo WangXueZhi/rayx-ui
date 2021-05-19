@@ -240,9 +240,7 @@ export default {
         class: {
           'ra-docs-wrapper': true
         },
-        domProps: {
-          innerHTML: outHtml
-        }
+        innerHTML: outHtml
       }
     )
   },
@@ -251,7 +249,7 @@ export default {
     if (this.$slots.default) {
       this.sourceData = ''
       for (const slot of this.$slots.default()) {
-        this.sourceData += slot.text
+        this.sourceData += slot.children
       }
     }
 
