@@ -16,27 +16,27 @@
 </template>
 
 <script>
-export default {
+import { defineComponent, computed } from 'vue'
+import {
+  useRouter
+} from 'vue-router'
+
+export default defineComponent({
   name: 'LayoutMenuComponents',
-  mounted () {
-    this.currentPath = this.$router.history.current.path
-  },
   data () {
     return {
-      list: __LIST_DATA__,
-      currentPath: ''
+      list: __LIST_DATA__
     }
   },
-  methods: {
-    docChange (componentName) {
-      this.$router.push(componentName)
+  setup: () => {
+    const router = useRouter()
+    const docChange = function (path) {
+      router.push(path)
     }
-  },
-  watch: {
-    $route (to, from) {
-      console.log(to.path)
-      this.currentPath = to.path
+    return {
+      currentPath: computed(() => router.currentRoute.value.path),
+      docChange
     }
   }
-}
+})
 </script>

@@ -16,39 +16,26 @@
 </template>
 
 <script>
+import { defineComponent, computed } from 'vue'
 import {
   useRouter
 } from 'vue-router'
-import { defineComponent } from 'vue'
+
 export default defineComponent({
   name: 'LayoutMenuComponents',
-  mounted () {
-    console.log(123)
-    // this.currentPath = this.$router.history.current.path
-  },
   data () {
     return {
-      list: [{ type: '基础', list: ['button', 'icon'] }, { type: '交互', list: ['draggable'] }, { type: '表单', list: ['input'] }, { type: '通用', list: ['scroll-bar'] }],
-      currentPath: ''
+      list: [{"type":"基础","list":["button","grid","icon"]},{"type":"交互","list":["draggable"]},{"type":"表单","list":["input"]},{"type":"通用","list":["scroll-bar"]}]
     }
   },
-  methods: {
-    docChange (componentName) {
-      this.$router.push(componentName)
-    }
-  },
-  watch: {
-    $route (to, from) {
-      console.log(to.path)
-      this.currentPath = to.path
-    }
-  },
-  setup () {
-    console.log(123)
+  setup: () => {
     const router = useRouter()
-    console.log(router)
+    const docChange = function (path) {
+      router.push(path)
+    }
     return {
-      // currentPath: computed(() => router.history)
+      currentPath: computed(() => router.currentRoute.value.path),
+      docChange
     }
   }
 })

@@ -31,21 +31,21 @@ export default {
      * 栅格左侧的间隔格数，间隔内不可以有栅格
      */
     offset: {
-      type: Number | String,
+      type: [Number, String],
       default: ''
     },
     /**
      * 栅格向右移动格数
      */
     push: {
-      type: Number | String,
+      type: [Number, String],
       default: ''
     },
     /**
      * 栅格向左移动格数
      */
     pull: {
-      type: Number | String,
+      type: [Number, String],
       default: ''
     }
   },
@@ -53,7 +53,7 @@ export default {
     gutter () {
       let parent = this.$parent
 
-      while (parent && parent.$vnode.componentOptions.Ctor.options.name !== 'rRow') {
+      while (parent && parent.$options.name !== 'rRow') {
         parent = parent.$parent
       }
 
