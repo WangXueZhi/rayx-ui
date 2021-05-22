@@ -26,21 +26,6 @@ export default {
       type: String,
       default: ''
     }
-  },
-  data: function () {
-    return {
-
-    }
-  },
-  methods: {
-
-  },
-  mounted () {
-
   }
 }
 </script>
-
-<style lang="scss">
-
-</style>
