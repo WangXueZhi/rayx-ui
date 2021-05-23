@@ -136,7 +136,7 @@ const addMenuComponentsListData = function (sourceArr, data) {
 
 const build = function (cb) {
   const datas = getComponentsData()
-  // console.log(datas)
+  // console.log(datas[0])
   // return
 
   const routersContent = [] // 组件路由数组
@@ -148,6 +148,7 @@ const build = function (cb) {
   let menuComponentsListData = [] // 组件列表数据
 
   datas.forEach(item => {
+    // console.log(item)
     if (item.cname) {
       // webpack构建入口
       webpackComponentsList.push(`    '${item.fname}': './packages/${item.fname}/index.ts',`)
@@ -207,6 +208,8 @@ const build = function (cb) {
     // // 美化示例代码
     // const butifyedExamples = beautifyExampleCode(item.examples)
   })
+
+  // console.log(package_index_imports_style)
 
   // package组件入口
   replaceTplAndBuildToTarget(TPL_PATH_PACKAGE_INDEX, [{

@@ -25,36 +25,46 @@ const parseBinaryExpression = function (node) {
 }
 
 const paresExportDefault = function (path, data, code, compath) {
-  if (path.node.type === 'ObjectProperty' && path.node.key.name === 'name' && !isProps) {
-    data.cname = path.node.value.value
+  // if(compath.includes('button.vue')){
+  //       console.log(path.node.)
+  //     }
+  let pathNode = path.node
+
+  if(path.node.type === 'CallExpression' && path.node.callee && path.node.callee.name === 'defineComponent'){
+    pathNode = path.node.arguments[0]
+    console.log(pathNode)
   }
 
-  const commentBlock = getCommentBlockItem(path.node.leadingComments)
+  if (pathNode.type === 'ObjectProperty' && pathNode.key.name === 'name' && !isProps) {
+    data.cname = pathNode.value.value
+  }
+
+  const commentBlock = getCommentBlockItem(pathNode.leadingComments)
 
   // 属性
-  if (isProps === true && path.type !== 'Identifier' && path.node.key && commentBlock) {
+  if (isProps === true && path.type !== 'Identifier' && pathNode.key && commentBlock) {
     const k = {}
     k.comment = commentBlock.value.replace(/\s|\*/g, '').replace(/\|/g, '&#124;')
-    k.name = path.node.key.name
+    k.name = pathNode.key.name
 
     // 定义类型
-    if (path.node.value.type === 'Identifier') {
-      k.type = path.node.value.name
+    if (pathNode.value.type === 'Identifier') {
+      k.type = pathNode.value.name
     }
 
-    if (path.node.value.type === 'ArrayExpression') {
+    if (pathNode.value.type === 'ArrayExpression') {
       k.type = 'Array'
-      k.default = code.slice(path.node.value.start, path.node.value.end).replace(/\s/g, '')
+      k.default = code.slice(pathNode.value.start, pathNode.value.end).replace(/\s/g, '')
     }
 
-    if (path.node.value.value) {
-      k.default = path.node.value.value
-      k.type = typeof path.node.value.value
+    if (pathNode.value.value) {
+      k.default = pathNode.value.value
+      k.type = typeof pathNode.value.value
     }
 
     // 对象类型
-    if (path.node.value.type === 'ObjectExpression') {
-      path.node.value.properties.forEach(item => {
+    if (pathNode.value.type === 'ObjectExpression') {
+      pathNode.value.properties.forEach(item => {
         let v = ''
 
         // 基本数据类型
@@ -109,17 +119,17 @@ const paresExportDefault = function (path, data, code, compath) {
   }
 
   // 方法
-  if (isMethods === true && (path.node.type === 'ObjectMethod' || path.node.type === 'ObjectProperty') && commentBlock) {
+  if (isMethods === true && (pathNode.type === 'ObjectMethod' || pathNode.type === 'ObjectProperty') && commentBlock) {
     const k = {}
     k.comment = commentBlock.value.replace(/\s|\*/g, '')
-    k.name = path.node.key.name
+    k.name = pathNode.key.name
     data.methods.push(k)
   }
 
-  if (path.node.type === 'ObjectProperty' && path.node.key.name === 'props') {
+  if (pathNode.type === 'ObjectProperty' && pathNode.key.name === 'props') {
     isProps = true
   }
-  if (path.node.type === 'ObjectProperty' && path.node.key.name === 'methods') {
+  if (pathNode.type === 'ObjectProperty' && pathNode.key.name === 'methods') {
     isMethods = true
   }
 }
@@ -135,7 +145,7 @@ const getCommentBlockItem = function (leadingComments) {
 }
 
 const doAst = function (code, compath) {
-  console.log(compath)
+  // console.log(compath, compath.includes('button.vue'))
   const data = {
     cname: '',
     props: [],
@@ -148,13 +158,16 @@ const doAst = function (code, compath) {
 
   traverse(ast, {
     enter (path) {
+      // if(compath.includes('button.vue')){
+      //   console.log(path.node)
+      // }
       // 默认导出为对象表达式，直接解析
-      if (isExportDefaultDeclaration === true && defaultExportType === 'ObjectExpression') {
-        // console.log('cname: >>>>>>>> ',data.cname)
-        // if(compath.includes('icon.vue')){
-        //   console.log('icon.vue')
-        // }
-        paresExportDefault(path, data, code, compath)
+      if (isExportDefaultDeclaration === true) {
+        if(defaultExportType === 'ObjectExpression'){
+          paresExportDefault(path, data, code, compath)
+        } else if(defaultExportType === 'CallExpression' && path.node.callee && path.node.callee.name === 'defineComponent'){
+          paresExportDefault(path, data, code, compath)
+        }
       }
 
       if (path.node.type === 'ExportDefaultDeclaration') {

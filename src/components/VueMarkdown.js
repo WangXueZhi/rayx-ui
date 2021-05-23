@@ -18,7 +18,7 @@ const md = new markdownIt({
     if (lang && hljs.getLanguage(lang)) {
       try {
         return '<pre><code class="hljs" v-pre>' +
-          hljs.highlight(lang, str, true).value +
+          hljs.highlight(str, { language: lang, ignoreIllegals: true}).value +
           '</code></pre>'
       } catch (__) {}
     }

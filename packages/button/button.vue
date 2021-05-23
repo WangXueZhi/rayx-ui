@@ -1,12 +1,12 @@
 <template>
   <button
-    class="ra-button"
+    class="r-button"
     @click="click"
     :class="{
-      [`ra-button-${colorType}`]: colorType !== 'default',
-      [`ra-button-${type}`]: type !== 'default',
-      'ra-button-circle': circle,
-      'ra-button-disabled': disabled,
+      [`r-button-${colorType}`]: colorType !== 'default',
+      [`r-button-${type}`]: type !== 'default',
+      'r-button-circle': circle,
+      'r-button-disabled': disabled,
     }"
   >
     <slot></slot>

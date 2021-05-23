@@ -1,6 +1,6 @@
 @import '../styles/var.scss';
 
-.ra-button {
+.r-button {
     line-height: 1.5715;
     position: relative;
     display: inline-block;
@@ -36,8 +36,8 @@
             border-color: $value;
         }
 
-        &.ra-button-ghost,
-        &.ra-button-dashed {
+        &.r-button-ghost,
+        &.r-button-dashed {
             color: $value;
             background: none;
 
@@ -53,39 +53,39 @@
         }
     }
 
-    &.ra-button-primary {
+    &.r-button-primary {
         @include colorType($--color-primary);
     }
 
-    &.ra-button-success {
+    &.r-button-success {
         @include colorType($--color-success);
     }
-    &.ra-button-warning {
+    &.r-button-warning {
         @include colorType($--color-warning);
     }
 
-    &.ra-button-error {
+    &.r-button-error {
         @include colorType($--color-error);
     }
 
-    &.ra-button-info {
+    &.r-button-info {
         @include colorType($--color-info);
     }
 
-    &.ra-button-ghost {
+    &.r-button-ghost {
         background: none;
     }
 
-    &.ra-button-dashed {
+    &.r-button-dashed {
         background: none;
         border-style: dashed;
     }
 
-    &.ra-button-circle{
+    &.r-button-circle{
         border-radius: 32px;
     }
 
-    &.ra-button-disabled{
+    &.r-button-disabled{
         cursor: not-allowed;
         opacity: .5;
     }
