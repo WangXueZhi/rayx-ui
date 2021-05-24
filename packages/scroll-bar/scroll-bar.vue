@@ -6,6 +6,7 @@
     }"
     @mouseenter="mouseenter"
     @mouseleave="mouseleave"
+    ref="scrollbar"
   >
     <div
       class="r-scrollbar__wrap"
@@ -29,7 +30,7 @@
         :translateX="0"
         :translateY="scrollBarTranslateTop"
       >
-        <template slot="head">
+        <template v-slot:head>
           <div
             class="r-scrollbar__thumb"
             ref="scrollbar_vertical"
@@ -84,6 +85,7 @@ export default {
     },
     mouseenter () {
       this.mouseenterState = true
+      this.initScrollBarState()
     },
     mouseleave () {
       this.mouseenterState = false
@@ -115,6 +117,7 @@ export default {
       this.scrollBarTranslateTop = translateTop
     },
     initScrollBarState () {
+      this.$refs.scrollbar.style.height = this.$refs.scrollbar.clientHeight + 'px'
       this.scrollBarHeight =
         (this.$refs.scrollbar_wrap.clientHeight /
           this.$refs.scrollbar_wrap.scrollHeight) *

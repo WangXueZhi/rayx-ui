@@ -2,7 +2,6 @@
     position: absolute;
 
     .r-draggable-head {
-        cursor: move;
-        -webkit-user-select: none;
+        user-select: none;
     }
 }

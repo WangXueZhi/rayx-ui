@@ -30,7 +30,7 @@ const paresExportDefault = function (path, data, code, compath) {
   //     }
   let pathNode = path.node
 
-  if(path.node.type === 'CallExpression' && path.node.callee && path.node.callee.name === 'defineComponent'){
+  if (path.node.type === 'CallExpression' && path.node.callee && path.node.callee.name === 'defineComponent') {
     pathNode = path.node.arguments[0]
     console.log(pathNode)
   }
@@ -134,6 +134,14 @@ const paresExportDefault = function (path, data, code, compath) {
   }
 }
 
+const paresExportDefault2 = function (node, code, compath) {
+  const data = {
+    cname: '',
+    props: [],
+    methods: []
+  }
+}
+
 // 提取多行注释
 const getCommentBlockItem = function (leadingComments) {
   if (!leadingComments) {
@@ -146,11 +154,8 @@ const getCommentBlockItem = function (leadingComments) {
 
 const doAst = function (code, compath) {
   // console.log(compath, compath.includes('button.vue'))
-  const data = {
-    cname: '',
-    props: [],
-    methods: []
-  }
+  let data
+
   const ast = babelParser.parse(code, {
     // parse in strict mode and allow module declarations
     sourceType: 'module'
@@ -163,9 +168,9 @@ const doAst = function (code, compath) {
       // }
       // 默认导出为对象表达式，直接解析
       if (isExportDefaultDeclaration === true) {
-        if(defaultExportType === 'ObjectExpression'){
+        if (defaultExportType === 'ObjectExpression') {
           paresExportDefault(path, data, code, compath)
-        } else if(defaultExportType === 'CallExpression' && path.node.callee && path.node.callee.name === 'defineComponent'){
+        } else if (defaultExportType === 'CallExpression' && path.node.callee && path.node.callee.name === 'defineComponent') {
           paresExportDefault(path, data, code, compath)
         }
       }
@@ -188,6 +193,11 @@ const doAst = function (code, compath) {
           isMethods = false
         }
       }
+    },
+    ExportDefaultDeclaration: ({
+      node
+    }) => {
+      data = paresExportDefault2(node, code, compath)
     }
   })
 

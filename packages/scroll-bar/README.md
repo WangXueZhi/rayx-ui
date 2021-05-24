@@ -24,7 +24,7 @@ export default {
 <style lang="scss">
   .test-scroll-wrapper{
     width: 240px;
-    height: 200px;
+    max-height: 200px;
     border: 1px solid #969696;
 
     .test-scroll-item{
