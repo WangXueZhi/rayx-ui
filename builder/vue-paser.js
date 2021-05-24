@@ -140,6 +140,24 @@ const paresExportDefault2 = function (node, code, compath) {
     props: [],
     methods: []
   }
+  // 如果默认导出的是对象表达式
+  if(node.declaration.type === 'ObjectExpression'){
+    // 遍历对象键值对
+    node.declaration.properties.forEach(property=>{
+      // 如果属性是name
+      if(property.key.name==='name'){
+        data.cname = property.value.value
+      }
+      // 如果属性是props，并且是对象表达式，组件严格要求属性必须是对象表达式，为了解析属性
+      if(property.key.name==='props' && property.value.type === 'ObjectExpression'){
+        // 遍历每个属性
+        property.value.properties.forEach(propertyInProps=>{
+          // 解析注释
+          const commentBlock = getCommentBlockItem(propertyInProps.leadingComments)
+        })
+      }
+    })
+  }
 }
 
 // 提取多行注释
