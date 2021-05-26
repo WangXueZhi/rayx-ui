@@ -1,162 +1,102 @@
 const babelParser = require('@babel/parser')
 const traverse = require('@babel/traverse').default
 const fs = require('fs')
-// const path = require('path')
 
-let isExportDefaultDeclaration = false // 是否进入默认导出部分
-let isProps = false
-let isMethods = false
-let defaultExportType = 'ObjectExpression' // 默认导出类型
-
-// 解析类型为BinaryExpression的节点
-const parseBinaryExpression = function (node) {
-  let str = ''
-  if (node.type === 'BinaryExpression') {
-    if (node.left.type === 'BinaryExpression') {
-      str += parseBinaryExpression(node.left)
-    } else {
-      str += `${node.left.name}`
-    }
-
-    str += ` ${node.operator} ${node.right.name}`
-  }
-
-  return str
+const getValueFromCodeByRange = function (code, start, end) {
+  return code.slice(start, end).replace(/\s/g, '').replace(/\|/g, '&#124;')
 }
 
-const paresExportDefault = function (path, data, code, compath) {
-  // if(compath.includes('button.vue')){
-  //       console.log(path.node.)
-  //     }
-  let pathNode = path.node
-
-  if (path.node.type === 'CallExpression' && path.node.callee && path.node.callee.name === 'defineComponent') {
-    pathNode = path.node.arguments[0]
-    console.log(pathNode)
-  }
-
-  if (pathNode.type === 'ObjectProperty' && pathNode.key.name === 'name' && !isProps) {
-    data.cname = pathNode.value.value
-  }
-
-  const commentBlock = getCommentBlockItem(pathNode.leadingComments)
-
-  // 属性
-  if (isProps === true && path.type !== 'Identifier' && pathNode.key && commentBlock) {
-    const k = {}
-    k.comment = commentBlock.value.replace(/\s|\*/g, '').replace(/\|/g, '&#124;')
-    k.name = pathNode.key.name
-
-    // 定义类型
-    if (pathNode.value.type === 'Identifier') {
-      k.type = pathNode.value.name
-    }
-
-    if (pathNode.value.type === 'ArrayExpression') {
-      k.type = 'Array'
-      k.default = code.slice(pathNode.value.start, pathNode.value.end).replace(/\s/g, '')
-    }
-
-    if (pathNode.value.value) {
-      k.default = pathNode.value.value
-      k.type = typeof pathNode.value.value
-    }
-
-    // 对象类型
-    if (pathNode.value.type === 'ObjectExpression') {
-      pathNode.value.properties.forEach(item => {
-        let v = ''
-
-        // 基本数据类型
-        // if(item.value && (item.value.value || item.value.value===false)){
-        //   v = item.value.value
-        // }
-
-        if (item.value) {
-          v = item.value.value
-        }
-
-        // 对象方法类型
-        if (item.type === 'ObjectMethod') {
-          for (let i = 0; i < item.body.body.length; i++) {
-            const subItem = item.body.body[i]
-            if (subItem.type === 'ReturnStatement') {
-              v = code.slice(subItem.argument.start, subItem.argument.end).replace(/\s/g, '').replace(/\|/g, '&#124;')
-              break
-            }
-          }
-        }
-
-        // 定义类型
-        if (item.value && item.value.type === 'Identifier') {
-          v = item.value.name
-        }
-        // 对象或数组类型
-        if (item.value && (item.value.type === 'ObjectExpression' || item.value.type === 'ArrayExpression')) {
-          v = code.slice(item.value.start, item.value.end).replace(/\s/g, '')
-        }
-        // 类型类型
-        if (item.value && item.value.type === 'BinaryExpression') {
-          v = parseBinaryExpression(item.value).replace(/\|/g, '&#124;')
-        }
-        // 箭头函数类型
-        if (item.value && item.value.type === 'ArrowFunctionExpression') {
-          for (let i = 0; i < item.value.body.body.length; i++) {
-            const subItem = item.value.body.body[i]
-            if (subItem.type === 'ReturnStatement') {
-              v = code.slice(subItem.argument.start, subItem.argument.end).replace(/\s/g, '')
-              break
-            }
-          }
-        }
-
-        k[item.key.name] = v
-
-        k.default = k.default === undefined ? '未定义' : k.default
-      })
-    }
-    data.props.push(k)
-  }
-
-  // 方法
-  if (isMethods === true && (pathNode.type === 'ObjectMethod' || pathNode.type === 'ObjectProperty') && commentBlock) {
-    const k = {}
-    k.comment = commentBlock.value.replace(/\s|\*/g, '')
-    k.name = pathNode.key.name
-    data.methods.push(k)
-  }
-
-  if (pathNode.type === 'ObjectProperty' && pathNode.key.name === 'props') {
-    isProps = true
-  }
-  if (pathNode.type === 'ObjectProperty' && pathNode.key.name === 'methods') {
-    isMethods = true
-  }
+const isFunctionType = function (type) {
+  return ['ArrowFunctionExpression', 'FunctionExpression'].includes(type)
 }
 
-const paresExportDefault2 = function (node, code, compath) {
+const parseObjectExpression = function (objectExpressionNode, code, compath) {
   const data = {
     cname: '',
     props: [],
     methods: []
   }
+
+  // 遍历对象键值对
+  objectExpressionNode.properties.forEach(property => {
+    // 处理name
+    if (property.key.name === 'name') {
+      data.cname = property.value.value
+    }
+    // 处理props，并且是对象表达式，组件严格要求属性必须是对象表达式，为了解析属性
+    if (property.key.name === 'props' && property.value.type === 'ObjectExpression') {
+      // 遍历每个属性
+      property.value.properties.forEach(propertyInProps => {
+        const k = {}
+        // 解析注释
+        const commentBlock = getCommentBlockItem(propertyInProps.leadingComments)
+        if (commentBlock) {
+          k.comment = commentBlock.value.replace(/\s|\*/g, '').replace(/\|/g, '&#124;')
+        }
+        // 属性名
+        k.name = propertyInProps.key.name
+        // 解析属性值
+        // 如果是对象表达式
+        if (propertyInProps.value.type === 'ObjectExpression') {
+          propertyInProps.value.properties.forEach(propertyOfProp => {
+            // 类型
+            if (propertyOfProp.key.name === 'type') {
+              k.type = getValueFromCodeByRange(code, propertyOfProp.value.start, propertyOfProp.value.end)
+            }
+            // 默认值
+            if (propertyOfProp.key.name === 'default') {
+              if (k.type === 'Object' || k.type === 'Array') {
+                if (!isFunctionType(propertyOfProp.value.type)) {
+                  throw new Error(`type of prop ${k.name} is ${k.type}, so the default value needs to be a FunctionExpression`)
+                }
+              }
+              k.default = getValueFromCodeByRange(code, propertyOfProp.value.start, propertyOfProp.value.end)
+            }
+          })
+        } else {
+          k.type = getValueFromCodeByRange(code, propertyInProps.value.start, propertyInProps.value.end)
+          k.default = ''
+        }
+
+        data.props.push(k)
+      })
+    }
+    // 处理method
+    if (property.key.name === 'methods' && property.value.type === 'ObjectExpression') {
+      // 遍历每个属性
+      property.value.properties.forEach(methodItem => {
+        const k = {}
+        // 解析注释
+        const commentBlock = getCommentBlockItem(methodItem.leadingComments)
+        if (commentBlock) {
+          k.comment = commentBlock.value.replace(/\s|\*/g, '').replace(/\|/g, '&#124;')
+        }
+
+        k.name = methodItem.key.name
+
+        // 键值对的形式需要检查一下
+        if (methodItem.type === 'ObjectProperty') {
+          if (!isFunctionType(methodItem.value.type)) {
+            throw new Error(`type of method ${k.name} is not a FunctionExpression`)
+          }
+        }
+
+        data.methods.push(k)
+      })
+    }
+  })
+
+  return data
+}
+
+const paresExportDefault2 = function (node, code, compath) {
   // 如果默认导出的是对象表达式
-  if(node.declaration.type === 'ObjectExpression'){
-    // 遍历对象键值对
-    node.declaration.properties.forEach(property=>{
-      // 如果属性是name
-      if(property.key.name==='name'){
-        data.cname = property.value.value
-      }
-      // 如果属性是props，并且是对象表达式，组件严格要求属性必须是对象表达式，为了解析属性
-      if(property.key.name==='props' && property.value.type === 'ObjectExpression'){
-        // 遍历每个属性
-        property.value.properties.forEach(propertyInProps=>{
-          // 解析注释
-          const commentBlock = getCommentBlockItem(propertyInProps.leadingComments)
-        })
-      }
-    })
+  if (node.declaration.type === 'ObjectExpression') {
+    return parseObjectExpression(node.declaration, code, compath)
+  }
+
+  if (node.declaration.type === 'CallExpression' && node.declaration.callee && node.declaration.callee.name === 'defineComponent' && node.declaration.arguments && node.declaration.arguments.length && node.declaration.arguments.length > 0 && node.declaration.arguments[0].type === 'ObjectExpression') {
+    return parseObjectExpression(node.declaration.arguments[0], code, compath)
   }
 }
 
@@ -171,54 +111,16 @@ const getCommentBlockItem = function (leadingComments) {
 }
 
 const doAst = function (code, compath) {
-  // console.log(compath, compath.includes('button.vue'))
   let data
-
   const ast = babelParser.parse(code, {
-    // parse in strict mode and allow module declarations
+    // 允许模块化
     sourceType: 'module'
   })
-
   traverse(ast, {
-    enter (path) {
-      // if(compath.includes('button.vue')){
-      //   console.log(path.node)
-      // }
-      // 默认导出为对象表达式，直接解析
-      if (isExportDefaultDeclaration === true) {
-        if (defaultExportType === 'ObjectExpression') {
-          paresExportDefault(path, data, code, compath)
-        } else if (defaultExportType === 'CallExpression' && path.node.callee && path.node.callee.name === 'defineComponent') {
-          paresExportDefault(path, data, code, compath)
-        }
-      }
-
-      if (path.node.type === 'ExportDefaultDeclaration') {
-        isExportDefaultDeclaration = true
-        defaultExportType = path.node.declaration.type
-      }
-    },
-    exit (path) {
-      // 结束-默认导出为对象表达式
-      if (isExportDefaultDeclaration === true && defaultExportType === 'ObjectExpression') {
-        if (path.node.type === 'ExportDefaultDeclaration') {
-          isExportDefaultDeclaration = false
-        }
-        if (path.node.type === 'ObjectProperty' && path.node.key.name === 'props') {
-          isProps = false
-        }
-        if (path.node.type === 'ObjectProperty' && path.node.key.name === 'methods') {
-          isMethods = false
-        }
-      }
-    },
-    ExportDefaultDeclaration: ({
-      node
-    }) => {
+    ExportDefaultDeclaration: ({ node }) => {
       data = paresExportDefault2(node, code, compath)
     }
   })
-
   return data
 }
 

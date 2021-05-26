@@ -3,7 +3,6 @@ const fs = require('fs')
 const path = require('path')
 const util = require('./util')
 const mdRender = require('./md-render')
-
 // 获取组件数据
 const getComponentsData = function () {
   const arr = []
