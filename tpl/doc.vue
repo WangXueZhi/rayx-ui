@@ -20,11 +20,11 @@ export default {
   methods: {
     demoControlShowCodeTotgal (index) {
       if (this.demoControlShowCode[index]) {
-        this.$set(this.demoControlShowCode[index], 'show', !this.demoControlShowCode[index].show)
+        this.demoControlShowCode[index].show = !this.demoControlShowCode[index].show
       } else {
-        this.$set(this.demoControlShowCode, index, {
+        this.demoControlShowCode[index] = {
           show: true
-        })
+        }
       }
     }
   }

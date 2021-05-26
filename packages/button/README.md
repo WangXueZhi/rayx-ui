@@ -12,7 +12,7 @@
 <template>
   <div class="demo-wrapper">
     <div class="demo-button-Type">
-      <r-button hide>默认色</r-button>
+      <r-button>默认色</r-button>
       <r-button colorType="primary">主色</r-button>
       <r-button colorType="info">信息色</r-button>
       <r-button colorType="success">成功色</r-button>

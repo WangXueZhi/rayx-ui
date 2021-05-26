@@ -4,7 +4,6 @@
       <div class="ui-name-en">
         Component Producer For
         <span>Vue</span>
-        <r-input />
       </div>
       <div class="ui-name-cn">
         快速搭建vue组件库
