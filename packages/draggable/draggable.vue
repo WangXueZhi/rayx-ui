@@ -1,7 +1,7 @@
 <template>
   <div class="r-draggable" :style="`transform:translate(${left}px,${top}px)`">
-    <div class="r-draggable-head" @mousedown="onMouseDown">
-      <slot name="head" />
+    <div class="r-draggable-dragBar" @mousedown="onMouseDown">
+      <slot name="dragBar" />
     </div>
     <slot></slot>
   </div>
@@ -85,7 +85,6 @@ export default {
       return false
     }
   },
-  mounted () {},
   watch: {
     translateX (newV, oldV) {
       if (this.moveChange) {

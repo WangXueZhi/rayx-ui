@@ -10,8 +10,8 @@
 <template>
   <div class="draggable-demo">
     <r-draggable :moveChange="moveChange">
-      <template slot="head">
-        <div class="drag-head">head</div>
+      <template v-slot:dragBar>
+        <div class="drag-dragBar">dragBar</div>
       </template>
       <div class="drag-content">content</div>
     </r-draggable>

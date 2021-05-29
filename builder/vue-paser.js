@@ -89,7 +89,7 @@ const parseObjectExpression = function (objectExpressionNode, code, compath) {
   return data
 }
 
-const paresExportDefault2 = function (node, code, compath) {
+const paresExportDefault = function (node, code, compath) {
   // 如果默认导出的是对象表达式
   if (node.declaration.type === 'ObjectExpression') {
     return parseObjectExpression(node.declaration, code, compath)
@@ -118,7 +118,7 @@ const doAst = function (code, compath) {
   })
   traverse(ast, {
     ExportDefaultDeclaration: ({ node }) => {
-      data = paresExportDefault2(node, code, compath)
+      data = paresExportDefault(node, code, compath)
     }
   })
   return data

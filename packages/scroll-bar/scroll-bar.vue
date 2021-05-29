@@ -117,7 +117,7 @@ export default {
       this.scrollBarTranslateTop = translateTop
     },
     initScrollBarState () {
-      this.$refs.scrollbar.style.height = this.$refs.scrollbar.clientHeight + 'px'
+      // this.$refs.scrollbar.style.height = this.$refs.scrollbar.clientHeight + 'px'
       this.scrollBarHeight =
         (this.$refs.scrollbar_wrap.clientHeight /
           this.$refs.scrollbar_wrap.scrollHeight) *
@@ -134,7 +134,7 @@ export default {
     this.resizeCallBack = this.initScrollBarState.bind(this)
     window.addEventListener('resize', this.resizeCallBack)
   },
-  destroyed () {
+  unmounted () {
     window.removeEventListener('resize', this.resizeCallBack)
     if (this.mouseupCallBack) {
       document.removeEventListener('mouseup', this.mouseupCallBack)
