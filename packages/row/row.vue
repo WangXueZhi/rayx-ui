@@ -44,9 +44,6 @@ export default {
       default: '',
     }
   },
-  mounted(){
-    
-  },
   computed: {
     styles(){
       const styles = {}
