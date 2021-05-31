@@ -54,8 +54,9 @@
   </div>
 </template>
 <script>
-export default {
-  name: "rInput",
+import { defineComponent, computed, onMounted, ref } from 'vue'
+export default defineComponent({
+  name: 'rInput',
   inheritAttrs: false,
   props: {
     /**
@@ -63,110 +64,117 @@ export default {
      */
     modelValue: {
       type: [String, Number],
-      default: "",
+      default: ''
     },
     /**
      * 清除图标， 还不能用
      */
     clear: {
       type: Boolean,
-      default: false,
+      default: false
     },
     /**
      * 占位提示
      */
     placeholder: {
       type: String,
-      default: "请输入",
+      default: '请输入'
     },
     /**
      * 类型：text | password | textarea
      */
     type: {
       type: String,
-      default: "text",
+      default: 'text'
     },
     /**
      * 显示密码开关，还不能用
      */
     showPasswordSwitch: {
       type: Boolean,
-      default: true,
+      default: true
     },
     /**
      * 尺寸：big | medium | small
      */
     size: {
       type: String,
-      default: "medium",
+      default: 'medium'
     },
     /**
      * 分组模式，只有在有append或prepend的slot才有效
      */
     groupMode: {
       type: Boolean,
-      default: false,
+      default: false
     },
     /**
      * 文字水平对齐方式
      */
     textAlign: {
       type: String,
-      default: "",
-    },
+      default: ''
+    }
   },
-  computed: {
-    inputStyle() {
-      const styles = {};
-      if (this.textAlign) {
-        styles.textAlign = this.textAlign;
+  setup (props) {
+    const inputStyle = computed(() => {
+      const styles = {}
+      if (props.textAlign) {
+        styles.textAlign = props.textAlign
       }
-      return styles;
-    },
+      return styles
+    })
+
+    const inputRef = ref(null)
+    const prefixRef = ref(null)
+    const suffixRef = ref(null)
+
+    onMounted(() => {
+      if (prefixRef.value && inputRef.value) {
+        inputRef.value.style.paddingLeft = prefixRef.value.clientWidth + 'px'
+      }
+      if (suffixRef.value && inputRef.value) {
+        inputRef.value.style.paddingRight = suffixRef.value.clientWidth + 'px'
+      }
+    })
+
+    return {
+      inputStyle,
+      inputRef,
+      prefixRef,
+      suffixRef
+    }
   },
   methods: {
-    keydown(e) {
+    keydown (e) {
       if (e.keyCode === 13) {
-        this.$emit("enter", this.value);
+        this.$emit('enter', this.value)
       }
     },
-    handleCompositionStart() {
-      this.isComposing = true;
+    handleCompositionStart () {
+      this.isComposing = true
     },
-    handleCompositionEnd(event) {
+    handleCompositionEnd (event) {
       if (this.isComposing) {
-        this.isComposing = false;
-        this.handleInput(event);
+        this.isComposing = false
+        this.handleInput(event)
       }
     },
-    handleInput(event) {
-      if (this.isComposing) return;
-      this.$emit("update:modelValue", event.target.value);
+    handleInput (event) {
+      if (this.isComposing) return
+      this.$emit('update:modelValue', event.target.value)
     },
-    handleChange(event) {
-      this.$emit("change", event.target.value);
+    handleChange (event) {
+      this.$emit('change', event.target.value)
     },
-    handleFocus(event) {
-      this.focused = true;
-      this.$emit("focus", event);
+    handleFocus (event) {
+      this.focused = true
+      this.$emit('focus', event)
     },
-    handleBlur(event) {
-      this.focused = false;
-      this.$emit("blur", event);
-    },
-  },
-  mounted() {
-    window.inp = this;
-    console.log(this.$attrs);
-    if (this.$refs.prefixRef) {
-      // console.log(this.$refs.prefixRef.clientWidth)
-      this.$refs.inputRef.style.paddingLeft =
-        this.$refs.prefixRef.clientWidth + "px";
+    handleBlur (event) {
+      this.focused = false
+      this.$emit('blur', event)
     }
-    if (this.$refs.suffixRef) {
-      this.$refs.inputRef.style.paddingRight =
-        this.$refs.suffixRef.clientWidth + "px";
-    }
-  },
-};
+  }
+})
 </script>

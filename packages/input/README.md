@@ -39,11 +39,11 @@
 <template>
   <div class="demo-wrapper">
     <r-input style="width: 200px">
-      <div slot="prefix">面积</div>
-      <div slot="suffix">m²</div>
+      <template #prefix><div>面积</div></template>
+      <template #suffix>m²</template>
     </r-input>
     <r-input style="width: 200px">
-      <r-icon name="icon-email" slot="prefix" />
+      <template #prefix><r-icon name="icon-email" /></template>
     </r-input>
   </div>
 </template>
@@ -56,19 +56,31 @@
   <div class="demo-wrapper">
     <p>默认模式</p>
     <r-input style="width: 200px">
-      <div slot="prepend">面积</div>
-      <div slot="append">m²</div>
+      <template #prepend>
+        <div>面积</div>
+      </template>
+      <template #append>
+        <div>m²</div>
+      </template>
     </r-input>
     <p>组模式</p>
     <r-input style="width: 200px" groupMode>
-      <div slot="prepend">面积</div>
-      <div slot="append">m²</div>
+      <template #prepend>
+        <div>面积</div>
+      </template>
+      <template #append>
+        <div>m²</div>
+      </template>
     </r-input>
     <r-input style="width: 200px" groupMode>
-      <div slot="prepend">面积</div>
+      <template #prepend>
+        <div>面积</div>
+      </template>
     </r-input>
     <r-input style="width: 200px" groupMode>
-      <div slot="append">m²</div>
+      <template #append>
+        <div>m²</div>
+      </template>
     </r-input>
   </div>
 </template>
@@ -122,10 +134,10 @@ export default {
         <p>清空</p>
         <r-input style="width: 300px" @clear="onClear" />
         <p>输入</p>
-        <r-input style="width: 300px" @input="onInput"/>
+        <r-input style="width: 300px" @input="onInput" />
       </div>
       <div class="demo-input-event-name">
-        <p>触发事件：{{eve || '无'}}</p>
+        <p>触发事件：{{ eve || "无" }}</p>
       </div>
     </div>
   </div>
@@ -135,41 +147,41 @@ export default {
   data() {
     return {
       eve: "",
-      value: ''
+      value: "",
     };
   },
   methods: {
     onInput(v) {
-      this.eve = 'input'
+      this.eve = "input";
     },
     onEnter(v) {
-      this.eve = 'enter'
+      this.eve = "enter";
     },
     onChange(v) {
-      this.eve = 'change'
+      this.eve = "change";
     },
     onFocus(v) {
-      this.eve = 'focus'
+      this.eve = "focus";
     },
     onBlur(v) {
-      this.eve = 'blur'
+      this.eve = "blur";
     },
     onClear(v) {
-      this.eve = 'clear'
+      this.eve = "clear";
     },
   },
 };
 </script>
 <style lang="scss">
-  .demo-input-event{
-    display: flex;
+.demo-input-event {
+  display: flex;
+}
+.demo-input-event-name {
+  margin-left: 50px;
+  p {
+    font-size: 25px;
   }
-  .demo-input-event-name{
-    margin-left: 50px;
-    p{
-      font-size: 25px;
-    }
-  }
+}
 </style>
 ```
 
