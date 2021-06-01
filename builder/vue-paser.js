@@ -2,19 +2,38 @@ const babelParser = require('@babel/parser')
 const traverse = require('@babel/traverse').default
 const fs = require('fs')
 
-const getValueFromCodeByRange = function (code, start, end) {
+function getValueFromCodeByRange (code, start, end) {
   return code.slice(start, end).replace(/\s/g, '').replace(/\|/g, '&#124;')
 }
 
-const isFunctionType = function (type) {
-  return ['ArrowFunctionExpression', 'FunctionExpression'].includes(type)
+function isFunctionType (type) {
+  return ['ArrowFunctionExpression', 'FunctionExpression', 'ArrowFunctionExpression'].includes(type)
+}
+
+function parseComment (leadingComments) {
+  const commentBlock = getCommentBlockItem(leadingComments)
+  if (commentBlock) {
+    return commentBlock.value.replace(/\s|\*/g, '').replace(/\|/g, '&#124;')
+  }
+  return ''
+}
+
+// 提取多行注释
+function getCommentBlockItem (leadingComments) {
+  if (!leadingComments) {
+    return null
+  }
+  return leadingComments.filter(item => {
+    return item.type === 'CommentBlock'
+  })[0]
 }
 
 const parseObjectExpression = function (objectExpressionNode, code, compath) {
   const data = {
     cname: '',
     props: [],
-    methods: []
+    methods: [],
+    emits: []
   }
 
   // 遍历对象键值对
@@ -29,10 +48,7 @@ const parseObjectExpression = function (objectExpressionNode, code, compath) {
       property.value.properties.forEach(propertyInProps => {
         const k = {}
         // 解析注释
-        const commentBlock = getCommentBlockItem(propertyInProps.leadingComments)
-        if (commentBlock) {
-          k.comment = commentBlock.value.replace(/\s|\*/g, '').replace(/\|/g, '&#124;')
-        }
+        k.comment = parseComment(propertyInProps.leadingComments)
         // 属性名
         k.name = propertyInProps.key.name
         // 解析属性值
@@ -67,10 +83,7 @@ const parseObjectExpression = function (objectExpressionNode, code, compath) {
       property.value.properties.forEach(methodItem => {
         const k = {}
         // 解析注释
-        const commentBlock = getCommentBlockItem(methodItem.leadingComments)
-        if (commentBlock) {
-          k.comment = commentBlock.value.replace(/\s|\*/g, '').replace(/\|/g, '&#124;')
-        }
+        k.comment = parseComment(methodItem.leadingComments)
 
         k.name = methodItem.key.name
 
@@ -82,6 +95,37 @@ const parseObjectExpression = function (objectExpressionNode, code, compath) {
         }
 
         data.methods.push(k)
+      })
+    }
+    // 处理emits
+    // console.log('property.value.properties >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>')
+    if (property.key.name === 'emits' && property.value.type === 'ObjectExpression') {
+      // console.log(property.value.properties)
+      property.value.properties.forEach(emitItem => {
+        const k = {}
+        // 解析注释
+        k.comment = parseComment(emitItem.leadingComments)
+
+        k.name = emitItem.key.name
+
+        // 键值对的形式需要检查一下
+        if (emitItem.type === 'ObjectProperty') {
+          if (!isFunctionType(emitItem.value.type)) {
+            throw new Error(`type of emit ${k.name} is not a FunctionExpression`)
+          }
+        }
+        k.params = []
+        emitItem.value.params.forEach(param => {
+          const p = {
+            name: param.name
+          }
+          if (param.typeAnnotation) {
+            p.type = getValueFromCodeByRange(code, param.typeAnnotation.start, param.typeAnnotation.end)
+          }
+          k.params.push(p)
+        })
+
+        data.emits.push(k)
       })
     }
   })
@@ -98,16 +142,8 @@ const paresExportDefault = function (node, code, compath) {
   if (node.declaration.type === 'CallExpression' && node.declaration.callee && node.declaration.callee.name === 'defineComponent' && node.declaration.arguments && node.declaration.arguments.length && node.declaration.arguments.length > 0 && node.declaration.arguments[0].type === 'ObjectExpression') {
     return parseObjectExpression(node.declaration.arguments[0], code, compath)
   }
-}
 
-// 提取多行注释
-const getCommentBlockItem = function (leadingComments) {
-  if (!leadingComments) {
-    return null
-  }
-  return leadingComments.filter(item => {
-    return item.type === 'CommentBlock'
-  })[0]
+  return null
 }
 
 const doAst = function (code, compath) {
@@ -117,10 +153,14 @@ const doAst = function (code, compath) {
     sourceType: 'module'
   })
   traverse(ast, {
-    ExportDefaultDeclaration: ({ node }) => {
+    // 默认导出节点
+    ExportDefaultDeclaration: ({
+      node
+    }) => {
       data = paresExportDefault(node, code, compath)
     }
   })
+  console.log(data.emits[0] && data.emits[0].params)
   return data
 }
 
@@ -133,7 +173,8 @@ const main = function () {
       const fileContent = fs.readFileSync('./packages/' + files[i] + '/' + files[i] + '.vue', 'utf-8')
       const matchReg = /<script(?:\s+[^>]*)?>([\s\S]+?)<\/script\s*>/
       const code = matchReg.exec(fileContent)[1]
-      arr.push(doAst(code))
+      const data = doAst(code)
+      data && arr.push(data)
     }
   }
   return arr
