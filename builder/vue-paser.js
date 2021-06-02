@@ -98,9 +98,7 @@ const parseObjectExpression = function (objectExpressionNode, code, compath) {
       })
     }
     // 处理emits
-    // console.log('property.value.properties >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>')
     if (property.key.name === 'emits' && property.value.type === 'ObjectExpression') {
-      // console.log(property.value.properties)
       property.value.properties.forEach(emitItem => {
         const k = {}
         // 解析注释
@@ -110,20 +108,16 @@ const parseObjectExpression = function (objectExpressionNode, code, compath) {
 
         // 键值对的形式需要检查一下
         if (emitItem.type === 'ObjectProperty') {
-          if (!isFunctionType(emitItem.value.type)) {
-            throw new Error(`type of emit ${k.name} is not a FunctionExpression`)
+          if (isFunctionType(emitItem.value.type)) {
+            k.params = emitItem.value.params.map(param => {
+              return getValueFromCodeByRange(code, param.start, param.end)
+            }).join(',')
+          } else if (emitItem.value.type === 'NullLiteral') {
+            k.params = ''
+          } else {
+            throw new Error(`Error width value of emit ${k.name}`)
           }
         }
-        k.params = []
-        emitItem.value.params.forEach(param => {
-          const p = {
-            name: param.name
-          }
-          if (param.typeAnnotation) {
-            p.type = getValueFromCodeByRange(code, param.typeAnnotation.start, param.typeAnnotation.end)
-          }
-          k.params.push(p)
-        })
 
         data.emits.push(k)
       })
@@ -150,7 +144,8 @@ const doAst = function (code, compath) {
   let data
   const ast = babelParser.parse(code, {
     // 允许模块化
-    sourceType: 'module'
+    sourceType: 'module',
+    plugins: ['typescript']
   })
   traverse(ast, {
     // 默认导出节点
@@ -160,7 +155,7 @@ const doAst = function (code, compath) {
       data = paresExportDefault(node, code, compath)
     }
   })
-  console.log(data.emits[0] && data.emits[0].params)
+  console.log(data.emits)
   return data
 }
 

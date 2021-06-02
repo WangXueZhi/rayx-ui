@@ -57,4 +57,4 @@ export default {
 
 | 名称 | 说明     |
 | ---- | -------- |
-| head | 拖拽区域 |
+| dragBar | 拖拽区域 |

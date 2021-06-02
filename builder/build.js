@@ -44,15 +44,24 @@ const getComponentsData = function () {
         let mdContent = fs.readFileSync(mdPath, 'utf-8')
         let propsTableMd = '## props\n| 参数 | 说明 | 类型 | 默认值 |\n| --- | --- | --- | --- |\n'
         let methodsTableMd = '## methods\n| 方法名 | 说明 |\n| --- | --- |\n'
+        let emitsTableMd = '## events\n| 事件名 | 说明 | 参数 |\n| --- | --- | --- |\n'
 
-        if (conmponentVueData && conmponentVueData.props && Array.isArray(conmponentVueData.props) && conmponentVueData.methods && Array.isArray(conmponentVueData.methods)) {
-          conmponentVueData.props.forEach(item => {
-            propsTableMd += `| ${item.name} | ${item.comment} | ${item.type} | ${item.default} |\n`
-          })
-
-          conmponentVueData.methods.forEach(item => {
-            methodsTableMd += `| ${item.name} | ${item.comment} |\n`
-          })
+        if (conmponentVueData) {
+          if (conmponentVueData.props && Array.isArray(conmponentVueData.props)) {
+            conmponentVueData.props.forEach(item => {
+              propsTableMd += `| ${item.name} | ${item.comment} | ${item.type} | ${item.default} |\n`
+            })
+          }
+          if (conmponentVueData.methods && Array.isArray(conmponentVueData.methods)) {
+            conmponentVueData.methods.forEach(item => {
+              methodsTableMd += `| ${item.name} | ${item.comment} |\n`
+            })
+          }
+          if (conmponentVueData.emits && Array.isArray(conmponentVueData.emits)) {
+            conmponentVueData.emits.forEach(item => {
+              emitsTableMd += `| ${item.name} | ${item.comment} | ${item.params} |\n`
+            })
+          }
         }
 
         if (propsTableMd) {
@@ -60,6 +69,9 @@ const getComponentsData = function () {
         }
         if (methodsTableMd) {
           mdContent = mdContent.replace(/<!-- methods -->/gm, methodsTableMd)
+        }
+        if (emitsTableMd) {
+          mdContent = mdContent.replace(/<!-- events -->/gm, emitsTableMd)
         }
 
         const typeMatch = mdContent.match(/(?<=<!-- type:\s*).*(?=-->)/m)

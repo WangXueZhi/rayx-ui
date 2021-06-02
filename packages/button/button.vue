@@ -52,6 +52,12 @@ export default defineComponent({
         this.$emit('click')
       }
     }
+  },
+  emits: {
+    /**
+     * 点击
+     */
+    click: null
   }
 })
 </script>
