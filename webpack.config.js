@@ -94,6 +94,7 @@ const cssLoaderRules = function () {
 console.log(path.resolve('./'))
 
 module.exports = {
+  target: 'web',
   mode: nodeEnv,
   entry: entryConfig(),
   output: outputConfig(),

@@ -155,7 +155,6 @@ const doAst = function (code, compath) {
       data = paresExportDefault(node, code, compath)
     }
   })
-  console.log(data.emits)
   return data
 }
 
