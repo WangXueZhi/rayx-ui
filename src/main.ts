@@ -27,20 +27,12 @@ router.afterEach((transition) => {
   // console.log(transition)
 })
 
-// 注册组件库
-// Vue.use(VDUI)
-
-// Vue.config.productionTip = false
-
 const app = createApp(App)
 app.use(RayxUi)
 app.use(router)
 app.use(store)
 app.mount('#app')
 
-// new Vue({
-//   router,
-//   store,
-//   render: h => h(App)
-// }).$mount('#app')
 console.log('husky')
+
+console.log(' test lint-staged')
