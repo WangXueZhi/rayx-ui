@@ -32,7 +32,3 @@ app.use(RayxUi)
 app.use(router)
 app.use(store)
 app.mount('#app')
-
-console.log('husky')
-
-console.log(' test lint-staged')
