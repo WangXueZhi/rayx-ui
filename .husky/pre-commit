@@ -1,0 +1,5 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+# npm test
+echo \"git commit trigger husky pre-commit hook\"

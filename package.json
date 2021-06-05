@@ -17,11 +17,6 @@
     "create": "gulp create",
     "lint":"eslint --fix"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "echo \"git commit trigger husky pre-commit hook\" && npm run lint"
-    }
-  },
   "dependencies": {
     "axios": "^0.21.1",
     "core-js": "^3.12.1",
