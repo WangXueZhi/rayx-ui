@@ -2,7 +2,6 @@ const gulp = require('gulp')
 const shell = require('shelljs')
 const path = require('path')
 const fs = require('fs')
-const gulpWatch = require('gulp-watch')
 const scss = require('gulp-sass')
 const less = require('gulp-less')
 const ts = require('gulp-typescript')
@@ -69,12 +68,12 @@ const dev = function (cb) {
     silent: false
   })
   console.log('dev end', new Date())
-  watch()
   cb()
 }
 
 const watch = function () {
   function watchCb(filePath) {
+    console.log('文件变更：', filePath)
     if (!filePath.includes('packages/index.js') && !filePath.includes('packages/index.scss') && !filePath.includes('packages/index.ts')) {
       const ext = filePath.split('.').pop()
       // build不涉及样式文件的编译，可以直接跳过
@@ -85,7 +84,9 @@ const watch = function () {
     }
   }
 
-  const watcher = chokidar.watch('packages/**/**');
+  const watcher = chokidar.watch('packages/**/**', {
+    ignoreInitial: true
+  });
   watcher
     .on('add', path => {
       watchCb(path)
@@ -137,7 +138,7 @@ exports.lib = libAll
 exports.buildAll = buildAll
 
 // 开发服务
-exports.dev = series(build, dev)
+exports.dev = series(build, dev, watch)
 
 // 创建组件
 exports.create = create
