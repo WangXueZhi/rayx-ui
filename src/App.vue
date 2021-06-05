@@ -7,7 +7,6 @@
 <script>
 import { defineComponent } from 'vue'
 // import 'highlight.js/styles/color-brewer.css'
-
 export default defineComponent({
 
 })

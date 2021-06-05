@@ -8,6 +8,7 @@ webpack.components.entrys.js
 /src/components/Layout/LayoutMenuComponents.vue
 /packages/index.js
 /packages/index.scss
+/packages/index.ts
 /src/router/componentsRouters.js
 /ts-test
 

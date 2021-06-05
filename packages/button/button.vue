@@ -22,42 +22,42 @@ export default defineComponent({
      */
     colorType: {
       type: String,
-      default: 'default'
+      default: 'default',
     },
     /**
      * 按钮类型：default | ghost | dashed
      */
     type: {
       type: String,
-      default: 'default'
+      default: 'default',
     },
     /**
      * 最大圆角
      */
     circle: {
       type: Boolean,
-      default: false
+      default: false,
     },
     /**
      * 禁用
      */
     disabled: {
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
   },
   methods: {
-    click () {
+    click() {
       if (!this.disabled) {
         this.$emit('click')
       }
-    }
+    },
   },
   emits: {
     /**
      * 点击
      */
-    click: null
-  }
+    click: null,
+  },
 })
 </script>

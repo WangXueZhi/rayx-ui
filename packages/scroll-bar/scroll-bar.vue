@@ -61,7 +61,7 @@ export default {
       default: "",
     },
   },
-  data() {
+  data () {
     return {
       scrollBarHeight: 0,
       scrollBarTranslateTop: 0,
@@ -71,10 +71,10 @@ export default {
     };
   },
   computed: {
-    barShow() {
+    barShow () {
       return this.needShowBar && (this.mouseenterState || this.mousedownState);
     },
-    barWidth() {
+    barWidth () {
       const scroll = document.createElement("div");
       const scrollIn = document.createElement("div");
       scroll.appendChild(scrollIn);
@@ -93,24 +93,24 @@ export default {
     },
   },
   methods: {
-    mousedown() {
+    mousedown () {
       this.mousedownState = true;
       if (!this.mouseupCallBack) {
         this.mouseupCallBack = this.mouseup.bind(this);
         document.addEventListener("mouseup", this.mouseupCallBack);
       }
     },
-    mouseup() {
+    mouseup () {
       this.mousedownState = false;
     },
-    mouseenter() {
+    mouseenter () {
       this.mouseenterState = true;
       this.initScrollBarState();
     },
-    mouseleave() {
+    mouseleave () {
       this.mouseenterState = false;
     },
-    moveChange(rect) {
+    moveChange (rect) {
       let { top } = rect;
       if (top < 0) {
         top = 0;
@@ -130,7 +130,7 @@ export default {
         top: top,
       };
     },
-    scrollEvent() {
+    scrollEvent () {
       const translateTop =
         (this.$refs.scrollbar_wrap.scrollTop /
           (this.$refs.scrollbar_wrap.scrollHeight -
@@ -139,7 +139,8 @@ export default {
 
       this.scrollBarTranslateTop = translateTop;
     },
-    initScrollBarState() {
+    initScrollBarState () {
+      this.$refs.scrollbar.style.height = 'auto'
       this.$refs.scrollbar.style.height =
         this.$refs.scrollbar.clientHeight + "px";
       this.scrollBarHeight =
@@ -151,14 +152,14 @@ export default {
         this.$refs.scrollbar_wrap.scrollHeight;
     },
   },
-  mounted() {
+  mounted () {
     setTimeout(() => {
       this.initScrollBarState();
     });
     this.resizeCallBack = this.initScrollBarState.bind(this);
     window.addEventListener("resize", this.resizeCallBack);
   },
-  unmounted() {
+  unmounted () {
     window.removeEventListener("resize", this.resizeCallBack);
     if (this.mouseupCallBack) {
       document.removeEventListener("mouseup", this.mouseupCallBack);

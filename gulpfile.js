@@ -10,6 +10,7 @@ const builder = require('./builder/build')
 const util = require('./builder/util')
 const replace = require('gulp-replace')
 const rename = require('gulp-rename')
+const chokidar = require('chokidar')
 const {
   series
 } = require('gulp')
@@ -29,8 +30,9 @@ const copyLess = function () {
 // 构建文档
 const build = function (cb) {
   console.log('build start', new Date())
-  builder(function () {})
-  cb && cb()
+  builder(function () {
+    cb && cb()
+  })
 }
 
 // scss编译
@@ -67,14 +69,13 @@ const dev = function (cb) {
     silent: false
   })
   console.log('dev end', new Date())
+  watch()
   cb()
 }
 
-const watch = function (cb) {
-  gulpWatch('packages/**/**', function (file) {
-    const filePath = path.resolve(file.history[0])
-    console.log('gulpWatch => ', path.resolve(filePath))
-    if (!filePath.includes('\\packages\\index.js') && !filePath.includes('\\packages\\index.scss') && !filePath.includes('/packages/index.js') && !filePath.includes('/packages/index.scss')) {
+const watch = function () {
+  function watchCb(filePath) {
+    if (!filePath.includes('packages/index.js') && !filePath.includes('packages/index.scss') && !filePath.includes('packages/index.ts')) {
       const ext = filePath.split('.').pop()
       // build不涉及样式文件的编译，可以直接跳过
       if (ext == 'scss' || ext == 'less' || ext == 'css') {
@@ -82,8 +83,19 @@ const watch = function (cb) {
       }
       build()
     }
-  })
-  cb()
+  }
+
+  const watcher = chokidar.watch('packages/**/**');
+  watcher
+    .on('add', path => {
+      watchCb(path)
+    })
+    .on('change', path => {
+      watchCb(path)
+    })
+    .on('unlink', path => {
+      watchCb(path)
+    });
 }
 
 // 创建组件
@@ -125,7 +137,7 @@ exports.lib = libAll
 exports.buildAll = buildAll
 
 // 开发服务
-exports.dev = series(build, watch, dev)
+exports.dev = series(build, dev)
 
 // 创建组件
 exports.create = create

@@ -13,7 +13,6 @@ const install = function (app: App) {
     app.component(component.name, component)
   })
 }
-
 export default {
   install,
   Button, Col, Draggable, Icon, Input, Row, ScrollBar
