@@ -43,3 +43,4 @@ app.mount('#app')
 //   store,
 //   render: h => h(App)
 // }).$mount('#app')
+console.log('husky')
