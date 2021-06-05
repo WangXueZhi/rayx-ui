@@ -14,7 +14,13 @@
     "build": "gulp build",
     "build:all": "gulp buildAll",
     "prepublish": "gulp buildAll",
-    "create": "gulp create"
+    "create": "gulp create",
+    "lint":"eslint --fix"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "echo \"git commit trigger husky pre-commit hook\" && npm run lint"
+    }
   },
   "dependencies": {
     "axios": "^0.21.1",
@@ -102,11 +108,7 @@
     "webpack-cli": "^4.2.0",
     "webpack-dev-server": "^3.11.2"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "echo \"git commit trigger husky pre-commit hook\" "
-    }
-  },
+  
   "browserslist": [
     "> 1%",
     "last 2 versions"
