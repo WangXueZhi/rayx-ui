@@ -16,13 +16,19 @@
     "prepublish": "gulp buildAll",
     "create": "gulp create",
     "lint": "eslint --fix",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "commit": "cz"
   },
   "lint-staged": {
     "*.{ts,js,vue}": [
       "prettier --write",
       "eslint --fix"
     ]
+  },
+  "config": {
+    "commitizen": {
+      "path": "node_modules/cz-conventional-changelog"
+    }
   },
   "dependencies": {
     "axios": "^0.21.1",
@@ -62,6 +68,8 @@
     "@babel/plugin-transform-runtime": "^7.12.10",
     "@babel/preset-env": "^7.12.10",
     "@babel/runtime-corejs3": "^7.14.0",
+    "@commitlint/cli": "^12.1.4",
+    "@commitlint/config-conventional": "^12.1.4",
     "@typescript-eslint/eslint-plugin": "^4.26.0",
     "@typescript-eslint/parser": "^4.26.0",
     "@vue/babel-plugin-jsx": "^1.0.0-rc.5",
@@ -74,8 +82,11 @@
     "babel-loader": "^8.2.2",
     "babel-plugin-component": "^1.1.1",
     "babel-plugin-import": "^1.13.3",
+    "commitizen": "^4.2.4",
+    "commitlint": "^12.1.4",
     "cross-env": "^7.0.3",
     "css-loader": "^5.0.1",
+    "cz-conventional-changelog": "^3.3.0",
     "eslint": "^7.26.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-import": "^2.23.2",
