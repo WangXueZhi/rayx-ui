@@ -2,15 +2,15 @@ const babelParser = require('@babel/parser')
 const traverse = require('@babel/traverse').default
 const fs = require('fs')
 
-function getValueFromCodeByRange (code, start, end) {
+function getValueFromCodeByRange(code, start, end) {
   return code.slice(start, end).replace(/\s/g, '').replace(/\|/g, '&#124;')
 }
 
-function isFunctionType (type) {
+function isFunctionType(type) {
   return ['ArrowFunctionExpression', 'FunctionExpression', 'ArrowFunctionExpression'].includes(type)
 }
 
-function parseComment (leadingComments) {
+function parseComment(leadingComments) {
   const commentBlock = getCommentBlockItem(leadingComments)
   if (commentBlock) {
     return commentBlock.value.replace(/\s|\*/g, '').replace(/\|/g, '&#124;')
@@ -19,7 +19,7 @@ function parseComment (leadingComments) {
 }
 
 // 提取多行注释
-function getCommentBlockItem (leadingComments) {
+function getCommentBlockItem(leadingComments) {
   if (!leadingComments) {
     return null
   }
@@ -49,32 +49,36 @@ const parseObjectExpression = function (objectExpressionNode, code, compath) {
         const k = {}
         // 解析注释
         k.comment = parseComment(propertyInProps.leadingComments)
-        // 属性名
-        k.name = propertyInProps.key.name
-        // 解析属性值
-        // 如果是对象表达式
-        if (propertyInProps.value.type === 'ObjectExpression') {
-          propertyInProps.value.properties.forEach(propertyOfProp => {
-            // 类型
-            if (propertyOfProp.key.name === 'type') {
-              k.type = getValueFromCodeByRange(code, propertyOfProp.value.start, propertyOfProp.value.end)
-            }
-            // 默认值
-            if (propertyOfProp.key.name === 'default') {
-              if (k.type === 'Object' || k.type === 'Array') {
-                if (!isFunctionType(propertyOfProp.value.type)) {
-                  throw new Error(`type of prop ${k.name} is ${k.type}, so the default value needs to be a FunctionExpression`)
-                }
+
+        if (k.comment) {
+          // 属性名
+          k.name = propertyInProps.key.name
+          // 解析属性值
+          // 如果是对象表达式
+          if (propertyInProps.value.type === 'ObjectExpression') {
+            propertyInProps.value.properties.forEach(propertyOfProp => {
+              // 类型
+              if (propertyOfProp.key.name === 'type') {
+                k.type = getValueFromCodeByRange(code, propertyOfProp.value.start, propertyOfProp.value.end)
               }
-              k.default = getValueFromCodeByRange(code, propertyOfProp.value.start, propertyOfProp.value.end)
-            }
-          })
-        } else {
-          k.type = getValueFromCodeByRange(code, propertyInProps.value.start, propertyInProps.value.end)
-          k.default = ''
+              // 默认值
+              if (propertyOfProp.key.name === 'default') {
+                if (k.type === 'Object' || k.type === 'Array') {
+                  if (!isFunctionType(propertyOfProp.value.type)) {
+                    throw new Error(`type of prop ${k.name} is ${k.type}, so the default value needs to be a FunctionExpression`)
+                  }
+                }
+                k.default = getValueFromCodeByRange(code, propertyOfProp.value.start, propertyOfProp.value.end)
+              }
+            })
+          } else {
+            k.type = getValueFromCodeByRange(code, propertyInProps.value.start, propertyInProps.value.end)
+            k.default = ''
+          }
+
+          data.props.push(k)
         }
 
-        data.props.push(k)
       })
     }
     // 处理method
@@ -85,16 +89,18 @@ const parseObjectExpression = function (objectExpressionNode, code, compath) {
         // 解析注释
         k.comment = parseComment(methodItem.leadingComments)
 
-        k.name = methodItem.key.name
+        if (k.comment) {
+          k.name = methodItem.key.name
 
-        // 键值对的形式需要检查一下
-        if (methodItem.type === 'ObjectProperty') {
-          if (!isFunctionType(methodItem.value.type)) {
-            throw new Error(`type of method ${k.name} is not a FunctionExpression`)
+          // 键值对的形式需要检查一下
+          if (methodItem.type === 'ObjectProperty') {
+            if (!isFunctionType(methodItem.value.type)) {
+              throw new Error(`type of method ${k.name} is not a FunctionExpression`)
+            }
           }
-        }
 
-        data.methods.push(k)
+          data.methods.push(k)
+        }
       })
     }
     // 处理emits
@@ -104,22 +110,24 @@ const parseObjectExpression = function (objectExpressionNode, code, compath) {
         // 解析注释
         k.comment = parseComment(emitItem.leadingComments)
 
-        k.name = emitItem.key.name
+        if (k.comment) {
+          k.name = emitItem.key.name
 
-        // 键值对的形式需要检查一下
-        if (emitItem.type === 'ObjectProperty') {
-          if (isFunctionType(emitItem.value.type)) {
-            k.params = emitItem.value.params.map(param => {
-              return getValueFromCodeByRange(code, param.start, param.end)
-            }).join(',')
-          } else if (emitItem.value.type === 'NullLiteral') {
-            k.params = ''
-          } else {
-            throw new Error(`Error width value of emit ${k.name}`)
+          // 键值对的形式需要检查一下
+          if (emitItem.type === 'ObjectProperty') {
+            if (isFunctionType(emitItem.value.type)) {
+              k.params = emitItem.value.params.map(param => {
+                return getValueFromCodeByRange(code, param.start, param.end)
+              }).join(',')
+            } else if (emitItem.value.type === 'NullLiteral') {
+              k.params = ''
+            } else {
+              throw new Error(`Error width value of emit ${k.name}`)
+            }
           }
-        }
 
-        data.emits.push(k)
+          data.emits.push(k)
+        }
       })
     }
   })

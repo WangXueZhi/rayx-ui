@@ -10,7 +10,10 @@
   >
     <div
       class="r-scrollbar__wrap"
-      style="margin-bottom: -17px; margin-right: -17px"
+      :style="{
+        marginBottom: `-${barWidth}px`,
+        marginRight: `-${barWidth}px`,
+      }"
       @scroll="scrollEvent"
       ref="scrollbar_wrap"
     >
@@ -45,9 +48,9 @@
   </div>
 </template>
 <script>
-import Draggable from '../draggable'
+import Draggable from "../draggable";
 export default {
-  name: 'rScrollBar',
+  name: "rScrollBar",
   components: { Draggable },
   props: {
     /**
@@ -55,90 +58,111 @@ export default {
      */
     wrapperClass: {
       type: String,
-      default: ''
-    }
+      default: "",
+    },
   },
-  data () {
+  data() {
     return {
       scrollBarHeight: 0,
       scrollBarTranslateTop: 0,
       needShowBar: true,
       mousedownState: false,
-      mouseenterState: false
-    }
+      mouseenterState: false,
+    };
   },
   computed: {
-    barShow () {
-      return this.needShowBar && (this.mouseenterState || this.mousedownState)
-    }
+    barShow() {
+      return this.needShowBar && (this.mouseenterState || this.mousedownState);
+    },
+    barWidth() {
+      const scroll = document.createElement("div");
+      const scrollIn = document.createElement("div");
+      scroll.appendChild(scrollIn);
+      scroll.style.width = "100px";
+      scroll.style.height = "50px";
+      scroll.style.overflow = "scroll";
+      scroll.style.marginLeft = "-100000px";
+      document.body.appendChild(scroll);
+      const scrollInWidth = scrollIn.offsetWidth;
+      const scrollWidth = scroll.offsetWidth;
+      const tmp = setTimeout(() => {
+        document.body.removeChild(scroll);
+        clearTimeout(tmp);
+      }, 10);
+      return scrollWidth - scrollInWidth;
+    },
   },
   methods: {
-    mousedown () {
-      this.mousedownState = true
+    mousedown() {
+      this.mousedownState = true;
       if (!this.mouseupCallBack) {
-        this.mouseupCallBack = this.mouseup.bind(this)
-        document.addEventListener('mouseup', this.mouseupCallBack)
+        this.mouseupCallBack = this.mouseup.bind(this);
+        document.addEventListener("mouseup", this.mouseupCallBack);
       }
     },
-    mouseup () {
-      this.mousedownState = false
+    mouseup() {
+      this.mousedownState = false;
     },
-    mouseenter () {
-      this.mouseenterState = true
-      this.initScrollBarState()
+    mouseenter() {
+      this.mouseenterState = true;
+      this.initScrollBarState();
     },
-    mouseleave () {
-      this.mouseenterState = false
+    mouseleave() {
+      this.mouseenterState = false;
     },
-    moveChange (rect) {
-      let { top } = rect
+    moveChange(rect) {
+      let { top } = rect;
       if (top < 0) {
-        top = 0
+        top = 0;
       }
       if (top > this.$refs.scrollbar_wrap.clientHeight - this.scrollBarHeight) {
-        top = this.$refs.scrollbar_wrap.clientHeight - this.scrollBarHeight
+        top = this.$refs.scrollbar_wrap.clientHeight - this.scrollBarHeight;
       }
-      const scrollTop = top / (this.$refs.scrollbar_wrap.clientHeight - this.scrollBarHeight) * (this.$refs.scrollbar_wrap.scrollHeight -
-            this.$refs.scrollbar_wrap.clientHeight)
-      this.$refs.scrollbar_wrap.scrollTop = scrollTop
+      const scrollTop =
+        (top /
+          (this.$refs.scrollbar_wrap.clientHeight - this.scrollBarHeight)) *
+        (this.$refs.scrollbar_wrap.scrollHeight -
+          this.$refs.scrollbar_wrap.clientHeight);
+      this.$refs.scrollbar_wrap.scrollTop = scrollTop;
 
       return {
         left: 0,
-        top: top
-      }
+        top: top,
+      };
     },
-    scrollEvent () {
+    scrollEvent() {
       const translateTop =
         (this.$refs.scrollbar_wrap.scrollTop /
           (this.$refs.scrollbar_wrap.scrollHeight -
             this.$refs.scrollbar_wrap.clientHeight)) *
-        (this.$refs.scrollbar_wrap.clientHeight - this.scrollBarHeight)
+        (this.$refs.scrollbar_wrap.clientHeight - this.scrollBarHeight);
 
-      this.scrollBarTranslateTop = translateTop
+      this.scrollBarTranslateTop = translateTop;
     },
-    initScrollBarState () {
-      // this.$refs.scrollbar.style.height = this.$refs.scrollbar.clientHeight + 'px'
+    initScrollBarState() {
+      this.$refs.scrollbar.style.height =
+        this.$refs.scrollbar.clientHeight + "px";
       this.scrollBarHeight =
         (this.$refs.scrollbar_wrap.clientHeight /
           this.$refs.scrollbar_wrap.scrollHeight) *
-        this.$refs.scrollbar_wrap.clientHeight
+        this.$refs.scrollbar_wrap.clientHeight;
       this.needShowBar =
         this.$refs.scrollbar_wrap.clientHeight !==
-        this.$refs.scrollbar_wrap.scrollHeight
-    }
+        this.$refs.scrollbar_wrap.scrollHeight;
+    },
   },
-  mounted () {
+  mounted() {
     setTimeout(() => {
-      this.initScrollBarState()
-    })
-    this.resizeCallBack = this.initScrollBarState.bind(this)
-    window.addEventListener('resize', this.resizeCallBack)
+      this.initScrollBarState();
+    });
+    this.resizeCallBack = this.initScrollBarState.bind(this);
+    window.addEventListener("resize", this.resizeCallBack);
   },
-  unmounted () {
-    window.removeEventListener('resize', this.resizeCallBack)
+  unmounted() {
+    window.removeEventListener("resize", this.resizeCallBack);
     if (this.mouseupCallBack) {
-      document.removeEventListener('mouseup', this.mouseupCallBack)
+      document.removeEventListener("mouseup", this.mouseupCallBack);
     }
-  }
-}
+  },
+};
 </script>

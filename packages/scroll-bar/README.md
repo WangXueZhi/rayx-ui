@@ -35,7 +35,6 @@ export default {
 ```
 
 <!-- props -->
-<!-- methods -->
 
 ## slot
 | 名称 | 说明 |
