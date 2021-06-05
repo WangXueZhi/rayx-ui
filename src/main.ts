@@ -21,7 +21,7 @@ router.beforeEach((to, from, next) => {
 })
 
 // 全局后置钩子-常用于结束动画等
-router.afterEach(transition => {
+router.afterEach((transition) => {
   // NProgress结束进度条
   // NProgress.done()
   // console.log(transition)

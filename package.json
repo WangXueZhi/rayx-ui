@@ -15,7 +15,14 @@
     "build:all": "gulp buildAll",
     "prepublish": "gulp buildAll",
     "create": "gulp create",
-    "lint":"eslint --fix"
+    "lint": "eslint --fix",
+    "prepare": "husky install"
+  },
+  "lint-staged": {
+    "*.{ts,js,vue}": [
+      "prettier --write",
+      "eslint --fix"
+    ]
   },
   "dependencies": {
     "axios": "^0.21.1",
@@ -103,7 +110,6 @@
     "webpack-cli": "^4.2.0",
     "webpack-dev-server": "^3.11.2"
   },
-  
   "browserslist": [
     "> 1%",
     "last 2 versions"

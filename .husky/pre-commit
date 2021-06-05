@@ -3,4 +3,5 @@
 
 # npm test
 echo \"git commit trigger husky pre-commit hook\"
-npm run lint
+
+npx lint-staged
