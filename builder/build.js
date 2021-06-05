@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 const vuePaserDoAst = require('./vue-paser').doAst
 const fs = require('fs')
 const path = require('path')
@@ -9,7 +10,11 @@ const getComponentsData = function () {
   const files = fs.readdirSync('./packages')
   for (let i = 0; i < files.length; i++) {
     const stats = fs.statSync('./packages/' + files[i])
-    if (stats.isDirectory() && files[i] !== 'styles' && files[i] !== 'typings') {
+    if (
+      stats.isDirectory() &&
+      files[i] !== 'styles' &&
+      files[i] !== 'typings'
+    ) {
       let compData = {
         fname: files[i]
       }
@@ -23,7 +28,10 @@ const getComponentsData = function () {
       // }
 
       // vue
-      const vuePath = path.resolve(__dirname, '../packages/' + files[i] + '/' + files[i] + '.vue')
+      const vuePath = path.resolve(
+        __dirname,
+        '../packages/' + files[i] + '/' + files[i] + '.vue'
+      )
 
       if (fs.existsSync(vuePath)) {
         // console.log(vuePath + '>>>' + i)
@@ -38,11 +46,15 @@ const getComponentsData = function () {
       }
 
       // md
-      const mdPath = path.resolve(__dirname, '../packages/' + files[i] + '/README.md')
+      const mdPath = path.resolve(
+        __dirname,
+        '../packages/' + files[i] + '/README.md'
+      )
       const hasMarkdown = fs.existsSync(mdPath)
       if (hasMarkdown) {
         let mdContent = fs.readFileSync(mdPath, 'utf-8')
-        let propsTableMd = '## props\n| 参数 | 说明 | 类型 | 默认值 |\n| --- | --- | --- | --- |\n'
+        let propsTableMd =
+          '## props\n| 参数 | 说明 | 类型 | 默认值 |\n| --- | --- | --- | --- |\n'
         let methodsTableMd = '## methods\n| 方法名 | 说明 |\n| --- | --- |\n'
         let emitsTableMd = '## events\n| 事件名 | 说明 | 参数 |\n| --- | --- | --- |\n'
 
@@ -91,16 +103,40 @@ const getComponentsData = function () {
 
 const TPL_PATH_DOC = path.resolve(__dirname, '../tpl/doc.vue')
 const TPL_PATH_ROUTER = path.resolve(__dirname, '../tpl/router.js')
-const TPL_PATH_COMPONENTS_LIST = path.resolve(__dirname, '../tpl/LayoutMenuComponents.vue')
-const TPL_PATH_WEBPACK_COMPONENTS_ENTRYS = path.resolve(__dirname, '../tpl/webpack.components.entrys.js')
-const TPL_PATH_PACKAGE_INDEX = path.resolve(__dirname, '../tpl/package.index.js')
-const TPL_PATH_PACKAGE_INDEX_STYLE = path.resolve(__dirname, '../tpl/package.style.scss')
+const TPL_PATH_COMPONENTS_LIST = path.resolve(
+  __dirname,
+  '../tpl/LayoutMenuComponents.vue'
+)
+const TPL_PATH_WEBPACK_COMPONENTS_ENTRYS = path.resolve(
+  __dirname,
+  '../tpl/webpack.components.entrys.js'
+)
+const TPL_PATH_PACKAGE_INDEX = path.resolve(
+  __dirname,
+  '../tpl/package.index.js'
+)
+const TPL_PATH_PACKAGE_INDEX_STYLE = path.resolve(
+  __dirname,
+  '../tpl/package.style.scss'
+)
 
-const BUILD_PATH_ROUTERS = path.resolve(__dirname, '../src/router/componentsRouters.js')
-const BUILD_PATH_COMPONENTS_LIST = path.resolve(__dirname, '../src/components/Layout/LayoutMenuComponents.vue')
-const BUILD_PATH_WEBPACK_COMPONENTS_ENTRYS = path.resolve(__dirname, '../webpack.components.entrys.js')
+const BUILD_PATH_ROUTERS = path.resolve(
+  __dirname,
+  '../src/router/componentsRouters.js'
+)
+const BUILD_PATH_COMPONENTS_LIST = path.resolve(
+  __dirname,
+  '../src/components/Layout/LayoutMenuComponents.vue'
+)
+const BUILD_PATH_WEBPACK_COMPONENTS_ENTRYS = path.resolve(
+  __dirname,
+  '../webpack.components.entrys.js'
+)
 const BUILD_PATH_PACKAGE_INDEX = path.resolve(__dirname, '../packages/index.js')
-const BUILD_PATH_PACKAGE_INDEX_STYLE = path.resolve(__dirname, '../packages/index.scss')
+const BUILD_PATH_PACKAGE_INDEX_STYLE = path.resolve(
+  __dirname,
+  '../packages/index.scss'
+)
 
 // 创建demo示例组件
 const buildDemos = function (examples, buildPath) {
@@ -158,17 +194,23 @@ const build = function (cb) {
   const package_index_imports_style = [] // 组件入口导入样式列表
   let menuComponentsListData = [] // 组件列表数据
 
-  datas.forEach(item => {
+  datas.forEach((item) => {
     // console.log(item)
     if (item.cname) {
       // webpack构建入口
-      webpackComponentsList.push(`    '${item.fname}': './packages/${item.fname}/index.ts',`)
+      webpackComponentsList.push(
+        `    '${item.fname}': './packages/${item.fname}/index.ts',`
+      )
       // 组件入口导入列表
-      package_index_imports.push(`import ${util.cpNameTransfer(item.fname)} from './${item.fname}'`)
+      package_index_imports.push(
+        `import ${util.cpNameTransfer(item.fname)} from './${item.fname}'`
+      )
       // 组件入口组件列表
       package_index_components.push(util.cpNameTransfer(item.fname))
       // 组件入口导入样式列表
-      package_index_imports_style.push(`@import "./${item.fname}/${item.fname}";`)
+      package_index_imports_style.push(
+        `@import "./${item.fname}/${item.fname}";`
+      )
     }
 
     // 创建demos目录
@@ -180,12 +222,17 @@ const build = function (cb) {
     // demo 和 菜单列表
     if (item.demoText) {
       // 菜单列表数据
-      menuComponentsListData = addMenuComponentsListData(menuComponentsListData, {
-        type: item.type,
-        fname: item.fname
-      })
+      menuComponentsListData = addMenuComponentsListData(
+        menuComponentsListData,
+        {
+          type: item.type,
+          fname: item.fname
+        }
+      )
       // 菜单代码
-      menuComponentsList.push(`<div class="layout-menu-item" @click="docChange('/docs/components/${item.fname}')">${item.fname}</div>`)
+      menuComponentsList.push(
+        `<div class="layout-menu-item" @click="docChange('/docs/components/${item.fname}')">${item.fname}</div>`
+      )
 
       const DOC_PATH = path.resolve(__dirname, `../demos/${item.fname}`)
       if (!fs.existsSync(DOC_PATH)) {
@@ -193,26 +240,38 @@ const build = function (cb) {
       }
 
       // 生成doc代码
-      replaceTplAndBuildToTarget(TPL_PATH_DOC, [{
-        tplText: /__DEMO_TEXT__/g,
-        value: item.demoText
-      }, {
-        tplText: /__DEMO_IMPORT__/g,
-        value: item.demoImportText
-      }, {
-        tplText: /__COMPNENT_NAME__/g,
-        value: item.fname
-      }, {
-        tplText: /__DEMO_COMPONENT_LIST__/g,
-        value: item.demoComponentsText
-      }], `${DOC_PATH}/index.vue`)
+      replaceTplAndBuildToTarget(
+        TPL_PATH_DOC,
+        [
+          {
+            tplText: /__DEMO_TEXT__/g,
+            value: item.demoText
+          },
+          {
+            tplText: /__DEMO_IMPORT__/g,
+            value: item.demoImportText
+          },
+          {
+            tplText: /__COMPNENT_NAME__/g,
+            value: item.fname
+          },
+          {
+            tplText: /__DEMO_COMPONENT_LIST__/g,
+            value: item.demoComponentsText
+          }
+        ],
+        `${DOC_PATH}/index.vue`
+      )
 
       if (item.demoCodeArr && Array.isArray(item.demoCodeArr)) {
         buildDemos(item.demoCodeArr, DOC_PATH)
 
         // 创建组件路由数组
-        routersContent.push(fs.readFileSync(TPL_PATH_ROUTER, 'utf-8')
-          .replace(/__COMPNENT_NAME__/g, item.fname))
+        routersContent.push(
+          fs
+            .readFileSync(TPL_PATH_ROUTER, 'utf-8')
+            .replace(/__COMPNENT_NAME__/g, item.fname)
+        )
       }
     }
 
@@ -223,35 +282,61 @@ const build = function (cb) {
   // console.log(package_index_imports_style)
 
   // package组件入口
-  replaceTplAndBuildToTarget(TPL_PATH_PACKAGE_INDEX, [{
-    tplText: /__PACKAGE_IMPORT_LIST__/g,
-    value: package_index_imports.join('\n')
-  }, {
-    tplText: /__PACKAGE_COMPONENTS_LIST__/g,
-    value: package_index_components.join(', ')
-  }], BUILD_PATH_PACKAGE_INDEX)
+  replaceTplAndBuildToTarget(
+    TPL_PATH_PACKAGE_INDEX,
+    [
+      {
+        tplText: /__PACKAGE_IMPORT_LIST__/g,
+        value: package_index_imports.join('\n')
+      },
+      {
+        tplText: /__PACKAGE_COMPONENTS_LIST__/g,
+        value: package_index_components.join(', ')
+      }
+    ],
+    BUILD_PATH_PACKAGE_INDEX
+  )
 
   // package组件入口
-  replaceTplAndBuildToTarget(TPL_PATH_PACKAGE_INDEX_STYLE, [{
-    tplText: /__IMPORT_STYLE_LIST__/g,
-    value: package_index_imports_style.join('\n')
-  }], BUILD_PATH_PACKAGE_INDEX_STYLE)
+  replaceTplAndBuildToTarget(
+    TPL_PATH_PACKAGE_INDEX_STYLE,
+    [
+      {
+        tplText: /__IMPORT_STYLE_LIST__/g,
+        value: package_index_imports_style.join('\n')
+      }
+    ],
+    BUILD_PATH_PACKAGE_INDEX_STYLE
+  )
 
   // webpack构建入口
   webpackComponentsList.push('    \'index\': \'./packages/index.js\',')
-  replaceTplAndBuildToTarget(TPL_PATH_WEBPACK_COMPONENTS_ENTRYS, [{
-    tplText: /__WEBPACK_COMPONENTS_ENTRYS__/g,
-    value: webpackComponentsList.join('\n')
-  }], BUILD_PATH_WEBPACK_COMPONENTS_ENTRYS)
+  replaceTplAndBuildToTarget(
+    TPL_PATH_WEBPACK_COMPONENTS_ENTRYS,
+    [
+      {
+        tplText: /__WEBPACK_COMPONENTS_ENTRYS__/g,
+        value: webpackComponentsList.join('\n')
+      }
+    ],
+    BUILD_PATH_WEBPACK_COMPONENTS_ENTRYS
+  )
 
   // 组件文档菜单列表
-  replaceTplAndBuildToTarget(TPL_PATH_COMPONENTS_LIST, [{
-    tplText: /__COMPONENTS_MENU_LIST__/g,
-    value: menuComponentsList.join('\n')
-  }, {
-    tplText: /__LIST_DATA__/g,
-    value: JSON.stringify(menuComponentsListData)
-  }], BUILD_PATH_COMPONENTS_LIST)
+  replaceTplAndBuildToTarget(
+    TPL_PATH_COMPONENTS_LIST,
+    [
+      {
+        tplText: /__COMPONENTS_MENU_LIST__/g,
+        value: menuComponentsList.join('\n')
+      },
+      {
+        tplText: /__LIST_DATA__/g,
+        value: JSON.stringify(menuComponentsListData)
+      }
+    ],
+    BUILD_PATH_COMPONENTS_LIST
+  )
 
   // 组件路由
   const routersText = `export default [${routersContent.join(',')}]`

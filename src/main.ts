@@ -21,25 +21,14 @@ router.beforeEach((to, from, next) => {
 })
 
 // 全局后置钩子-常用于结束动画等
-router.afterEach(transition => {
+router.afterEach((transition) => {
   // NProgress结束进度条
   // NProgress.done()
   // console.log(transition)
 })
-
-// 注册组件库
-// Vue.use(VDUI)
-
-// Vue.config.productionTip = false
 
 const app = createApp(App)
 app.use(RayxUi)
 app.use(router)
 app.use(store)
 app.mount('#app')
-
-// new Vue({
-//   router,
-//   store,
-//   render: h => h(App)
-// }).$mount('#app')

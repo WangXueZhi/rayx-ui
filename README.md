@@ -1,9 +1,11 @@
 # rayx-ui
-基于vue, 是组件库（组件还在逐步开发中），也是开箱即用的组件库脚手架
+
+基于 vue, 是组件库（组件还在逐步开发中），也是开箱即用的组件库脚手架
 
 ## 使用组件
 
 安装依赖
+
 ```
 yarn add rayx-ui
 ```
@@ -11,16 +13,19 @@ yarn add rayx-ui
 ## 开发组件
 
 安装依赖
+
 ```
 yarn 或者 npm i
 ```
 
-开启dev
+开启 dev
+
 ```
 yarn dev 或者 npm run dev
 ```
 
 打包库
+
 ```
 yarn lib 或者 npm run lib
 ```
@@ -31,13 +36,18 @@ yarn lib 或者 npm run lib
 
 [组件开发规范-组件编写](https://github.com/WangXueZhi/rayx-ui/blob/master/src/views/development/component/base.md)
 
-[组件开发规范-markdown编写](https://github.com/WangXueZhi/rayx-ui/blob/master/src/views/development/md/base.md)
+[组件开发规范-markdown 编写](https://github.com/WangXueZhi/rayx-ui/blob/master/src/views/development/md/base.md)
 
 [脚手架说明-流程和构建](https://github.com/WangXueZhi/rayx-ui/blob/master/src/views/architecture/base/base.md)
 
-[脚手架说明-markdown解析](https://github.com/WangXueZhi/rayx-ui/blob/master/src/views/architecture/md/base.md)
+[脚手架说明-markdown 解析](https://github.com/WangXueZhi/rayx-ui/blob/master/src/views/architecture/md/base.md)
 
-[脚手架说明-vue解析](https://github.com/WangXueZhi/rayx-ui/blob/master/src/views/architecture/vue/base.md)
+[脚手架说明-vue 解析](https://github.com/WangXueZhi/rayx-ui/blob/master/src/views/architecture/vue/base.md)
 
+### 开发依赖
 
+需要全局安装一下 commitizen
 
+```
+npm i commitizen -g
+```
