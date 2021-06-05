@@ -73,9 +73,10 @@ const dev = function (cb) {
 
 const watch = function () {
   function watchCb(filePath) {
-    console.log('文件变更：', filePath)
-    if (!filePath.includes('packages/index.js') && !filePath.includes('packages/index.scss') && !filePath.includes('packages/index.ts')) {
-      const ext = filePath.split('.').pop()
+    const normalizePath = filePath.replace(/\\/g, '/')
+    if (!normalizePath.includes('packages/index.js') && !normalizePath.includes('packages/index.scss') && !normalizePath.includes('packages/index.ts')) {
+      console.log('文件变更：', normalizePath)
+      const ext = normalizePath.split('.').pop()
       // build不涉及样式文件的编译，可以直接跳过
       if (ext == 'scss' || ext == 'less' || ext == 'css') {
         return

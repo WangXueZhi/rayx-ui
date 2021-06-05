@@ -33,7 +33,7 @@
         :translateX="0"
         :translateY="scrollBarTranslateTop"
       >
-        <template v-slot:head>
+        <template v-slot:dragBar>
           <div
             class="r-scrollbar__thumb"
             ref="scrollbar_vertical"
@@ -72,6 +72,7 @@ export default {
   },
   computed: {
     barShow () {
+      console.log(this.mouseenterState || this.mousedownState)
       return this.needShowBar && (this.mouseenterState || this.mousedownState);
     },
     barWidth () {
@@ -147,6 +148,7 @@ export default {
         (this.$refs.scrollbar_wrap.clientHeight /
           this.$refs.scrollbar_wrap.scrollHeight) *
         this.$refs.scrollbar_wrap.clientHeight;
+      console.log(this.scrollBarHeight)
       this.needShowBar =
         this.$refs.scrollbar_wrap.clientHeight !==
         this.$refs.scrollbar_wrap.scrollHeight;
