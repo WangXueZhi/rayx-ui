@@ -1,7 +1,7 @@
 <template>
   <button
     class="r-button"
-    @click="click"
+    @click="handleClick"
     :class="{
       [`r-button-${colorType}`]: colorType !== 'default',
       [`r-button-${type}`]: type !== 'default',
@@ -13,7 +13,8 @@
   </button>
 </template>
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, toRefs } from 'vue'
+
 export default defineComponent({
   name: 'rButton',
   props: {
@@ -46,18 +47,25 @@ export default defineComponent({
       default: false
     }
   },
-  methods: {
-    click () {
-      if (!this.disabled) {
-        this.$emit('click')
-      }
-    }
-  },
+
   emits: {
     /**
      * 点击
      */
     click: null
+  },
+  setup (props, { emit }) {
+    const { disabled } = toRefs(props)
+
+    const handleClick = (e: Event) => {
+      if (!disabled.value) {
+        emit('click', e)
+      }
+    }
+
+    return {
+      handleClick
+    }
   }
 })
 </script>
