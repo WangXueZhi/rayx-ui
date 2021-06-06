@@ -1,19 +1,20 @@
 <template>
   <button
     class="r-button"
-    @click="click"
+    @click="handleClick"
     :class="{
       [`r-button-${colorType}`]: colorType !== 'default',
       [`r-button-${type}`]: type !== 'default',
       'r-button-circle': circle,
-      'r-button-disabled': disabled,
+      'r-button-disabled': disabled
     }"
   >
     <slot></slot>
   </button>
 </template>
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, toRefs } from 'vue'
+
 export default defineComponent({
   name: 'rButton',
   props: {
@@ -22,42 +23,49 @@ export default defineComponent({
      */
     colorType: {
       type: String,
-      default: 'default',
+      default: 'default'
     },
     /**
      * 按钮类型：default | ghost | dashed
      */
     type: {
       type: String,
-      default: 'default',
+      default: 'default'
     },
     /**
      * 最大圆角
      */
     circle: {
       type: Boolean,
-      default: false,
+      default: false
     },
     /**
      * 禁用
      */
     disabled: {
       type: Boolean,
-      default: false,
-    },
+      default: false
+    }
   },
-  methods: {
-    click() {
-      if (!this.disabled) {
-        this.$emit('click')
-      }
-    },
-  },
+
   emits: {
     /**
      * 点击
      */
-    click: null,
+    click: null
   },
+  setup (props, { emit }) {
+    const { disabled } = toRefs(props)
+
+    const handleClick = (e: Event) => {
+      if (!disabled.value) {
+        emit('click', e)
+      }
+    }
+
+    return {
+      handleClick
+    }
+  }
 })
 </script>
