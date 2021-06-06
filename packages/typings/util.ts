@@ -1,2 +1,8 @@
-import type { App } from 'vue'
-export type SFCWithInstall<T> = T & { install(app: App): void; }
+export namespace DRAGGABLE {
+  export type RECT = {
+    left: number,
+    top: number
+  }
+}
+
+export type DocumentEventCallback = (ev: Event) => any

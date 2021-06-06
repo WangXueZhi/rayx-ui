@@ -31,14 +31,14 @@
       <Draggable
         :moveChange="moveChange"
         :translateX="0"
-        :translateY="scrollBarTranslateTop"
+        :translateY="data.scrollBarTranslateTop"
       >
         <template v-slot:dragBar>
           <div
             class="r-scrollbar__thumb"
             ref="scrollbar_vertical"
             :style="{
-              height: `${scrollBarHeight}px`,
+              height: `${data.scrollBarHeight}px`,
             }"
             @mousedown="mousedown"
           ></div>
@@ -47,10 +47,39 @@
     </div>
   </div>
 </template>
-<script>
-import Draggable from "../draggable";
-export default {
-  name: "rScrollBar",
+<script lang="ts">
+import {
+  defineComponent,
+  onMounted,
+  onUnmounted,
+  reactive,
+  ref,
+  computed,
+} from 'vue'
+import Draggable from '../draggable'
+import { DRAGGABLE, DocumentEventCallback } from '../typings/util'
+
+// 获取滚动条宽度
+function getBarWidth() {
+  const scroll = document.createElement('div')
+  const scrollIn = document.createElement('div')
+  scroll.appendChild(scrollIn)
+  scroll.style.width = '100px'
+  scroll.style.height = '50px'
+  scroll.style.overflow = 'scroll'
+  scroll.style.marginLeft = '-100000px'
+  document.body.appendChild(scroll)
+  const scrollInWidth = scrollIn.offsetWidth
+  const scrollWidth = scroll.offsetWidth
+  const tmp = setTimeout(() => {
+    document.body.removeChild(scroll)
+    clearTimeout(tmp)
+  }, 10)
+  return scrollWidth - scrollInWidth
+}
+
+export default defineComponent({
+  name: 'rScrollBar',
   components: { Draggable },
   props: {
     /**
@@ -58,114 +87,137 @@ export default {
      */
     wrapperClass: {
       type: String,
-      default: "",
+      default: '',
     },
   },
-  data () {
-    return {
+  emits: {
+    /**
+     * 滚动中
+     */
+    'on-scroll': (payload: { left: number; top: number }) => {
+      if (payload.left && payload.top) {
+        return true
+      } else {
+        console.warn(`Invalid on-scroll event payload!`)
+        return false
+      }
+    },
+    /**
+     * 滚动到底
+     */
+    'on-scroll-bottom': null,
+    /**
+     * 滚动到顶
+     */
+    'on-scroll-top': null,
+  },
+  setup(props, ctx) {
+    const scrollbar = ref(null)
+    const scrollbar_wrap = ref(null)
+
+    const data = reactive({
       scrollBarHeight: 0,
       scrollBarTranslateTop: 0,
       needShowBar: true,
       mousedownState: false,
       mouseenterState: false,
-    };
-  },
-  computed: {
-    barShow () {
-      console.log(this.mouseenterState || this.mousedownState)
-      return this.needShowBar && (this.mouseenterState || this.mousedownState);
-    },
-    barWidth () {
-      const scroll = document.createElement("div");
-      const scrollIn = document.createElement("div");
-      scroll.appendChild(scrollIn);
-      scroll.style.width = "100px";
-      scroll.style.height = "50px";
-      scroll.style.overflow = "scroll";
-      scroll.style.marginLeft = "-100000px";
-      document.body.appendChild(scroll);
-      const scrollInWidth = scrollIn.offsetWidth;
-      const scrollWidth = scroll.offsetWidth;
-      const tmp = setTimeout(() => {
-        document.body.removeChild(scroll);
-        clearTimeout(tmp);
-      }, 10);
-      return scrollWidth - scrollInWidth;
-    },
-  },
-  methods: {
-    mousedown () {
-      this.mousedownState = true;
-      if (!this.mouseupCallBack) {
-        this.mouseupCallBack = this.mouseup.bind(this);
-        document.addEventListener("mouseup", this.mouseupCallBack);
+    })
+
+    let mouseupCallBack: DocumentEventCallback
+    function mousedown() {
+      data.mousedownState = true
+      if (!mouseupCallBack) {
+        mouseupCallBack = mouseup.bind(this)
+        document.addEventListener('mouseup', mouseupCallBack)
       }
-    },
-    mouseup () {
-      this.mousedownState = false;
-    },
-    mouseenter () {
-      this.mouseenterState = true;
-      this.initScrollBarState();
-    },
-    mouseleave () {
-      this.mouseenterState = false;
-    },
-    moveChange (rect) {
-      let { top } = rect;
+    }
+
+    function mouseup() {
+      data.mousedownState = false
+    }
+
+    function mouseenter() {
+      data.mouseenterState = true
+      initScrollBarState()
+    }
+
+    function mouseleave() {
+      data.mouseenterState = false
+    }
+
+    function moveChange(rect: DRAGGABLE.RECT) {
+      let { top } = rect
       if (top < 0) {
-        top = 0;
+        top = 0
       }
-      if (top > this.$refs.scrollbar_wrap.clientHeight - this.scrollBarHeight) {
-        top = this.$refs.scrollbar_wrap.clientHeight - this.scrollBarHeight;
+      if (top > scrollbar_wrap.value.clientHeight - data.scrollBarHeight) {
+        top = scrollbar_wrap.value.clientHeight - data.scrollBarHeight
       }
       const scrollTop =
-        (top /
-          (this.$refs.scrollbar_wrap.clientHeight - this.scrollBarHeight)) *
-        (this.$refs.scrollbar_wrap.scrollHeight -
-          this.$refs.scrollbar_wrap.clientHeight);
-      this.$refs.scrollbar_wrap.scrollTop = scrollTop;
+        (top / (scrollbar_wrap.value.clientHeight - data.scrollBarHeight)) *
+        (scrollbar_wrap.value.scrollHeight - scrollbar_wrap.value.clientHeight)
+      scrollbar_wrap.value.scrollTop = scrollTop
 
       return {
         left: 0,
         top: top,
-      };
-    },
-    scrollEvent () {
-      const translateTop =
-        (this.$refs.scrollbar_wrap.scrollTop /
-          (this.$refs.scrollbar_wrap.scrollHeight -
-            this.$refs.scrollbar_wrap.clientHeight)) *
-        (this.$refs.scrollbar_wrap.clientHeight - this.scrollBarHeight);
+      }
+    }
 
-      this.scrollBarTranslateTop = translateTop;
-    },
-    initScrollBarState () {
-      this.$refs.scrollbar.style.height = 'auto'
-      this.$refs.scrollbar.style.height =
-        this.$refs.scrollbar.clientHeight + "px";
-      this.scrollBarHeight =
-        (this.$refs.scrollbar_wrap.clientHeight /
-          this.$refs.scrollbar_wrap.scrollHeight) *
-        this.$refs.scrollbar_wrap.clientHeight;
-      console.log(this.scrollBarHeight)
-      this.needShowBar =
-        this.$refs.scrollbar_wrap.clientHeight !==
-        this.$refs.scrollbar_wrap.scrollHeight;
-    },
-  },
-  mounted () {
-    setTimeout(() => {
-      this.initScrollBarState();
-    });
-    this.resizeCallBack = this.initScrollBarState.bind(this);
-    window.addEventListener("resize", this.resizeCallBack);
-  },
-  unmounted () {
-    window.removeEventListener("resize", this.resizeCallBack);
-    if (this.mouseupCallBack) {
-      document.removeEventListener("mouseup", this.mouseupCallBack);
+    function scrollEvent() {
+      const translateTop =
+        (scrollbar_wrap.value.scrollTop /
+          (scrollbar_wrap.value.scrollHeight -
+            scrollbar_wrap.value.clientHeight)) *
+        (scrollbar_wrap.value.clientHeight - data.scrollBarHeight)
+
+      data.scrollBarTranslateTop = translateTop
+    }
+
+    function initScrollBarState() {
+      // scrollbar.value.style.height = 'auto'
+      // scrollbar.value.style.height = scrollbar_wrap.value.clientHeight + 'px'
+      // console.log(
+      //   scrollbar_wrap.value.clientHeight,
+      //   scrollbar_wrap.value.scrollHeight,
+      // )
+      data.scrollBarHeight =
+        (scrollbar_wrap.value.clientHeight /
+          scrollbar_wrap.value.scrollHeight) *
+        scrollbar_wrap.value.clientHeight
+      data.needShowBar =
+        scrollbar_wrap.value.clientHeight !== scrollbar_wrap.value.scrollHeight
+    }
+
+    let resizeCallBack: DocumentEventCallback
+    onMounted(() => {
+      setTimeout(() => {
+        initScrollBarState()
+      })
+      resizeCallBack = initScrollBarState.bind(this)
+      window.addEventListener('resize', resizeCallBack)
+    })
+    onUnmounted(() => {
+      window.removeEventListener('resize', resizeCallBack)
+      if (mouseupCallBack) {
+        document.removeEventListener('mouseup', mouseupCallBack)
+      }
+    })
+
+    return {
+      barShow: computed(
+        () => data.needShowBar && (data.mouseenterState || data.mousedownState),
+      ),
+      barWidth: computed(getBarWidth),
+      data,
+      scrollbar,
+      scrollbar_wrap,
+      mousedown,
+      mouseenter,
+      mouseleave,
+      moveChange,
+      scrollEvent,
     }
   },
-};
+})
 </script>

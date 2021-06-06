@@ -24,7 +24,7 @@ export default {
 <style lang="scss">
   .test-scroll-wrapper{
     width: 240px;
-    max-height: 200px;
+    height: 200px;
     border: 1px solid #969696;
 
     .test-scroll-item{
@@ -35,15 +35,9 @@ export default {
 ```
 
 <!-- props -->
+<!-- events -->
 
 ## slot
 | 名称 | 说明 |
 | --- | --- |
 | slot | 容器内容 |
-
-## event
-| 名称 | 说明 | 返回值 |
-| --- | --- | --- |
-| on-scroll | 触发滚动 | 距顶部滚动距离：scrollTop |
-| on-scroll-bottom | 触发滚动到底 | null |
-| on-scroll-top | 触发滚动到顶 | null |

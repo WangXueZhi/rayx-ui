@@ -111,7 +111,11 @@ const parseObjectExpression = function (objectExpressionNode, code, compath) {
         k.comment = parseComment(emitItem.leadingComments)
 
         if (k.comment) {
-          k.name = emitItem.key.name
+          if (emitItem.key.type === 'Identifier') {
+            k.name = emitItem.key.name
+          } else if (emitItem.key.type === 'StringLiteral') {
+            k.name = emitItem.key.value
+          }
 
           // 键值对的形式需要检查一下
           if (emitItem.type === 'ObjectProperty') {
