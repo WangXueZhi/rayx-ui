@@ -21,6 +21,12 @@
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0",
     "publish": "npm publish && conventional-changelog -p angular -i CHANGELOG.md -s -r 0 && git add CHANGELOG.md"
   },
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -e $HUSKY_GIT_PARAMS",
+      "prepare-commit-msg": "exec < /dev/tty && git cz --hook"
+    }
+  },
   "lint-staged": {
     "*.{ts,js,vue}": [
       "prettier --write",
@@ -130,11 +136,5 @@
   "repository": {
     "type": "git",
     "url": "https://gitee.com/GeBiLaoWan/rayx-vue-components-lib.git"
-  },
-  "husky": {
-    "hooks": {
-      "commit-msg": "commitlint -e $HUSKY_GIT_PARAMS",
-      "prepare-commit-msg": "exec < /dev/tty && git cz --hook"
-    }
   }
 }
