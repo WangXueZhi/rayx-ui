@@ -30,6 +30,11 @@ yarn dev 或者 npm run dev
 yarn lib 或者 npm run lib
 ```
 
+创建组件
+```
+npm run create -- --name=compnent-name
+```
+
 ## 组件开发文档
 
 [组件开发规范-创建组件](https://github.com/WangXueZhi/rayx-ui/blob/master/src/views/development/base/base.md)
