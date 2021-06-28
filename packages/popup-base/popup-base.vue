@@ -1,15 +1,11 @@
 <template>
-  <div class="r-popup-base">123</div>
+  <div class="r-popup-base">
+    <div class="r-popup-base-mask"></div>
+    <div class="r-popup-base-mask"></div>
+  </div>
 </template>
 <script lang="ts">
-import {
-  App,
-  VNode,
-  createVNode,
-  isVNode,
-  defineComponent,
-  PropType
-} from 'vue'
+import { VNode, defineComponent, PropType } from 'vue'
 
 export default defineComponent({
   name: 'rPopupBase',

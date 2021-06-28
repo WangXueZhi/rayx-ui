@@ -1,15 +1,11 @@
-import { App, VNode, createVNode, isVNode } from "vue";
+import { VNode } from 'vue'
 
-export enum AnimateType {
-  Fade = 'fade'
-}
-
-export type showReturn = {
-  close: () => {}
+export type showInstance = {
+  close: () => unknown
 }
 
 export type popupOptions = {
   content?: string | VNode
-  animateType: string,
+  animateType: string
   ele?: Element
 }

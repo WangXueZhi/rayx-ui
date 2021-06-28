@@ -1,8 +1,9 @@
+/* eslint-disable @typescript-eslint/no-namespace */
 export namespace DRAGGABLE {
   export type RECT = {
-    left: number,
+    left: number
     top: number
   }
 }
 
-export type DocumentEventCallback = (ev: Event) => any
+export type DocumentEventCallback = (ev: Event) => unknown
