@@ -1,6 +1,6 @@
 import PopupBase from './popup-base.vue'
 import { App, createVNode, isVNode, render } from 'vue'
-import type { showInstance, popupOptions } from './types'
+import type { PopupBaseHandle, popupOptions } from './types'
 import type { ComponentPublicInstance } from 'vue'
 
 // 为组件提供 install 安装方法，供按需引入
@@ -8,10 +8,10 @@ PopupBase.install = function (app: App) {
   app.component(PopupBase.name, PopupBase)
 }
 
-const showInstanceList: showInstance[] = []
+const PopupBaseHandleList: PopupBaseHandle[] = []
 
 // 显示
-PopupBase.show = function (options: popupOptions): showInstance {
+PopupBase.show = function (options: popupOptions): PopupBaseHandle {
   const container = document.createElement('div')
 
   const vm = createVNode(
@@ -24,22 +24,22 @@ PopupBase.show = function (options: popupOptions): showInstance {
 
   document.body.appendChild(container.firstElementChild)
 
-  const showInstance: showInstance = {
+  const PopupBaseHandle: PopupBaseHandle = {
     close: () =>
       ((
         vm.component.proxy as ComponentPublicInstance<{ visible: boolean }>
       ).visible = false)
   }
 
-  showInstanceList.push(showInstance)
+  PopupBaseHandleList.push(PopupBaseHandle)
 
-  return showInstance
+  return PopupBaseHandle
 }
 
 // 隐藏
 PopupBase.hide = function (): void {
-  showInstanceList.forEach((showInstance: showInstance) => {
-    showInstance.close()
+  PopupBaseHandleList.forEach((PopupBaseHandle: PopupBaseHandle) => {
+    PopupBaseHandle.close()
   })
 }
 

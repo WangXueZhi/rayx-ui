@@ -4,17 +4,16 @@ const fs = require('fs')
 const path = require('path')
 const util = require('./util')
 const mdRender = require('./md-render')
+
+const excludeDirs = ['styles', 'typings', 'directives']
+
 // 获取组件数据
 const getComponentsData = function () {
   const arr = []
   const files = fs.readdirSync('./packages')
   for (let i = 0; i < files.length; i++) {
     const stats = fs.statSync('./packages/' + files[i])
-    if (
-      stats.isDirectory() &&
-      files[i] !== 'styles' &&
-      files[i] !== 'typings'
-    ) {
+    if (stats.isDirectory() && !excludeDirs.includes(files[i])) {
       let compData = {
         fname: files[i]
       }
@@ -56,21 +55,31 @@ const getComponentsData = function () {
         let propsTableMd =
           '## props\n| 参数 | 说明 | 类型 | 默认值 |\n| --- | --- | --- | --- |\n'
         let methodsTableMd = '## methods\n| 方法名 | 说明 |\n| --- | --- |\n'
-        let emitsTableMd = '## events\n| 事件名 | 说明 | 参数 |\n| --- | --- | --- |\n'
+        let emitsTableMd =
+          '## events\n| 事件名 | 说明 | 参数 |\n| --- | --- | --- |\n'
 
         if (conmponentVueData) {
-          if (conmponentVueData.props && Array.isArray(conmponentVueData.props)) {
-            conmponentVueData.props.forEach(item => {
+          if (
+            conmponentVueData.props &&
+            Array.isArray(conmponentVueData.props)
+          ) {
+            conmponentVueData.props.forEach((item) => {
               propsTableMd += `| ${item.name} | ${item.comment} | ${item.type} | ${item.default} |\n`
             })
           }
-          if (conmponentVueData.methods && Array.isArray(conmponentVueData.methods)) {
-            conmponentVueData.methods.forEach(item => {
+          if (
+            conmponentVueData.methods &&
+            Array.isArray(conmponentVueData.methods)
+          ) {
+            conmponentVueData.methods.forEach((item) => {
               methodsTableMd += `| ${item.name} | ${item.comment} |\n`
             })
           }
-          if (conmponentVueData.emits && Array.isArray(conmponentVueData.emits)) {
-            conmponentVueData.emits.forEach(item => {
+          if (
+            conmponentVueData.emits &&
+            Array.isArray(conmponentVueData.emits)
+          ) {
+            conmponentVueData.emits.forEach((item) => {
               emitsTableMd += `| ${item.name} | ${item.comment} | ${item.params} |\n`
             })
           }

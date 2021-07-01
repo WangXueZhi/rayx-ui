@@ -1,29 +1,24 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 const gulp = require('gulp')
 const shell = require('shelljs')
-const path = require('path')
 const fs = require('fs')
 const scss = require('gulp-sass')
 const less = require('gulp-less')
-const ts = require('gulp-typescript')
 const builder = require('./builder/build')
 const util = require('./builder/util')
 const replace = require('gulp-replace')
 const rename = require('gulp-rename')
 const chokidar = require('chokidar')
-const {
-  series
-} = require('gulp')
+const { series } = require('gulp')
 
 // 复制scss
 const copyScss = function () {
-  return gulp.src('./packages/**/*.scss')
-    .pipe(gulp.dest('lib'))
+  return gulp.src('./packages/**/*.scss').pipe(gulp.dest('lib'))
 }
 
 // 复制less
 const copyLess = function () {
-  return gulp.src('./packages/**/*.less')
-    .pipe(gulp.dest('lib'))
+  return gulp.src('./packages/**/*.less').pipe(gulp.dest('lib'))
 }
 
 // 构建文档
@@ -36,17 +31,21 @@ const build = function (cb) {
 
 // scss编译
 const buildScss = function () {
-  return gulp.src('./packages/**/*.scss')
+  return gulp
+    .src('./packages/**/*.scss')
     .pipe(scss().on('error', scss.logError))
     .pipe(gulp.dest('./lib'))
 }
 
 // less编译
 const buildLess = function () {
-  return gulp.src('./packages/**/*.less')
-    .pipe(less({
-      javascriptEnabled: true
-    }))
+  return gulp
+    .src('./packages/**/*.less')
+    .pipe(
+      less({
+        javascriptEnabled: true
+      })
+    )
     .pipe(gulp.dest('./lib'))
 }
 
@@ -72,13 +71,17 @@ const dev = function (cb) {
 }
 
 const watch = function () {
-  function watchCb(filePath) {
+  function watchCb (filePath) {
     const normalizePath = filePath.replace(/\\/g, '/')
-    if (!normalizePath.includes('packages/index.js') && !normalizePath.includes('packages/index.scss') && !normalizePath.includes('packages/index.ts')) {
+    if (
+      !normalizePath.includes('packages/index.js') &&
+      !normalizePath.includes('packages/index.scss') &&
+      !normalizePath.includes('packages/index.ts')
+    ) {
       console.log('文件变更：', normalizePath)
       const ext = normalizePath.split('.').pop()
       // build不涉及样式文件的编译，可以直接跳过
-      if (ext == 'scss' || ext == 'less' || ext == 'css') {
+      if (ext === 'scss' || ext === 'less' || ext === 'css') {
         return
       }
       build()
@@ -87,17 +90,17 @@ const watch = function () {
 
   const watcher = chokidar.watch('packages/**/**', {
     ignoreInitial: true
-  });
+  })
   watcher
-    .on('add', path => {
+    .on('add', (path) => {
       watchCb(path)
     })
-    .on('change', path => {
+    .on('change', (path) => {
       watchCb(path)
     })
-    .on('unlink', path => {
+    .on('unlink', (path) => {
       watchCb(path)
-    });
+    })
 }
 
 // 创建组件
@@ -113,13 +116,16 @@ const create = function (cb) {
     return
   }
 
-  gulp.src('./tpl/component/**')
-    .pipe(rename(function (path) {
-      if (path.basename === 'component') {
-        path.basename = kebabCaseName
-      }
-      return path
-    }))
+  gulp
+    .src('./tpl/component/**')
+    .pipe(
+      rename(function (path) {
+        if (path.basename === 'component') {
+          path.basename = kebabCaseName
+        }
+        return path
+      })
+    )
     .pipe(replace('_component_', kebabCaseName))
     .pipe(replace('_COMPONENT_', bigCamelCaseName))
     .pipe(gulp.dest(cpPath))

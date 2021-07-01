@@ -1,7 +1,7 @@
 import { VNode } from 'vue'
 
-export type showInstance = {
-  close: () => unknown
+export interface PopupBaseHandle {
+  close: () => void
 }
 
 export type popupOptions = {

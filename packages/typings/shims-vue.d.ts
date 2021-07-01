@@ -17,6 +17,11 @@ declare module '*.vue' {
 //   export default component
 // }
 
+declare type Nullable<T> = T | null
+
 interface Window {
-  R_ICON_FONT_COMPONENT: unknown
+  R_ICON_FONT_COMPONENT: {
+    loadScript: () => void
+    loadStyle: () => void
+  }
 }
