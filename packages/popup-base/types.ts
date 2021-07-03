@@ -9,3 +9,9 @@ export type popupOptions = {
   animateType: string
   ele?: Element
 }
+
+export type PostionStyle = {
+  left: string
+  top: string
+  transform: string
+}

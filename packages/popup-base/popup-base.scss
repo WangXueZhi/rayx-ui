@@ -1,1 +1,11 @@
 @import '../styles/var.scss';
+
+.r-popup-base-fade-enter-active,
+.r-popup-base-fade-leave-active {
+  transition: opacity 0.5s ease;
+}
+
+.r-popup-base-fade-enter-from,
+.r-popup-base-fade-leave-to {
+  opacity: 0;
+}

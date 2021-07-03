@@ -1,22 +1,27 @@
 <template>
-  <teleport :to="to" :disabled="!to">
-    <transition
-      :name="`r-popup-base-${animateType}`"
-      @before-leave="onClose"
-      @after-leave="afterLeave"
-    >
-      <div v-if="visible" :class="['r-popup-base', ...customClass]">
-        <div v-if="showMask" class="r-popup-base-mask"></div>
-        <div class="r-popup-base-content">
-          <slot></slot>
-        </div>
+  <transition
+    :name="`r-popup-base-${animateType}`"
+    @before-leave="onClose"
+    @after-leave="afterLeave"
+  >
+    <div v-if="visible" :class="['r-popup-base', ...customClass]">
+      <div v-if="showMask" class="r-popup-base-mask"></div>
+      <div class="r-popup-base-content">
+        <slot></slot>
       </div>
-    </transition>
-  </teleport>
+    </div>
+  </transition>
 </template>
 <script lang="ts">
 import { VNode, defineComponent, PropType } from 'vue'
 import ClickOutside from '../directives/click-outside'
+import { PostionStyle } from './types'
+
+// const defaultPostionStyle: PostionStyle = {
+//   top: '50%',
+//   left: '50%',
+//   transform: 'translate(-50%, -50%)'
+// }
 
 export default defineComponent({
   name: 'rPopupBase',
@@ -62,6 +67,19 @@ export default defineComponent({
     showMask: {
       type: Boolean,
       default: false
+    },
+    /**
+     * 位置样式设置
+     */
+    postionStyle: {
+      type: Object,
+      default: (): PostionStyle => {
+        return {
+          top: '50%',
+          left: '50%',
+          transform: 'translate(-50%, -50%)'
+        }
+      }
     }
   },
   directives: {
