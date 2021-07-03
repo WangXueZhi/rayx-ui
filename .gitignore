@@ -6,7 +6,6 @@ node_modules
 webpack.components.entrys.js
 /src/views/docs/components
 /src/components/Layout/LayoutMenuComponents.vue
-/packages/index.js
 /packages/index.scss
 /packages/index.ts
 /src/router/componentsRouters.js

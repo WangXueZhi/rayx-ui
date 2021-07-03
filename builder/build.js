@@ -122,7 +122,7 @@ const TPL_PATH_WEBPACK_COMPONENTS_ENTRYS = path.resolve(
 )
 const TPL_PATH_PACKAGE_INDEX = path.resolve(
   __dirname,
-  '../tpl/package.index.js'
+  '../tpl/package.index.ts'
 )
 const TPL_PATH_PACKAGE_INDEX_STYLE = path.resolve(
   __dirname,
@@ -141,7 +141,7 @@ const BUILD_PATH_WEBPACK_COMPONENTS_ENTRYS = path.resolve(
   __dirname,
   '../webpack.components.entrys.js'
 )
-const BUILD_PATH_PACKAGE_INDEX = path.resolve(__dirname, '../packages/index.js')
+const BUILD_PATH_PACKAGE_INDEX = path.resolve(__dirname, '../packages/index.ts')
 const BUILD_PATH_PACKAGE_INDEX_STYLE = path.resolve(
   __dirname,
   '../packages/index.scss'
@@ -300,7 +300,7 @@ const build = function (cb) {
       },
       {
         tplText: /__PACKAGE_COMPONENTS_LIST__/g,
-        value: package_index_components.join(', ')
+        value: package_index_components.join(',\n  ')
       }
     ],
     BUILD_PATH_PACKAGE_INDEX
@@ -319,7 +319,7 @@ const build = function (cb) {
   )
 
   // webpack构建入口
-  webpackComponentsList.push('    \'index\': \'./packages/index.js\',')
+  webpackComponentsList.push('    \'index\': \'./packages/index.ts\',')
   replaceTplAndBuildToTarget(
     TPL_PATH_WEBPACK_COMPONENTS_ENTRYS,
     [

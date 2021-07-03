@@ -2,15 +2,19 @@ const babelParser = require('@babel/parser')
 const traverse = require('@babel/traverse').default
 const fs = require('fs')
 
-function getValueFromCodeByRange(code, start, end) {
+function getValueFromCodeByRange (code, start, end) {
   return code.slice(start, end).replace(/\s/g, '').replace(/\|/g, '&#124;')
 }
 
-function isFunctionType(type) {
-  return ['ArrowFunctionExpression', 'FunctionExpression', 'ArrowFunctionExpression'].includes(type)
+function isFunctionType (type) {
+  return [
+    'ArrowFunctionExpression',
+    'FunctionExpression',
+    'ArrowFunctionExpression'
+  ].includes(type)
 }
 
-function parseComment(leadingComments) {
+function parseComment (leadingComments) {
   const commentBlock = getCommentBlockItem(leadingComments)
   if (commentBlock) {
     return commentBlock.value.replace(/\s|\*/g, '').replace(/\|/g, '&#124;')
@@ -19,16 +23,16 @@ function parseComment(leadingComments) {
 }
 
 // 提取多行注释
-function getCommentBlockItem(leadingComments) {
+function getCommentBlockItem (leadingComments) {
   if (!leadingComments) {
     return null
   }
-  return leadingComments.filter(item => {
+  return leadingComments.filter((item) => {
     return item.type === 'CommentBlock'
   })[0]
 }
 
-const parseObjectExpression = function (objectExpressionNode, code, compath) {
+const parseObjectExpression = function (objectExpressionNode, code) {
   const data = {
     cname: '',
     props: [],
@@ -37,15 +41,18 @@ const parseObjectExpression = function (objectExpressionNode, code, compath) {
   }
 
   // 遍历对象键值对
-  objectExpressionNode.properties.forEach(property => {
+  objectExpressionNode.properties.forEach((property) => {
     // 处理name
     if (property.key.name === 'name') {
       data.cname = property.value.value
     }
     // 处理props，并且是对象表达式，组件严格要求属性必须是对象表达式，为了解析属性
-    if (property.key.name === 'props' && property.value.type === 'ObjectExpression') {
+    if (
+      property.key.name === 'props' &&
+      property.value.type === 'ObjectExpression'
+    ) {
       // 遍历每个属性
-      property.value.properties.forEach(propertyInProps => {
+      property.value.properties.forEach((propertyInProps) => {
         const k = {}
         // 解析注释
         k.comment = parseComment(propertyInProps.leadingComments)
@@ -56,35 +63,51 @@ const parseObjectExpression = function (objectExpressionNode, code, compath) {
           // 解析属性值
           // 如果是对象表达式
           if (propertyInProps.value.type === 'ObjectExpression') {
-            propertyInProps.value.properties.forEach(propertyOfProp => {
+            propertyInProps.value.properties.forEach((propertyOfProp) => {
               // 类型
               if (propertyOfProp.key.name === 'type') {
-                k.type = getValueFromCodeByRange(code, propertyOfProp.value.start, propertyOfProp.value.end)
+                k.type = getValueFromCodeByRange(
+                  code,
+                  propertyOfProp.value.start,
+                  propertyOfProp.value.end
+                )
               }
               // 默认值
               if (propertyOfProp.key.name === 'default') {
                 if (k.type === 'Object' || k.type === 'Array') {
                   if (!isFunctionType(propertyOfProp.value.type)) {
-                    throw new Error(`type of prop ${k.name} is ${k.type}, so the default value needs to be a FunctionExpression`)
+                    throw new Error(
+                      `type of prop ${k.name} is ${k.type}, so the default value needs to be a FunctionExpression`
+                    )
                   }
                 }
-                k.default = getValueFromCodeByRange(code, propertyOfProp.value.start, propertyOfProp.value.end)
+                k.default = getValueFromCodeByRange(
+                  code,
+                  propertyOfProp.value.start,
+                  propertyOfProp.value.end
+                )
               }
             })
           } else {
-            k.type = getValueFromCodeByRange(code, propertyInProps.value.start, propertyInProps.value.end)
+            k.type = getValueFromCodeByRange(
+              code,
+              propertyInProps.value.start,
+              propertyInProps.value.end
+            )
             k.default = ''
           }
 
           data.props.push(k)
         }
-
       })
     }
     // 处理method
-    if (property.key.name === 'methods' && property.value.type === 'ObjectExpression') {
+    if (
+      property.key.name === 'methods' &&
+      property.value.type === 'ObjectExpression'
+    ) {
       // 遍历每个属性
-      property.value.properties.forEach(methodItem => {
+      property.value.properties.forEach((methodItem) => {
         const k = {}
         // 解析注释
         k.comment = parseComment(methodItem.leadingComments)
@@ -95,7 +118,9 @@ const parseObjectExpression = function (objectExpressionNode, code, compath) {
           // 键值对的形式需要检查一下
           if (methodItem.type === 'ObjectProperty') {
             if (!isFunctionType(methodItem.value.type)) {
-              throw new Error(`type of method ${k.name} is not a FunctionExpression`)
+              throw new Error(
+                `type of method ${k.name} is not a FunctionExpression`
+              )
             }
           }
 
@@ -104,8 +129,11 @@ const parseObjectExpression = function (objectExpressionNode, code, compath) {
       })
     }
     // 处理emits
-    if (property.key.name === 'emits' && property.value.type === 'ObjectExpression') {
-      property.value.properties.forEach(emitItem => {
+    if (
+      property.key.name === 'emits' &&
+      property.value.type === 'ObjectExpression'
+    ) {
+      property.value.properties.forEach((emitItem) => {
         const k = {}
         // 解析注释
         k.comment = parseComment(emitItem.leadingComments)
@@ -120,9 +148,11 @@ const parseObjectExpression = function (objectExpressionNode, code, compath) {
           // 键值对的形式需要检查一下
           if (emitItem.type === 'ObjectProperty') {
             if (isFunctionType(emitItem.value.type)) {
-              k.params = emitItem.value.params.map(param => {
-                return getValueFromCodeByRange(code, param.start, param.end)
-              }).join(',')
+              k.params = emitItem.value.params
+                .map((param) => {
+                  return getValueFromCodeByRange(code, param.start, param.end)
+                })
+                .join(',')
             } else if (emitItem.value.type === 'NullLiteral') {
               k.params = ''
             } else {
@@ -145,7 +175,15 @@ const paresExportDefault = function (node, code, compath) {
     return parseObjectExpression(node.declaration, code, compath)
   }
 
-  if (node.declaration.type === 'CallExpression' && node.declaration.callee && node.declaration.callee.name === 'defineComponent' && node.declaration.arguments && node.declaration.arguments.length && node.declaration.arguments.length > 0 && node.declaration.arguments[0].type === 'ObjectExpression') {
+  if (
+    node.declaration.type === 'CallExpression' &&
+    node.declaration.callee &&
+    node.declaration.callee.name === 'defineComponent' &&
+    node.declaration.arguments &&
+    node.declaration.arguments.length &&
+    node.declaration.arguments.length > 0 &&
+    node.declaration.arguments[0].type === 'ObjectExpression'
+  ) {
     return parseObjectExpression(node.declaration.arguments[0], code, compath)
   }
 
@@ -161,9 +199,7 @@ const doAst = function (code, compath) {
   })
   traverse(ast, {
     // 默认导出节点
-    ExportDefaultDeclaration: ({
-      node
-    }) => {
+    ExportDefaultDeclaration: ({ node }) => {
       data = paresExportDefault(node, code, compath)
     }
   })
@@ -176,7 +212,10 @@ const main = function () {
   for (let i = 0; i < files.length; i++) {
     const stats = fs.statSync('./packages/' + files[i])
     if (stats.isDirectory()) {
-      const fileContent = fs.readFileSync('./packages/' + files[i] + '/' + files[i] + '.vue', 'utf-8')
+      const fileContent = fs.readFileSync(
+        './packages/' + files[i] + '/' + files[i] + '.vue',
+        'utf-8'
+      )
       const matchReg = /<script(?:\s+[^>]*)?>([\s\S]+?)<\/script\s*>/
       const code = matchReg.exec(fileContent)[1]
       const data = doAst(code)

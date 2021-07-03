@@ -40,9 +40,9 @@ export default {
   },
   setup (props: PropType): void {
     if (props.mode === 'svg') {
-      window.R_ICON_FONT_COMPONENT.loadScript()
+      window.R_ICON.loadScript()
     } else {
-      window.R_ICON_FONT_COMPONENT.loadStyle()
+      window.R_ICON.loadStyle()
     }
   }
 }

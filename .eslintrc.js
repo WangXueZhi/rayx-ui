@@ -22,6 +22,7 @@ module.exports = {
     'no-debugger': 'off',
     camelcase: 0,
     'no-var': 0, // 禁用var，用let和const代替
-    quotes: [1, 'single'] // 引号类型 `` "" ''
+    quotes: [1, 'single'], // 引号类型 `` "" ''
+    '@typescript-eslint/no-var-requires': 0
   }
 }

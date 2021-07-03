@@ -2,7 +2,7 @@
   <div
     class="r-scrollbar"
     :class="{
-      [wrapperClass]: wrapperClass,
+      [wrapperClass]: wrapperClass
     }"
     @mouseenter="mouseenter"
     @mouseleave="mouseleave"
@@ -12,7 +12,7 @@
       class="r-scrollbar__wrap"
       :style="{
         marginBottom: `-${barWidth}px`,
-        marginRight: `-${barWidth}px`,
+        marginRight: `-${barWidth}px`
       }"
       @scroll="scrollEvent"
       ref="scrollbar_wrap"
@@ -38,7 +38,7 @@
             class="r-scrollbar__thumb"
             ref="scrollbar_vertical"
             :style="{
-              height: `${data.scrollBarHeight}px`,
+              height: `${data.scrollBarHeight}px`
             }"
             @mousedown="mousedown"
           ></div>
@@ -54,13 +54,13 @@ import {
   onUnmounted,
   reactive,
   ref,
-  computed,
+  computed
 } from 'vue'
 import Draggable from '../draggable'
 import { DRAGGABLE, DocumentEventCallback } from '../typings/util'
 
 // 获取滚动条宽度
-function getBarWidth() {
+function getBarWidth () {
   const scroll = document.createElement('div')
   const scrollIn = document.createElement('div')
   scroll.appendChild(scrollIn)
@@ -87,8 +87,8 @@ export default defineComponent({
      */
     wrapperClass: {
       type: String,
-      default: '',
-    },
+      default: ''
+    }
   },
   emits: {
     /**
@@ -98,7 +98,7 @@ export default defineComponent({
       if (payload.left && payload.top) {
         return true
       } else {
-        console.warn(`Invalid on-scroll event payload!`)
+        console.warn('Invalid on-scroll event payload!')
         return false
       }
     },
@@ -109,9 +109,9 @@ export default defineComponent({
     /**
      * 滚动到顶
      */
-    'on-scroll-top': null,
+    'on-scroll-top': null
   },
-  setup(props, ctx) {
+  setup () {
     const scrollbar = ref(null)
     const scrollbar_wrap = ref(null)
 
@@ -120,11 +120,11 @@ export default defineComponent({
       scrollBarTranslateTop: 0,
       needShowBar: true,
       mousedownState: false,
-      mouseenterState: false,
+      mouseenterState: false
     })
 
     let mouseupCallBack: DocumentEventCallback
-    function mousedown() {
+    function mousedown () {
       data.mousedownState = true
       if (!mouseupCallBack) {
         mouseupCallBack = mouseup.bind(this)
@@ -132,20 +132,20 @@ export default defineComponent({
       }
     }
 
-    function mouseup() {
+    function mouseup () {
       data.mousedownState = false
     }
 
-    function mouseenter() {
+    function mouseenter () {
       data.mouseenterState = true
       initScrollBarState()
     }
 
-    function mouseleave() {
+    function mouseleave () {
       data.mouseenterState = false
     }
 
-    function moveChange(rect: DRAGGABLE.RECT) {
+    function moveChange (rect: DRAGGABLE.RECT) {
       let { top } = rect
       if (top < 0) {
         top = 0
@@ -160,11 +160,11 @@ export default defineComponent({
 
       return {
         left: 0,
-        top: top,
+        top: top
       }
     }
 
-    function scrollEvent() {
+    function scrollEvent () {
       const translateTop =
         (scrollbar_wrap.value.scrollTop /
           (scrollbar_wrap.value.scrollHeight -
@@ -174,7 +174,7 @@ export default defineComponent({
       data.scrollBarTranslateTop = translateTop
     }
 
-    function initScrollBarState() {
+    function initScrollBarState () {
       // scrollbar.value.style.height = 'auto'
       // scrollbar.value.style.height = scrollbar_wrap.value.clientHeight + 'px'
       // console.log(
@@ -206,7 +206,7 @@ export default defineComponent({
 
     return {
       barShow: computed(
-        () => data.needShowBar && (data.mouseenterState || data.mousedownState),
+        () => data.needShowBar && (data.mouseenterState || data.mousedownState)
       ),
       barWidth: computed(getBarWidth),
       data,
@@ -216,8 +216,8 @@ export default defineComponent({
       mouseenter,
       mouseleave,
       moveChange,
-      scrollEvent,
+      scrollEvent
     }
-  },
+  }
 })
 </script>
