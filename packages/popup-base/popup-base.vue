@@ -4,10 +4,16 @@
     @before-leave="onClose"
     @after-leave="afterLeave"
   >
-    <div v-if="visible" :class="['r-popup-base', ...customClass]">
+    <div
+      v-if="visible"
+      :class="['r-popup-base', ...customClass]"
+      v-clickOutside="clickOutside"
+    >
       <div v-if="showMask" class="r-popup-base-mask"></div>
-      <div class="r-popup-base-content">
-        <slot></slot>
+      <div class="r-popup-base-wrapper">
+        <div class="r-popup-base-content">
+          <slot></slot>
+        </div>
       </div>
     </div>
   </transition>
@@ -27,7 +33,7 @@ export default defineComponent({
   name: 'rPopupBase',
   props: {
     /**
-     * 显示弹窗
+     * 显示状态，v-model:visible
      */
     visible: {
       type: Boolean,
@@ -69,6 +75,20 @@ export default defineComponent({
       default: false
     },
     /**
+     * 点击遮罩层关闭
+     */
+    closeOnClickMask: {
+      type: Boolean,
+      default: false
+    },
+    /**
+     * 点击外部关闭
+     */
+    closeOnClickOutside: {
+      type: Boolean,
+      default: false
+    },
+    /**
      * 位置样式设置
      */
     postionStyle: {
@@ -85,9 +105,23 @@ export default defineComponent({
   directives: {
     clickOutside: ClickOutside
   },
+  watch: {
+    visible (v: boolean) {
+      if (v) {
+        document.body.classList.add('r-popup-base-parent--hidden')
+      } else {
+        document.body.classList.remove('r-popup-base-parent--hidden')
+      }
+    }
+  },
   methods: {
     afterLeave () {
       this.$emit('onClose')
+    },
+    clickOutside () {
+      if (this.closeOnClickOutside && this.visible) {
+        this.$emit('update:visible', false)
+      }
     }
   }
 })

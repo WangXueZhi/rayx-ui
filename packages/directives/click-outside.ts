@@ -5,21 +5,24 @@ type NodeListMap = Map<HTMLElement, ((...args: unknown[]) => unknown)[]>
 const nodeList: NodeListMap = new Map()
 
 document.addEventListener(
-  'click',
+  'mousedown',
   (e: MouseEvent) => {
     const target = e.target as HTMLElement
-    const handlers = nodeList.get(target)
-    if (handlers && handlers.length > 0) {
-      handlers.forEach((handler) => {
-        handler(e)
-      })
+    for (const el of nodeList.keys()) {
+      if (!el.contains(target)) {
+        const elHandlers = nodeList.get(el)
+        elHandlers.forEach((handler) => {
+          handler(e)
+        })
+      }
     }
   },
   false
 )
 
 const ClickOutside: ObjectDirective = {
-  beforeMount (el, binding) {
+  mounted (el, binding) {
+    console.log('ClickOutside > mounted')
     if (!nodeList.has(el)) {
       nodeList.set(el, [])
     }

@@ -6,19 +6,42 @@
 
 ## 示例
 
-示例1
+基础用法
 
 ```vue demo
 <template>
   <div class="demo-wrapper">
-    <r-popup-base>
-      123
+    <r-popup-base v-model:visible="show" closeOnClickOutside>
+      <div class="demo-popup-base-simple">123</div>
     </r-popup-base>
+    <r-button @click="showPopup">弹窗</r-button>
   </div>
 </template>
 <script>
-  export default {};
+  export default {
+    data(){
+      return {
+        show: false
+      }
+    },
+    methods:{
+      showPopup(){
+        console.log('showPopup >>')
+        this.show = !this.show
+      }
+    }
+  };
 </script>
+<style>
+  .demo-popup-base-simple{
+    width: 200px;
+    height: 80px;
+    background: #fff;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding-top: 20px;
+  }
+</style>
 ```
 
 <!-- props -->
