@@ -1,26 +1,15 @@
 <template>
   <div class="layout-menu-list-part">
-    <div
-      class="layout-menu-list-component-part"
-      v-for="typeItem in list"
-      :key="typeItem.type"
-    >
-      <div class="layout-menu-list-component-part-title">
-        {{ typeItem.type }}
-      </div>
+    <div class="layout-menu-list-component-part" v-for="typeItem in list" :key="typeItem.type">
+      <div class="layout-menu-list-component-part-title">{{typeItem.type}}</div>
       <div class="layout-menu-list-component-items">
         <div
           class="layout-menu-list-component-item layout-menu-item"
-          :class="{
-            'layout-menu-item-active':
-              currentPath === `/docs/components/${componentName}`
-          }"
+          :class="{'layout-menu-item-active':currentPath===`/docs/components/${componentName}`}"
           v-for="componentName in typeItem.list"
           :key="componentName"
           @click="docChange(`/docs/components/${componentName}`)"
-        >
-          {{ componentName }}
-        </div>
+        >{{componentName}}</div>
       </div>
     </div>
   </div>
@@ -28,19 +17,15 @@
 
 <script>
 import { defineComponent, computed } from 'vue'
-import { useRouter } from 'vue-router'
+import {
+  useRouter
+} from 'vue-router'
 
 export default defineComponent({
   name: 'LayoutMenuComponents',
   data () {
     return {
-      list: [
-        { type: '基础', list: ['button', 'grid', 'icon'] },
-        { type: '交互', list: ['draggable'] },
-        { type: '表单', list: ['input'] },
-        { type: '组件分类', list: ['popup-base'] },
-        { type: '通用', list: ['scroll-bar'] }
-      ]
+      list: [{ type: '基础', list: ['button', 'grid', 'icon'] }, { type: '交互', list: ['draggable'] }, { type: '表单', list: ['input'] }, { type: '反馈', list: ['popup-base'] }, { type: '通用', list: ['scroll-bar'] }]
     }
   },
   setup: () => {

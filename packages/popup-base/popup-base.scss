@@ -1,42 +1,11 @@
 @import '../styles/var.scss';
 
-.r-popup-base-fade-enter-active,
-.r-popup-base-fade-leave-active {
-    transition: opacity 0.5s ease;
-}
-
-.r-popup-base-fade-enter-from,
-.r-popup-base-fade-leave-to {
-    opacity: 0;
-}
-
 html.r-popup-base-parent--hidden,
 body.r-popup-base-parent--hidden {
-    overflow: hidden;
+  overflow: hidden;
 }
 
-
-
 .r-popup-base {
-    position: fixed;
-    z-index: 2000;
-    left: 0;
-    top: 0;
-    width: 0;
-    height: 0;
-
-    .r-popup-base-mask {
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        z-index: 2000;
-        background-color: rgba(0, 0, 0, .5);
-    }
-
-    .r-popup-base-wrapper {
-        position: fixed;
-        z-index: 2001;
-    }
+  position: fixed;
+  z-index: 2000;
 }

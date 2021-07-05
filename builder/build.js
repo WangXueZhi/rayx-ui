@@ -342,6 +342,14 @@ const build = function (cb) {
       {
         tplText: /__LIST_DATA__/g,
         value: JSON.stringify(menuComponentsListData)
+          .replace(/"/g, '\'')
+          .replace(/,/g, ', ')
+          .replace(/\{/g, '{ ')
+          .replace(/\]/g, '] ')
+          .replace(/(\]\s)(?!.*\1)/, ']')
+          .replace(/:/g, ': ')
+          .replace(/'type'/g, 'type')
+          .replace(/'list'/g, 'list')
       }
     ],
     BUILD_PATH_COMPONENTS_LIST

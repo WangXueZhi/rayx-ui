@@ -1,33 +1,23 @@
 <template>
   <transition
-    :name="`r-popup-base-${animateType}`"
+    :enter-active-class="`animate__${animateIn}`"
+    :leave-active-class="`animate__${animateOut}`"
     @before-leave="onClose"
     @after-leave="afterLeave"
   >
     <div
       v-if="visible"
-      :class="['r-popup-base', ...customClass]"
+      :class="['animate__animated', 'r-popup-base']"
       v-clickOutside="clickOutside"
     >
-      <div v-if="showMask" class="r-popup-base-mask"></div>
-      <div class="r-popup-base-wrapper">
-        <div class="r-popup-base-content">
-          <slot></slot>
-        </div>
-      </div>
+      <slot></slot>
     </div>
   </transition>
 </template>
 <script lang="ts">
-import { VNode, defineComponent, PropType } from 'vue'
+import { defineComponent } from 'vue'
 import ClickOutside from '../directives/click-outside'
-import { PostionStyle } from './types'
-
-// const defaultPostionStyle: PostionStyle = {
-//   top: '50%',
-//   left: '50%',
-//   transform: 'translate(-50%, -50%)'
-// }
+import 'animate.css'
 
 export default defineComponent({
   name: 'rPopupBase',
@@ -40,80 +30,67 @@ export default defineComponent({
       default: false
     },
     /**
-     * 动画类型
+     * 入场动画：参考animate.css
      */
-    animateType: {
+    animateIn: {
       type: String,
-      default: 'fade'
+      default: 'fadeIn'
     },
     /**
-     * 插入位置，元素选择器，exp: #app
+     *  出场动画：参考animate.css
      */
-    to: {
+    animateOut: {
       type: String,
-      default: ''
+      default: 'fadeOut'
     },
-    /**
-     * 内容， string或者vnode
-     */
-    content: {
-      type: [String, Object] as PropType<string | VNode>,
-      default: ''
-    },
-    /**
-     * 自定义class
-     */
-    customClass: {
-      type: Array,
-      default: (): string[] => []
-    },
-    /**
-     * 显示遮罩层
-     */
-    showMask: {
-      type: Boolean,
-      default: false
-    },
-    /**
-     * 点击遮罩层关闭
-     */
-    closeOnClickMask: {
-      type: Boolean,
-      default: false
-    },
+    // /**
+    //  * 插入位置，元素选择器，exp: #app
+    //  */
+    // to: {
+    //   type: String,
+    //   default: ''
+    // },
+    // /**
+    //  * 内容， string或者vnode
+    //  */
+    // content: {
+    //   type: [String, Object] as PropType<string | VNode>,
+    //   default: ''
+    // },
+    // /**
+    //  * 显示遮罩层
+    //  */
+    // showMask: {
+    //   type: Boolean,
+    //   default: false
+    // },
+    // /**
+    //  * 点击遮罩层关闭
+    //  */
+    // closeOnClickMask: {
+    //   type: Boolean,
+    //   default: false
+    // },
     /**
      * 点击外部关闭
      */
     closeOnClickOutside: {
       type: Boolean,
       default: false
-    },
-    /**
-     * 位置样式设置
-     */
-    postionStyle: {
-      type: Object,
-      default: (): PostionStyle => {
-        return {
-          top: '50%',
-          left: '50%',
-          transform: 'translate(-50%, -50%)'
-        }
-      }
     }
   },
   directives: {
     clickOutside: ClickOutside
   },
-  watch: {
-    visible (v: boolean) {
-      if (v) {
-        document.body.classList.add('r-popup-base-parent--hidden')
-      } else {
-        document.body.classList.remove('r-popup-base-parent--hidden')
-      }
-    }
-  },
+  // watch: {
+  //   visible (v: boolean) {
+  //     if (v) {
+  //       document.body.classList.add('r-popup-base-parent--hidden')
+  //     } else {
+  //       document.body.classList.remove('r-popup-base-parent--hidden')
+  //     }
+  //   }
+  // },
   methods: {
     afterLeave () {
       this.$emit('onClose')
