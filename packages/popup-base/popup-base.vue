@@ -6,7 +6,7 @@
     @after-leave="afterLeave"
   >
     <div
-      v-if="visible"
+      v-if="show"
       :class="['animate__animated', 'r-popup-base']"
       v-clickOutside="clickOutside"
     >
@@ -23,9 +23,9 @@ export default defineComponent({
   name: 'rPopupBase',
   props: {
     /**
-     * 显示状态，v-model:visible
+     * 显示状态，v-model:show
      */
-    visible: {
+    show: {
       type: Boolean,
       default: false
     },
@@ -83,7 +83,7 @@ export default defineComponent({
     clickOutside: ClickOutside
   },
   // watch: {
-  //   visible (v: boolean) {
+  //   show (v: boolean) {
   //     if (v) {
   //       document.body.classList.add('r-popup-base-parent--hidden')
   //     } else {
@@ -91,13 +91,19 @@ export default defineComponent({
   //     }
   //   }
   // },
+  emits: {
+    /**
+     * 关闭事件
+     */
+    onClose: null
+  },
   methods: {
     afterLeave () {
       this.$emit('onClose')
     },
     clickOutside () {
-      if (this.closeOnClickOutside && this.visible) {
-        this.$emit('update:visible', false)
+      if (this.closeOnClickOutside && this.show) {
+        this.$emit('update:show', false)
       }
     }
   }

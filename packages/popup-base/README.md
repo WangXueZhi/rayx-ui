@@ -1,4 +1,4 @@
-<!-- type: 反馈 -->
+<!-- type: 弹出层 -->
 
 # PopupBase
 
@@ -11,7 +11,7 @@
 ```vue demo
 <template>
   <div class="demo-wrapper">
-    <r-popup-base v-model:visible="show" class="demo-popup-base">
+    <r-popup-base v-model:show="show" class="demo-popup-base">
       基础用法
     </r-popup-base>
     <r-button @click="show = true">显示</r-button>
@@ -50,7 +50,7 @@ export default {
 <template>
   <div class="demo-wrapper">
     <r-popup-base
-      v-model:visible="show"
+      v-model:show="show"
       closeOnClickOutside
       class="demo-popup-base"
     >
@@ -81,7 +81,7 @@ export default {
 <template>
   <div class="demo-wrapper">
     <r-popup-base
-      v-model:visible="show"
+      v-model:show="show"
       animateIn="bounceIn"
       animateOut="bounceOut"
       class="demo-popup-base"
