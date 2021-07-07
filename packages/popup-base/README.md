@@ -103,4 +103,66 @@ export default {
 </script>
 ```
 
+静态方法调用
+
+```vue demo
+<template>
+  <div class="demo-wrapper">
+    <r-button @click="showPopupBase">显示</r-button>
+    <r-button @click="closePopupBase">关闭</r-button>
+  </div>
+</template>
+<script>
+import { defineComponent, getCurrentInstance } from 'vue'
+import PopupBase from '../popup-base'
+
+let popupBaseHandle = null
+
+export default defineComponent({
+  data() {
+    return {
+      show: false
+    }
+  },
+  setup() {
+    const { proxy } = getCurrentInstance()
+    console.log(proxy)
+    const showPopupBase = function () {
+      popupBaseHandle = proxy.$popupBase({
+        animateIn: 'bounceIn',
+        animateOut: 'bounceOut',
+        content: '你好'
+      })
+    }
+    const closePopupBase = function () {
+      if (popupBaseHandle) {
+        popupBaseHandle.close()
+        popupBaseHandle = null
+      }
+    }
+    return {
+      showPopupBase,
+      closePopupBase
+    }
+  }
+  // methods: {
+  //   showPopupBase() {
+  //     console.log(this)
+  //     popupBaseHandle = this.$popupBase({
+  //       animateIn: 'bounceIn',
+  //       animateOut: 'bounceOut',
+  //       content: '你好'
+  //     })
+  //   },
+  //   closePopupBase(){
+  //     if(popupBaseHandle){
+  //       popupBaseHandle.close()
+  //       popupBaseHandle = null
+  //     }
+  //   }
+  // }
+})
+</script>
+```
+
 <!-- props -->

@@ -5,13 +5,9 @@ export interface PopupBaseHandle {
 }
 
 export type popupOptions = {
-  content?: string | VNode
-  animateType: string
-  ele?: Element
-}
-
-export type PostionStyle = {
-  left: string
-  top: string
-  transform: string
+  show?: boolean
+  animateIn?: string
+  animateOut?: string
+  closeOnClickOutside?: boolean
+  content?: VNode | string
 }

@@ -106,6 +106,9 @@ export default defineComponent({
         this.$emit('update:show', false)
       }
     }
+  },
+  mounted () {
+    console.log('mounted', this.show)
   }
 })
 </script>
