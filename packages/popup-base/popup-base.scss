@@ -1,11 +1,12 @@
 @import '../styles/var.scss';
 
-html.r-popup-base-parent--hidden,
-body.r-popup-base-parent--hidden {
-  overflow: hidden;
+:root {
+  --animate-duration: .5s;
+  --animate-delay: .5s;
+  --animate-repeat: 1;
 }
 
 .r-popup-base {
   position: fixed;
-  z-index: 2000;
+  z-index: 9000;
 }

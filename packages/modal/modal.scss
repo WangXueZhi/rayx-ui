@@ -1,9 +1,34 @@
 @import '../styles/var.scss';
 
-.r-modal{
+html.r-modal-parent--hidden,
+body.r-modal-parent--hidden {
+    overflow: hidden;
+}
+
+.r-modal {
     position: fixed;
     width: 100%;
     height: 100%;
     left: 0;
     top: 0;
+
+
+    .r-modal-mask {
+        background-color: rgba(0, 0, 0, 0.5);
+        position: relative;
+        width: 100%;
+        height: 100%;
+    }
+
+    .r-modal-wrapper {
+        position: fixed;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 9001;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        box-shadow: 0 1px 2px -2px rgba(0, 0, 0, 0.08), 0 3px 6px 0 rgba(0, 0, 0, 0.06), 0 5px 12px 4px rgba(0, 0, 0, 0.04);
+    }
 }
