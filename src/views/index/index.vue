@@ -3,16 +3,28 @@
     <div class="home-base">
       <div class="ui-name-en">
         Component Producer For
-        <span>Vue</span>
+        <span>Vue3</span>
       </div>
-      <div class="ui-name-cn">
-        快速搭建vue组件库
-        <br />开箱即用的组件库脚手架
-      </div>
+      <div class="ui-name-cn">快速搭建vue组件库</div>
+      <div class="ui-desc-cn">开箱即用的组件库脚手架</div>
       <div class="ui-button">
-        <r-button colorType="primary" type="ghost" circle @click="componentDoc">组件文档</r-button>
-        <r-button colorType="primary" type="ghost" circle @click="architectureDoc">脚手架说明</r-button>
-        <r-button colorType="primary" type="ghost" circle @click="developmentDoc">组件开发</r-button>
+        <r-button colorType="primary" type="ghost" circle @click="componentDoc"
+          >组件文档</r-button
+        >
+        <r-button
+          colorType="primary"
+          type="ghost"
+          circle
+          @click="architectureDoc"
+          >脚手架说明</r-button
+        >
+        <r-button
+          colorType="primary"
+          type="ghost"
+          circle
+          @click="developmentDoc"
+          >组件开发</r-button
+        >
       </div>
     </div>
     <div class="home-markdown">
@@ -68,9 +80,20 @@ export default {
     }
 
     .ui-name-cn {
-      font-size: 20px;
+      font-size: 27px;
       margin: 30px 0;
-      line-height: 1.5;
+      margin-bottom: 15px;
+      text-align: center;
+      font-weight: bold;
+      background: #4fc08d;
+      display: inline-block;
+      color: #fff;
+      padding: 0 5px;
+    }
+    .ui-desc-cn {
+      font-size: 16px;
+      margin: 30px 0;
+      margin-top: 0;
       text-align: center;
     }
 
@@ -83,12 +106,12 @@ export default {
     }
   }
 
-  .home-markdown{
+  .home-markdown {
     width: 500px;
     margin: 50px auto;
     padding-top: 1px;
 
-    .home-markdown-title{
+    .home-markdown-title {
       font-size: 23px;
       text-align: center;
 

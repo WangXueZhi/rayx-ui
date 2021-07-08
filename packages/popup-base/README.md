@@ -129,12 +129,18 @@ export default defineComponent({
 
     const popupBaseHandleArr = reactive([])
     const showPopupBase = function () {
+
+      const style = {
+        left: `${Math.random()*(window.innerWidth-200)}px`,
+        top: `${Math.random()*(window.innerHeight-80)}px`,
+      }
       popupBaseHandleArr.push(
         proxy.$popupBase({
           animateIn: 'bounceIn',
           animateOut: 'bounceOut',
           content: '你好',
-          class: 'demo-popup-base'
+          class: 'demo-popup-base',
+          style
         })
       )
     }
