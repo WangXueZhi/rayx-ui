@@ -2,12 +2,11 @@
   <transition
     :enter-active-class="`animate__${animateIn}`"
     :leave-active-class="`animate__${animateOut}`"
-    @before-leave="onClose"
     @after-leave="afterLeave"
   >
     <div
       v-if="show"
-      :class="['animate__animated', 'r-popup-base']"
+      :class="['animate__animated', 'r-popup-base', { isShow: show }]"
       v-clickOutside="clickOutside"
     >
       <slot></slot>
@@ -43,34 +42,6 @@ export default defineComponent({
       type: String,
       default: 'fadeOut'
     },
-    // /**
-    //  * 插入位置，元素选择器，exp: #app
-    //  */
-    // to: {
-    //   type: String,
-    //   default: ''
-    // },
-    // /**
-    //  * 内容， string或者vnode
-    //  */
-    // content: {
-    //   type: [String, Object] as PropType<string | VNode>,
-    //   default: ''
-    // },
-    // /**
-    //  * 显示遮罩层
-    //  */
-    // showMask: {
-    //   type: Boolean,
-    //   default: false
-    // },
-    // /**
-    //  * 点击遮罩层关闭
-    //  */
-    // closeOnClickMask: {
-    //   type: Boolean,
-    //   default: false
-    // },
     /**
      * 点击外部关闭
      */
@@ -82,29 +53,32 @@ export default defineComponent({
   directives: {
     clickOutside: ClickOutside
   },
-  // watch: {
-  //   show (v: boolean) {
-  //     if (v) {
-  //       document.body.classList.add('r-popup-base-parent--hidden')
-  //     } else {
-  //       document.body.classList.remove('r-popup-base-parent--hidden')
-  //     }
-  //   }
-  // },
+  watch: {
+    show (v: boolean) {
+      console.log('watch > show', v)
+    }
+  },
   emits: {
     /**
      * 关闭事件
      */
-    onClose: null
+    destroy: null,
+    /**
+     * 更新显示状态
+     */
+    'update:show': (isShow: boolean) => isShow || true
   },
   methods: {
     afterLeave () {
-      this.$emit('onClose')
+      this.$emit('destroy')
     },
     clickOutside () {
       if (this.closeOnClickOutside && this.show) {
-        this.$emit('update:show', false)
+        this.close()
       }
+    },
+    close () {
+      this.$emit('update:show', false)
     }
   },
   mounted () {

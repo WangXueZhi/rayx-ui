@@ -110,11 +110,11 @@ export default {
   <div class="demo-wrapper">
     <r-button @click="showPopupBase">显示</r-button>
     <r-button @click="closePopupBase">关闭</r-button>
+    <r-button @click="cleanPopupBase">清除弹窗</r-button>
   </div>
 </template>
 <script>
-import { defineComponent, getCurrentInstance } from 'vue'
-import PopupBase from '../popup-base'
+import { defineComponent, getCurrentInstance, reactive } from 'vue'
 
 let popupBaseHandle = null
 
@@ -126,43 +126,36 @@ export default defineComponent({
   },
   setup() {
     const { proxy } = getCurrentInstance()
-    console.log(proxy)
+
+    const popupBaseHandleArr = reactive([])
     const showPopupBase = function () {
-      popupBaseHandle = proxy.$popupBase({
-        animateIn: 'bounceIn',
-        animateOut: 'bounceOut',
-        content: '你好'
-      })
+      popupBaseHandleArr.push(
+        proxy.$popupBase({
+          animateIn: 'bounceIn',
+          animateOut: 'bounceOut',
+          content: '你好',
+          class: 'demo-popup-base'
+        })
+      )
     }
     const closePopupBase = function () {
+      const popupBaseHandle = popupBaseHandleArr.pop()
       if (popupBaseHandle) {
         popupBaseHandle.close()
-        popupBaseHandle = null
       }
+    }
+    const cleanPopupBase = function () {
+      proxy.$popupBaseClean()
     }
     return {
       showPopupBase,
-      closePopupBase
+      closePopupBase,
+      cleanPopupBase
     }
   }
-  // methods: {
-  //   showPopupBase() {
-  //     console.log(this)
-  //     popupBaseHandle = this.$popupBase({
-  //       animateIn: 'bounceIn',
-  //       animateOut: 'bounceOut',
-  //       content: '你好'
-  //     })
-  //   },
-  //   closePopupBase(){
-  //     if(popupBaseHandle){
-  //       popupBaseHandle.close()
-  //       popupBaseHandle = null
-  //     }
-  //   }
-  // }
 })
 </script>
 ```
 
 <!-- props -->
+<!-- events -->

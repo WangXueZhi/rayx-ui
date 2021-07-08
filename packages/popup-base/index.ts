@@ -1,40 +1,63 @@
 import PopupBase from './popup-base.vue'
 import { App, createVNode, isVNode, render } from 'vue'
 import type { PopupBaseHandle, popupOptions } from './types'
-import type { ComponentPublicInstance } from 'vue'
+import type { ComponentPublicInstance, VNode } from 'vue'
 
-const PopupBaseHandleList: PopupBaseHandle[] = []
+const instancesMap: Map<VNode, number> = new Map()
 
 // 显示
 PopupBase.show = function (options: popupOptions): PopupBaseHandle {
   const container = document.createElement('div')
   const { content, ...props } = options
-  const vm = createVNode(
-    PopupBase,
-    { ...props, show: true },
-    isVNode(content) ? { default: () => content } : null
-  )
+  let vm: PopupBase
+  const PopupBaseRender = function (show: boolean) {
+    vm = createVNode(
+      PopupBase,
+      {
+        ...props,
+        show: show,
+        'onUpdate:show': ($event: boolean) => {
+          PopupBaseRender($event)
+        }
+      },
+      isVNode(content) ? { default: () => content } : content
+    )
 
-  render(vm, container)
+    vm.props.onDestroy = () => {
+      render(null, container)
+      container.parentNode.removeChild(container)
+      if (instancesMap.get(vm)) {
+        instancesMap.delete(vm)
+      }
+    }
 
-  document.body.appendChild(container.firstElementChild)
-
-  const PopupBaseHandle: PopupBaseHandle = {
-    close: () =>
-      ((vm.component.proxy as ComponentPublicInstance<{ show: boolean }>).show =
-        false)
+    render(vm, container)
   }
 
-  PopupBaseHandleList.push(PopupBaseHandle)
+  // 要先第一次渲染不显示，把容器挂载上去，否则直接显示会没有动画
+  PopupBaseRender(false)
 
-  return PopupBaseHandle
+  document.body.appendChild(container)
+
+  PopupBaseRender(true)
+
+  instancesMap.set(vm, 1)
+
+  return {
+    close: () => {
+      PopupBaseRender(false)
+    }
+  }
 }
 
 // 隐藏
 PopupBase.clean = function (): void {
-  PopupBaseHandleList.forEach((PopupBaseHandle: PopupBaseHandle) => {
-    PopupBaseHandle.close()
-  })
+  for (const vm of instancesMap.keys()) {
+    (vm.component.proxy as ComponentPublicInstance<{ show: boolean }>).$emit(
+      'update:show',
+      false
+    )
+  }
 }
 
 // 为组件提供 install 安装方法，供按需引入
