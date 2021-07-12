@@ -54,41 +54,48 @@ const pluginsConfig = function () {
     })
   ]
   if (buildTarget === 'example') {
-    plugins.push(new HtmlWebpackPlugin({
-      title: '组件库',
-      templateParameters: function () {
-        /* omitted long function */
-      },
-      chunks: [
-        'index'
-      ],
-      template: 'public/index.html',
-      filename: 'index.html'
-    }))
+    plugins.push(
+      new HtmlWebpackPlugin({
+        title: '组件库',
+        templateParameters: function () {
+          /* omitted long function */
+        },
+        chunks: ['index'],
+        template: 'public/index.html',
+        filename: 'index.html'
+      })
+    )
 
-    plugins.push(new webpack.DefinePlugin({
-      PKG_VERSION: JSON.stringify(pkg.version)
-    }))
+    plugins.push(
+      new webpack.DefinePlugin({
+        PKG_VERSION: JSON.stringify(pkg.version)
+      })
+    )
   }
   return plugins
 }
 
 // css匹配规则配置
 const cssLoaderRules = function () {
-  return [{
-    test: /\.css$/,
-    use: [
-      MiniCssExtractPlugin.loader,
-      'css-loader'
-    ]
-  }, {
-    test: /\.scss$/,
-    use: [
-      MiniCssExtractPlugin.loader,
-      'css-loader',
-      'sass-loader'
-    ]
-  }]
+  return [
+    {
+      test: /\.css$/,
+      use: [MiniCssExtractPlugin.loader, 'css-loader']
+    },
+    {
+      test: /\.scss$/,
+      use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader']
+    }
+  ]
+}
+
+// externa匹配规则配置
+const externalRules = function () {
+  const externa = {}
+  if (buildTarget === 'lib') {
+    externa.vue = 'Vue'
+  }
+  return externa
 }
 
 console.log(path.resolve('./'))
@@ -99,79 +106,86 @@ module.exports = {
   entry: entryConfig(),
   output: outputConfig(),
   module: {
-    rules: [{
-      test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
-      //   use: {
-      //     loader: 'url-loader',
-      //     query: {
-      //       limit: 10000,
-      //       name: 'assets/images/[name].[ext]',
-      //       publicPath: '../'
-      //     }
-      //   },
-      type: 'asset/resource'
-    },
-    {
-      test: /\.(mp4|webm|ogg|mp3|wav|flac|aac)(\?.*)?$/,
-      //   loader: 'url-loader',
-      //   options: {
-      //     limit: 10000,
-      //     name: 'assets/media/[name].[ext]',
-      //     publicPath: '../'
-      //   },
-      type: 'asset/resource'
-    },
-    {
-      test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
-      //   use: {
-      //     loader: 'url-loader',
-      //     query: {
-      //       limit: 10000,
-      //       name: 'assets/fonts/[name].[ext]',
-      //       publicPath: '../'
-      //     }
-      //   },
-      type: 'asset/resource'
-    }, {
-      test: /.md$/,
-      use: 'text-loader'
-    }, {
-      test: /\.js$/,
-      loader: 'babel-loader',
-      exclude: /node_modules/
-    }, {
-      test: /\.vue$/,
-      loader: 'vue-loader'
-    },
-    {
-      test: /\.ts$/,
-      use: [{
-        loader: 'babel-loader'
+    rules: [
+      {
+        test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
+        //   use: {
+        //     loader: 'url-loader',
+        //     query: {
+        //       limit: 10000,
+        //       name: 'assets/images/[name].[ext]',
+        //       publicPath: '../'
+        //     }
+        //   },
+        type: 'asset/resource'
       },
       {
-        loader: 'ts-loader',
-        options: {
-          transpileOnly: true,
-          appendTsSuffixTo: ['\\.vue$']
-        }
-      }
-      ]
-    },
-    {
-      test: /\.html$/,
-      loader: 'html-loader'
-    }, ...cssLoaderRules()
+        test: /\.(mp4|webm|ogg|mp3|wav|flac|aac)(\?.*)?$/,
+        //   loader: 'url-loader',
+        //   options: {
+        //     limit: 10000,
+        //     name: 'assets/media/[name].[ext]',
+        //     publicPath: '../'
+        //   },
+        type: 'asset/resource'
+      },
+      {
+        test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
+        //   use: {
+        //     loader: 'url-loader',
+        //     query: {
+        //       limit: 10000,
+        //       name: 'assets/fonts/[name].[ext]',
+        //       publicPath: '../'
+        //     }
+        //   },
+        type: 'asset/resource'
+      },
+      {
+        test: /.md$/,
+        use: 'text-loader'
+      },
+      {
+        test: /\.js$/,
+        loader: 'babel-loader',
+        exclude: /node_modules/
+      },
+      {
+        test: /\.vue$/,
+        loader: 'vue-loader'
+      },
+      {
+        test: /\.ts$/,
+        use: [
+          {
+            loader: 'babel-loader'
+          },
+          {
+            loader: 'ts-loader',
+            options: {
+              transpileOnly: true,
+              appendTsSuffixTo: ['\\.vue$']
+            }
+          }
+        ]
+      },
+      {
+        test: /\.html$/,
+        loader: 'html-loader'
+      },
+      ...cssLoaderRules()
     ]
   },
   devtool: 'source-map',
   resolve: {
     alias: {
       // 'vue': 'vue/dist/vue.js',
-      'rayx-ui': path.resolve('./'),
+      'rayx-ui': path.resolve('./lib'),
       '@': path.resolve('src'),
       demos: path.resolve('demos')
     },
     extensions: ['.ts', '.tsx', '.css', '.js', '.vue']
   },
-  plugins: pluginsConfig()
+  plugins: pluginsConfig(),
+  externals: externalRules()
 }

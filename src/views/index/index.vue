@@ -35,7 +35,6 @@
 </template>
 
 <script>
-// import { Button } from 'rayx-ui'
 import VueMarkdown from '@/components/VueMarkdown'
 import start from './start.md'
 export default {

@@ -1,7 +1,7 @@
 {
   "name": "rayx-ui",
   "version": "3.0.0-beta.0",
-  "main": "lib/index",
+  "main": "lib/index.js",
   "scripts": {
     "build:test": "cross-env NODE_ENV=development BUILD_TARGET=example webpack --progress",
     "build:prod": "cross-env NODE_ENV=production BUILD_TARGET=example webpack --progress",

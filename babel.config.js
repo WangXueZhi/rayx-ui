@@ -10,13 +10,13 @@ module.exports = {
   //   }
   // ]],
   plugins: [
-    ['import', {
-      libraryName: 'rayx-ui',
-      libraryDirectory: 'packages',
-      style: (name) => {
-        return `${name}/${name.split('/').pop()}.scss`
-      }
-    }, 'rayx-ui'],
+    // ['import', {
+    //   libraryName: 'rayx-ui',
+    //   libraryDirectory: 'packages',
+    //   style: (name) => {
+    //     return `${name}/${name.split('/').pop()}.scss`
+    //   }
+    // }, 'rayx-ui'],
     // @babel/plugin-proposal-decorators 和 @babel/plugin-proposal-class-properties 让项目中可以使用装饰器写法，但是Vue3中一般也不使用了
     // ['@babel/plugin-proposal-decorators', { // 装饰器插件
     //   legacy: true

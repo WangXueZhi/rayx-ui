@@ -28,7 +28,7 @@ export default {
 };
 </script>
 <style lang="scss">
-@import "rayx-ui/packages/styles/var.scss";
+@import "rayx-ui/styles/var.scss";
 .demo-wrapper {
   .r-row {
     margin-bottom: 10px;
@@ -74,7 +74,7 @@ export default {
 };
 </script>
 <style lang="scss">
-@import "rayx-ui/packages/styles/var.scss";
+@import "rayx-ui/styles/var.scss";
 .demo-wrapper {
   .r-row {
     margin-bottom: 10px;
@@ -122,7 +122,7 @@ export default {
 };
 </script>
 <style lang="scss">
-@import "rayx-ui/packages/styles/var.scss";
+@import "rayx-ui/styles/var.scss";
 .demo-wrapper {
   .r-row {
     margin-bottom: 10px;
@@ -173,7 +173,7 @@ export default {
 };
 </script>
 <style lang="scss">
-@import "rayx-ui/packages/styles/var.scss";
+@import "rayx-ui/styles/var.scss";
 .demo-wrapper {
   .r-row {
     margin-bottom: 10px;
@@ -253,7 +253,7 @@ export default {
 };
 </script>
 <style lang="scss">
-@import "rayx-ui/packages/styles/var.scss";
+@import "rayx-ui/styles/var.scss";
 .demo-wrapper {
   .r-row {
     margin-bottom: 10px;
