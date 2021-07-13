@@ -20,10 +20,17 @@
     "experimentalDecorators": true,
     "sourceMap": true,
     "types": ["webpack-env", "jest"],
+    "baseUrl": "./",
     "paths": {
-      "@/*": ["./*"]
+      "@/*": ["./*"],
+      "rayx-ui/*": ["./lib/*"]
     },
     "lib": ["esnext", "dom", "dom.iterable", "scripthost"]
   },
-  "exclude": ["node_modules","tpl"]
+  "include": [
+    "node_modules/vue-tsx-support/enable-check.d.ts",
+    "src/**/*",
+    "packages/**/*"
+  ],
+  "exclude": ["node_modules", "tpl"]
 }

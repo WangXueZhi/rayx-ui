@@ -1,4 +1,4 @@
-const pkg = require('./package.json')
+// const pkg = require('./package.json')
 
 module.exports = {
   // presets: [[
@@ -32,5 +32,7 @@ module.exports = {
         absoluteRuntime: './node_modules'
       }
     ]
-  ]
+  ],
+  // 添加忽略项
+  ignore: ['./lib']
 }

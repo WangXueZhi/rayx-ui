@@ -20,3 +20,5 @@ interface Window {
   R_ICON: WindowRIcon
   Vue: never
 }
+
+declare module 'rayx-ui'

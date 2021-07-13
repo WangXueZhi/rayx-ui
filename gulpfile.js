@@ -10,6 +10,23 @@ const replace = require('gulp-replace')
 const rename = require('gulp-rename')
 const chokidar = require('chokidar')
 const { series } = require('gulp')
+const gt = require('gulp-typescript')
+// var tsProject = gt.createProject('./tsconfig.json')
+
+// ts
+const buildts = function () {
+  return gulp
+    .src('./packages/**/*.ts')
+    .pipe(
+      gt({
+        declaration: true,
+        downlevelIteration: true,
+        target: 'esnext',
+        moduleResolution: 'node'
+      })
+    )
+    .pipe(gulp.dest('lib'))
+}
 
 // 复制scss
 const copyScss = function () {
@@ -132,7 +149,7 @@ const create = function (cb) {
   cb()
 }
 
-const libAll = series(lib, buildScss, buildLess, copyScss, copyLess)
+const libAll = series(buildScss, buildLess, copyScss, copyLess, buildts, lib)
 const buildAll = series(build, libAll)
 
 // 构建文档

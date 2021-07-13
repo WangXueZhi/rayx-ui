@@ -9,7 +9,7 @@ const instancesMap: Map<VNode, number> = new Map()
 PopupBase.show = function (options: popupOptions): PopupBaseHandle {
   const container = document.createElement('div')
   const { content, ...props } = options
-  let vm: PopupBase
+  let vm: VNode
   const PopupBaseRender = function (show: boolean) {
     vm = createVNode(
       PopupBase,
