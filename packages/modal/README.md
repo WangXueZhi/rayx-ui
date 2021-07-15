@@ -140,5 +140,59 @@ export default {
 </style>
 ```
 
+静态方法调用
+
+```vue demo
+<template>
+  <div class="demo-wrapper">
+    <r-button @click="show">显示</r-button>
+    <r-button @click="close">关闭</r-button>
+    <r-button @click="clean">清除弹窗</r-button>
+  </div>
+</template>
+<script>
+import { defineComponent, getCurrentInstance, reactive } from 'vue'
+
+let modalHandle = null
+
+export default defineComponent({
+  data() {
+    return {
+      show: false
+    }
+  },
+  setup() {
+    const { proxy } = getCurrentInstance()
+
+    const modalHandleArr = reactive([])
+    const show = function () {
+      modalHandleArr.push(
+        proxy.$rModal({
+          animateIn: 'bounceIn',
+          animateOut: 'bounceOut',
+          content: '你好',
+          class: 'demo-popup-base'
+        })
+      )
+    }
+    const close = function () {
+      const modalHandle = modalHandleArr.pop()
+      if (modalHandle) {
+        modalHandle.close()
+      }
+    }
+    const clean = function () {
+      proxy.$rModalClean()
+    }
+    return {
+      show,
+      close,
+      clean
+    }
+  }
+})
+</script>
+```
+
 <!-- props -->
 <!-- events -->

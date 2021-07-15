@@ -135,7 +135,7 @@ export default defineComponent({
         top: `${Math.random()*(window.innerHeight-80)}px`,
       }
       popupBaseHandleArr.push(
-        proxy.$popupBase({
+        proxy.$rPopupBase({
           animateIn: 'bounceIn',
           animateOut: 'bounceOut',
           content: '你好',
@@ -151,7 +151,7 @@ export default defineComponent({
       }
     }
     const cleanPopupBase = function () {
-      proxy.$popupBaseClean()
+      proxy.$rPopupBaseClean()
     }
     return {
       showPopupBase,

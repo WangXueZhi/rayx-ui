@@ -63,8 +63,8 @@ PopupBase.clean = function (): void {
 // 为组件提供 install 安装方法，供按需引入
 PopupBase.install = function (app: App) {
   app.component(PopupBase.name, PopupBase)
-  app.config.globalProperties.$popupBase = PopupBase.show
-  app.config.globalProperties.$popupBaseClean = PopupBase.clean
+  app.config.globalProperties.$rPopupBase = PopupBase.show
+  app.config.globalProperties.$rPopupBaseClean = PopupBase.clean
 }
 
 // 默认导出组件
