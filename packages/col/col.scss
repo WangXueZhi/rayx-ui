@@ -1,4 +1,3 @@
-@use "sass:math";
 @import '../styles/var.scss';
 
 .r-col {
@@ -16,21 +15,21 @@
   
   @for $i from 0 through 24 {
     .r-col-#{$i} {
-      width: (math.div(1, 24) * $i * 100) * 1%;
+      width: (1 / 24 * $i * 100) * 1%;
     }
   
     .r-col-offset-#{$i} {
-      margin-left: (math.div(1, 24) * $i * 100) * 1%;
+      margin-left: (1 / 24 * $i * 100) * 1%;
     }
   
     .r-col-pull-#{$i} {
       position: relative;
-      right: (math.div(1, 24) * $i * 100) * 1%;
+      right: (1 / 24 * $i * 100) * 1%;
     }
   
     .r-col-push-#{$i} {
       position: relative;
-      left: (math.div(1, 24) * $i * 100) * 1%;
+      left: (1 / 24 * $i * 100) * 1%;
     }
 
     .r-col-order-#{$i} {
