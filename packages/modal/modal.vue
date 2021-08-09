@@ -1,7 +1,10 @@
 <template>
   <PopupBase v-bind:show="showPopupBase" class="r-modal" @onClose="onClose">
     <div v-if="showMask" class="r-modal-mask" @click="clickMask"></div>
-    <div class="r-modal-wrapper">
+    <div
+      class="r-modal-wrapper"
+      :class="`r-modal-wrapper-position-${position}`"
+    >
       <transition
         :enter-active-class="`animate__${animateIn}`"
         :leave-active-class="`animate__${animateOut}`"
@@ -92,6 +95,13 @@ export default defineComponent({
     dangerInnerHtml: {
       type: Boolean,
       default: false
+    },
+    /**
+     *  模态窗容器位置，top | center | bottom
+     */
+    position: {
+      type: String,
+      default: 'center'
     }
   },
   emits: {
