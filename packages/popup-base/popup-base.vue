@@ -16,7 +16,6 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 import ClickOutside from '../directives/click-outside'
-import 'animate.css'
 
 export default defineComponent({
   name: 'rPopupBase',
