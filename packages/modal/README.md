@@ -140,12 +140,13 @@ export default {
 </style>
 ```
 
-静态方法调用
+静态方法调用, 内容可支持```string | vnode```, 如果是插入html，需要设置```dangerInnerHtml```为true
 
 ```vue demo
 <template>
   <div class="demo-wrapper">
-    <r-button @click="show">显示</r-button>
+    <r-button @click="showByHtml">插入html方式</r-button>
+    <r-button @click="showByVnode">插入Vnode方式</r-button>
   </div>
 </template>
 <script>
@@ -153,7 +154,20 @@ import { defineComponent, getCurrentInstance, reactive, ref, createVNode, onUnmo
 export default defineComponent({
   setup() {
     const { proxy } = getCurrentInstance()
-    const show = function () {
+    const showByHtml = function () {
+      proxy.$rModal({
+        animateIn: 'bounceIn',
+        animateOut: 'bounceOut',
+        content: `<div class="modal-content-demo1">
+          <div class="modal-content-demo1-head">点击遮罩层关闭</div>
+          <div class="modal-content-demo1-content">没有关闭按钮可咋整？</div>
+        </div>`,
+        dangerInnerHtml: true,
+        bodyOverflow: false,
+        closeOnClickMask: true
+      })
+    }
+    const showByVnode = function () {
       proxy.$rModal({
         animateIn: 'bounceIn',
         animateOut: 'bounceOut',
@@ -168,11 +182,17 @@ export default defineComponent({
       })
     }
     return {
-      show
+      showByHtml,
+      showByVnode
     }
   }
 })
+
+/**
+ * 
+*/
 </script>
+
 ```
 
 <!-- props -->

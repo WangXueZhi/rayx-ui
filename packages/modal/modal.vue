@@ -14,7 +14,10 @@
           ]"
           v-if="showModalContent"
         >
-          <slot></slot>
+          <slot>
+            <div v-if="dangerInnerHtml" v-html="content"></div>
+            <div v-else>{{ content }}</div>
+          </slot>
         </div>
       </transition>
     </div>
@@ -75,6 +78,20 @@ export default defineComponent({
     contentCustomClass: {
       type: Array,
       default: (): string[] => []
+    },
+    /**
+     *  内容
+     */
+    content: {
+      type: String,
+      default: ''
+    },
+    /**
+     *  以html形式插入内容
+     */
+    dangerInnerHtml: {
+      type: Boolean,
+      default: false
     }
   },
   emits: {

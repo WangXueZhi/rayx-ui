@@ -11,16 +11,25 @@ Modal.show = function (options: modalOptions): ModalHandle {
   const { content, ...props } = options
   let vm: VNode
   const ModalRender = function (show: boolean) {
+    const opt = {
+      ...props,
+      show: show,
+      'onUpdate:show': ($event: boolean) => {
+        ModalRender($event)
+      },
+      content: ''
+    }
+
+    if (!isVNode(content)) {
+      opt.content = content
+    }
+
     vm = createVNode(
       Modal,
       {
-        ...props,
-        show: show,
-        'onUpdate:show': ($event: boolean) => {
-          ModalRender($event)
-        }
+        ...opt
       },
-      isVNode(content) ? { default: () => content } : content
+      isVNode(content) ? { default: () => content } : null
     )
 
     vm.props.onDestroy = () => {
