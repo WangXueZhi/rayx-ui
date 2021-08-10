@@ -3,7 +3,10 @@
     <div v-if="showMask" class="r-modal-mask" @click="clickMask"></div>
     <div
       class="r-modal-wrapper"
-      :class="`r-modal-wrapper-position-${position}`"
+      :class="[
+        `r-modal-wrapper-position-${position}`,
+        { ...wrapperCustomClass }
+      ]"
     >
       <transition
         :enter-active-class="`animate__${animateIn}`"
@@ -76,9 +79,16 @@ export default defineComponent({
       default: true
     },
     /**
-     *  模态窗容器自定义class
+     *  模态窗内容容器自定义class， r-modal-content
      */
     contentCustomClass: {
+      type: Array,
+      default: (): string[] => []
+    },
+    /**
+     *  模态窗包裹容器自定义class，也就是r-modal-wrapper
+     */
+    wrapperCustomClass: {
       type: Array,
       default: (): string[] => []
     },
