@@ -122,7 +122,11 @@ export default defineComponent({
     /**
      * 更新显示状态
      */
-    'update:show': (isShow: boolean) => isShow
+    'update:show': (isShow: boolean) => isShow,
+    /**
+     * 点击遮罩层
+     */
+    clickMask: null
   },
   setup (props, ctx) {
     const showModalContent = ref(false)
@@ -154,6 +158,7 @@ export default defineComponent({
 
     // 点击遮罩层
     const clickMask = () => {
+      ctx.emit('clickMask')
       if (props.closeOnClickMask) {
         ctx.emit('update:show', false)
       }
