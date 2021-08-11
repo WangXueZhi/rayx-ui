@@ -11,8 +11,8 @@
         'r-input-group--prepend': $slots.prepend && groupMode,
         'r-input--prefix': $slots.prefix,
         'r-input--suffix': $slots.suffix || showPasswordSwitch,
-        'r-input--disabled': $attrs.disabled !== undefined,
-      },
+        'r-input--disabled': $attrs.disabled !== undefined
+      }
     ]"
   >
     <template v-if="type !== 'textarea'">
@@ -116,6 +116,28 @@ export default defineComponent({
       default: ''
     }
   },
+  emits: {
+    /**
+     * 输入
+     */
+    input: null,
+    /**
+     * 按键按下
+     */
+    keydown: null,
+    /**
+     * 聚焦
+     */
+    focus: null,
+    /**
+     * 失焦
+     */
+    blur: null,
+    /**
+     * 改变
+     */
+    change: null
+  },
   setup (props) {
     const inputStyle = computed(() => {
       const styles = {}
@@ -163,6 +185,7 @@ export default defineComponent({
     handleInput (event) {
       if (this.isComposing) return
       this.$emit('update:modelValue', event.target.value)
+      this.$emit('input', event.target.value)
     },
     handleChange (event) {
       this.$emit('change', event.target.value)
