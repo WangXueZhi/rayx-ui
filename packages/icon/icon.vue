@@ -1,5 +1,10 @@
 <template>
-  <i v-if="mode !== 'svg'" class="iconfont" :class="`${name}`"></i>
+  <i
+    v-if="mode !== 'svg'"
+    class="iconfont"
+    :class="`${name}`"
+    :style="{ fontSize: `${size}px` }"
+  ></i>
   <svg
     v-else
     class="r-icon"

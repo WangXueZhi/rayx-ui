@@ -11,14 +11,13 @@ svg 模式，支持多色，不支持颜色修改
 ```vue demo
 <template>
   <div class="demo-wrapper">
-    <r-icon name="icon-email" class="demo-icon" />
+    <r-row flexMode>
+      <r-col :span="2"><r-icon name="iconform" :size="20"/></r-col>
+      <r-col :span="2"><r-icon name="icon-email" :size="20"/></r-col>
+      <r-col :span="2"><r-icon name="icon-copy" :size="20"/></r-col>
+    </r-row>
   </div>
 </template>
-<style>
-.demo-icon {
-  font-size: 25px;
-}
-</style>
 ```
 
 font-class 模式，支持样式自定义颜色
@@ -26,12 +25,15 @@ font-class 模式，支持样式自定义颜色
 ```vue demo
 <template>
   <div class="demo-wrapper">
-    <r-icon name="icon-email" class="demo-icon" mode="font-class" />
+    <r-row flexMode>
+      <r-col :span="2"><r-icon name="iconform" class="demo-icon" mode="font-class" :size="20"/></r-col>
+      <r-col :span="2"><r-icon name="icon-email" class="demo-icon" mode="font-class" :size="20"/></r-col>
+      <r-col :span="2"><r-icon name="icon-copy" class="demo-icon" mode="font-class" :size="20"/></r-col>
+    </r-row>
   </div>
 </template>
 <style>
 .demo-icon {
-  font-size: 25px;
   color: red;
 }
 </style>
@@ -59,7 +61,7 @@ font-class 模式，支持样式自定义颜色
         class="demo-icon-col"
       >
         <div>
-          <div><r-icon :name="item.name" class="demo-icon" /></div>
+          <div><r-icon :name="item.name" :size="20"/></div>
           <div>
             <div class="demo-icon-desc">{{ item.desc }}</div>
             <div class="demo-icon-name">{{ item.name }}</div>
@@ -71,102 +73,103 @@ font-class 模式，支持样式自定义颜色
 </template>
 <script>
 const iconList = [
-  { name: "icon-email", desc: "email" },
-  { name: "icon-copy", desc: "copy" },
-  { name: "icon-user", desc: "user" },
-  { name: "icon-international", desc: "international" },
-  { name: "icon-refresh", desc: "refresh" },
-  { name: "icon-close_filled", desc: "close_filled" },
-  { name: "icon-check", desc: "check" },
-  { name: "icon-close", desc: "close" },
-  { name: "icon-check_filled", desc: "check_filled" },
-  { name: "icon-info_filled", desc: "info_filled" },
-  { name: "icon-info", desc: "info" },
-  { name: "icon-help_filled", desc: "help_filled" },
-  { name: "iconicon-test34", desc: "help" },
-  { name: "iconicon-test35", desc: "caution" },
-  { name: "iconicon-test36", desc: "caution_filled" },
-  { name: "iconicon-test37", desc: "star" },
-  { name: "iconicon-test38", desc: "star_filled" },
-  { name: "iconicon-test39", desc: "arrow_up" },
-  { name: "iconicon-test40", desc: "arrow_left" },
-  { name: "iconicon-test41", desc: "arrow_down" },
-  { name: "iconicon-test42", desc: "arrow_right" },
-  { name: "iconicon-test43", desc: "page_turning_left" },
-  { name: "iconicon-test44", desc: "page_turning_right" },
-  { name: "iconicon-test45", desc: "show_less" },
-  { name: "iconicon-test46", desc: "show_more" },
-  { name: "iconicon-test47", desc: "social_fb" },
-  { name: "iconicon-test48", desc: "social_linkedin" },
-  { name: "iconicon-test49", desc: "social_sina" },
-  { name: "iconicon-test50", desc: "social_google" },
-  { name: "iconicon-test51", desc: "social_github" },
-  { name: "iconicon-test52", desc: "social_twitter" },
-  { name: "iconicon-test53", desc: "applets" },
-  { name: "iconicon-test54", desc: "social_wechat" },
-  { name: "iconicon-test55", desc: "go-to-link" },
-  { name: "iconicon-test56", desc: "benefits" },
-  { name: "icondingtalk", desc: "dingtalk" },
-  { name: "iconalipay", desc: "alipay" },
-  { name: "icontaobao", desc: "taobao" },
-  { name: "iconicon-test57", desc: "1688" },
-  { name: "iconicon-test", desc: "view" },
-  { name: "iconicon-test1", desc: "view_off" },
-  { name: "iconicon-test2", desc: "message" },
-  { name: "iconicon-test3", desc: "message_unread" },
-  { name: "iconicon-test4", desc: "order" },
-  { name: "iconicon-test5", desc: "cart_empty" },
-  { name: "iconicon-test6", desc: "cart" },
-  { name: "iconicon-test7", desc: "search" },
-  { name: "iconicon-test8", desc: "edit" },
-  { name: "iconicon-test9", desc: "link" },
-  { name: "iconicon-test10", desc: "share" },
-  { name: "iconicon-test11", desc: "setting" },
-  { name: "iconicon-test12", desc: "upload" },
-  { name: "iconicon-test13", desc: "download" },
-  { name: "iconicon-test14", desc: "play" },
-  { name: "iconicon-test15", desc: "region" },
-  { name: "iconicon-test16", desc: "lock" },
-  { name: "iconicon-test17", desc: "unlock" },
-  { name: "iconicon-test18", desc: "flow" },
-  { name: "iconicon-test19", desc: "filter" },
-  { name: "iconicon-test20", desc: "calculator" },
-  { name: "iconicon-test21", desc: "image" },
-];
+  { name: 'iconform', desc: 'form' },
+  { name: 'icon-email', desc: 'email' },
+  { name: 'icon-copy', desc: 'copy' },
+  { name: 'icon-user', desc: 'user' },
+  { name: 'icon-international', desc: 'international' },
+  { name: 'icon-refresh', desc: 'refresh' },
+  { name: 'icon-close_filled', desc: 'close_filled' },
+  { name: 'icon-check', desc: 'check' },
+  { name: 'icon-close', desc: 'close' },
+  { name: 'icon-check_filled', desc: 'check_filled' },
+  { name: 'icon-info_filled', desc: 'info_filled' },
+  { name: 'icon-info', desc: 'info' },
+  { name: 'icon-help_filled', desc: 'help_filled' },
+  { name: 'iconicon-test34', desc: 'help' },
+  { name: 'iconicon-test35', desc: 'caution' },
+  { name: 'iconicon-test36', desc: 'caution_filled' },
+  { name: 'iconicon-test37', desc: 'star' },
+  { name: 'iconicon-test38', desc: 'star_filled' },
+  { name: 'iconicon-test39', desc: 'arrow_up' },
+  { name: 'iconicon-test40', desc: 'arrow_left' },
+  { name: 'iconicon-test41', desc: 'arrow_down' },
+  { name: 'iconicon-test42', desc: 'arrow_right' },
+  { name: 'iconicon-test43', desc: 'page_turning_left' },
+  { name: 'iconicon-test44', desc: 'page_turning_right' },
+  { name: 'iconicon-test45', desc: 'show_less' },
+  { name: 'iconicon-test46', desc: 'show_more' },
+  { name: 'iconicon-test47', desc: 'social_fb' },
+  { name: 'iconicon-test48', desc: 'social_linkedin' },
+  { name: 'iconicon-test49', desc: 'social_sina' },
+  { name: 'iconicon-test50', desc: 'social_google' },
+  { name: 'iconicon-test51', desc: 'social_github' },
+  { name: 'iconicon-test52', desc: 'social_twitter' },
+  { name: 'iconicon-test53', desc: 'applets' },
+  { name: 'iconicon-test54', desc: 'social_wechat' },
+  { name: 'iconicon-test55', desc: 'go-to-link' },
+  { name: 'iconicon-test56', desc: 'benefits' },
+  { name: 'icondingtalk', desc: 'dingtalk' },
+  { name: 'iconalipay', desc: 'alipay' },
+  { name: 'icontaobao', desc: 'taobao' },
+  { name: 'iconicon-test57', desc: '1688' },
+  { name: 'iconicon-test', desc: 'view' },
+  { name: 'iconicon-test1', desc: 'view_off' },
+  { name: 'iconicon-test2', desc: 'message' },
+  { name: 'iconicon-test3', desc: 'message_unread' },
+  { name: 'iconicon-test4', desc: 'order' },
+  { name: 'iconicon-test5', desc: 'cart_empty' },
+  { name: 'iconicon-test6', desc: 'cart' },
+  { name: 'iconicon-test7', desc: 'search' },
+  { name: 'iconicon-test8', desc: 'edit' },
+  { name: 'iconicon-test9', desc: 'link' },
+  { name: 'iconicon-test10', desc: 'share' },
+  { name: 'iconicon-test11', desc: 'setting' },
+  { name: 'iconicon-test12', desc: 'upload' },
+  { name: 'iconicon-test13', desc: 'download' },
+  { name: 'iconicon-test14', desc: 'play' },
+  { name: 'iconicon-test15', desc: 'region' },
+  { name: 'iconicon-test16', desc: 'lock' },
+  { name: 'iconicon-test17', desc: 'unlock' },
+  { name: 'iconicon-test18', desc: 'flow' },
+  { name: 'iconicon-test19', desc: 'filter' },
+  { name: 'iconicon-test20', desc: 'calculator' },
+  { name: 'iconicon-test21', desc: 'image' }
+]
 export default {
   computed: {
     icons() {
-      const arr = [];
+      const arr = []
 
       const filterList = this.searchText
         ? iconList.filter((item) => {
             return (
               item.name.includes(this.searchText) ||
               item.desc.includes(this.searchText)
-            );
+            )
           })
-        : iconList;
+        : iconList
 
       for (let i = 0; i < filterList.length; i++) {
-        const item = filterList[i];
+        const item = filterList[i]
         if (arr.length < 1) {
-          arr[0] = [];
+          arr[0] = []
         }
         if (arr[arr.length - 1].length < 4) {
-          arr[arr.length - 1].push(item);
+          arr[arr.length - 1].push(item)
         } else {
-          arr[arr.length] = [item];
+          arr[arr.length] = [item]
         }
       }
-      return arr;
-    },
+      return arr
+    }
   },
   data() {
     return {
-      searchText: "",
-    };
-  },
-};
+      searchText: ''
+    }
+  }
+}
 </script>
 <style lang="scss">
 .demo-icon-col {
