@@ -22,6 +22,7 @@ yarn add rayx-ui
 克隆仓库
 
 ```
+git clone https://github.com/WangXueZhi/rayx-ui.git
 
 ```
 
