@@ -22,3 +22,4 @@ interface Window {
 }
 
 declare module 'rayx-ui'
+declare module 'nprogress'
