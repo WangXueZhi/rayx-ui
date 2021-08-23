@@ -31,6 +31,7 @@
         @focus="handleFocus"
         @blur="handleBlur"
         @change="handleChange"
+        v-focus="shouldFocus"
       />
       <span class="r-input-inner--suffix" v-if="$slots.suffix" ref="suffixRef">
         <slot name="suffix"></slot>
@@ -49,12 +50,14 @@
         :value="modelValue"
         @input="$emit('update:modelValue', $event.target.value)"
         @keydown="keydown"
+        v-focus="shouldFocus"
       ></textarea>
     </template>
   </div>
 </template>
 <script>
 import { defineComponent, computed, onMounted, ref } from 'vue'
+import AutoFocus from '../directives/auto-focus'
 export default defineComponent({
   name: 'rInput',
   inheritAttrs: false,
@@ -114,6 +117,13 @@ export default defineComponent({
     textAlign: {
       type: String,
       default: ''
+    },
+    /**
+     * 自动聚焦
+     */
+    autofocus: {
+      type: Boolean,
+      default: false
     }
   },
   emits: {
@@ -168,6 +178,9 @@ export default defineComponent({
     }
   },
   methods: {
+    shouldFocus () {
+      return this.autofocus
+    },
     keydown (e) {
       if (e.keyCode === 13) {
         this.$emit('enter', this.value)
@@ -198,6 +211,9 @@ export default defineComponent({
       this.focused = false
       this.$emit('blur', event)
     }
+  },
+  directives: {
+    focus: AutoFocus
   }
 })
 </script>

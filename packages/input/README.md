@@ -11,8 +11,8 @@
 ```vue demo
 <template>
   <div class="demo-wrapper">
-    <p>默认输入框</p>
-    <r-input style="width: 300px" />
+    <p>默认输入框, 还加了个主动聚焦autofocus</p>
+    <r-input style="width: 300px" autofocus/>
     <p>密码输入框</p>
     <r-input type="password" style="width: 300px" placeholder="请输入密码" />
     <p>文本域</p>
