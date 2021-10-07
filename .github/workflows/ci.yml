@@ -1,0 +1,22 @@
+name: GitHub Actions Build and Deploy Demo
+on:
+  push:
+    branches:
+      - vue3ts
+jobs:
+  build-and-deploy:
+    runs-on: macOS-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2 # If you're using actions/checkout@v2 you must set persist-credentials to false in most cases for the deployment to work correctly.
+    - name: Install and Build
+      run: |
+        npm install
+        npm run-script build
+        npm run-script build:prod
+    - name: Deploy
+      uses: JamesIves/github-pages-deploy-action@releases/v3
+      with:
+        ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+        BRANCH: gh-pages
+        FOLDER: dist
