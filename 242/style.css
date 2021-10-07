@@ -1,0 +1,46 @@
+
+.modal-content-demo0 {
+  min-width: 200px;
+  background: #fff;
+  border: 1px solid #ccc;
+  padding: 15px;
+  border-radius: 2px;
+}
+.modal-content-demo0-foot {
+  display: flex;
+  margin-top: 20px;
+  justify-content: flex-end;
+}
+
+
+.modal-content-demo1 {
+  min-width: 200px;
+  background: #fff;
+  border: 1px solid #ccc;
+  padding: 15px;
+  border-radius: 2px;
+}
+.modal-content-demo1-foot {
+  display: flex;
+  margin-top: 20px;
+  justify-content: flex-end;
+}
+
+
+.modal-content-demo1 {
+  min-width: 200px;
+  background: #fff;
+  border: 1px solid #ccc;
+  padding: 15px;
+  border-radius: 2px;
+}
+.modal-content-demo1-head{
+  font-size: 16px;
+}
+.modal-content-demo1-content{
+  margin-top: 20px;
+  padding-bottom: 20px;
+}
+
+
+/*# sourceMappingURL=style.css.map*/

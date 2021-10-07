@@ -1,0 +1,17 @@
+
+.demo-popup-base {
+  width: 200px;
+  height: 80px;
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  padding-top: 20px;
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  margin-top: -40px;
+  margin-left: -100px;
+}
+
+
+/*# sourceMappingURL=style.css.map*/
