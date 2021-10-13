@@ -16,6 +16,13 @@
         >
           自定义主题
         </div>
+        <div
+          class="layout-menu-item"
+          :class="{ 'layout-menu-item-active': currentPath === `/docs/list` }"
+          @click="docChange('/docs/list')"
+        >
+          开发组件列表
+        </div>
         <LayoutMenuComponents />
       </div>
       <div v-if="currentPath.indexOf('/development/') === 0">

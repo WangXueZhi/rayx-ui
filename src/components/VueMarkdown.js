@@ -10,6 +10,7 @@ import mark from 'markdown-it-mark'
 import toc from 'markdown-it-toc-and-anchor'
 import katex from 'markdown-it-katex'
 import tasklists from 'markdown-it-task-lists'
+import checkbox from 'markdown-it-checkbox'
 import hljs from 'highlight.js'
 import { h } from 'vue'
 
@@ -17,13 +18,19 @@ const md = new markdownIt({
   highlight: function (str, lang) {
     if (lang && hljs.getLanguage(lang)) {
       try {
-        return '<pre><code class="hljs" v-pre>' +
-          hljs.highlight(str, { language: lang, ignoreIllegals: true}).value +
+        return (
+          '<pre><code class="hljs" v-pre>' +
+          hljs.highlight(str, { language: lang, ignoreIllegals: true }).value +
           '</code></pre>'
+        )
       } catch (__) {}
     }
 
-    return '<pre><code class="hljs" v-pre>' + md.utils.escapeHtml(str) + '</code></pre>'
+    return (
+      '<pre><code class="hljs" v-pre>' +
+      md.utils.escapeHtml(str) +
+      '</code></pre>'
+    )
   }
 })
 
@@ -32,7 +39,7 @@ export default {
 
   template: '<div><slot></slot></div>',
 
-  data () {
+  data() {
     return {
       sourceData: this.source
     }
@@ -152,12 +159,14 @@ export default {
   },
 
   computed: {
-    tocLastLevelComputed () {
-      return this.tocLastLevel > this.tocFirstLevel ? this.tocLastLevel : this.tocFirstLevel + 1
+    tocLastLevelComputed() {
+      return this.tocLastLevel > this.tocFirstLevel
+        ? this.tocLastLevel
+        : this.tocFirstLevel + 1
     }
   },
 
-  render () {
+  render() {
     this.md = md
       .use(subscript)
       .use(superscript)
@@ -173,6 +182,7 @@ export default {
       .use(tasklists, {
         enabled: this.taskLists
       })
+      .use(checkbox)
 
     if (this.emoji) {
       this.md.use(emoji)
@@ -187,8 +197,10 @@ export default {
       langPrefix: this.langPrefix,
       quotes: this.quotes
     })
-    this.md.renderer.rules.table_open = () => `<table class="${this.tableClass}">\n`
-    const defaultLinkRenderer = this.md.renderer.rules.link_open ||
+    this.md.renderer.rules.table_open = () =>
+      `<table class="${this.tableClass}">\n`
+    const defaultLinkRenderer =
+      this.md.renderer.rules.link_open ||
       function (tokens, idx, options, env, self) {
         return self.renderToken(tokens, idx, options)
       }
@@ -228,24 +240,20 @@ export default {
     }
 
     let outHtml = this.show
-      ? this.md.render(
-        this.prerender(this.sourceData)
-      )
+      ? this.md.render(this.prerender(this.sourceData))
       : ''
     outHtml = this.postrender(outHtml)
 
     this.$emit('rendered', outHtml)
-    return h(
-      'div', {
-        class: {
-          'ra-docs-wrapper': true
-        },
-        innerHTML: outHtml
-      }
-    )
+    return h('div', {
+      class: {
+        'ra-docs-wrapper': true
+      },
+      innerHTML: outHtml
+    })
   },
 
-  beforeMount () {
+  beforeMount() {
     if (this.$slots.default) {
       this.sourceData = ''
       for (const slot of this.$slots.default()) {

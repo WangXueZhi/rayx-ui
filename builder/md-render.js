@@ -22,7 +22,7 @@ var md = require('markdown-it')({
       '</code></pre>'
     )
   }
-})
+}).use(require('markdown-it-checkbox'))
 
 var defaultFenceRender =
   md.renderer.rules.fence ||
