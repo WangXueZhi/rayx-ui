@@ -1,1 +1,0 @@
-{"version":3,"sources":["webpack://rayx-ui/./demos/scroll-bar/demo0.vue"],"names":[],"mappings":"AACE,qBACE,WAAY,CACZ,YAAa,CACb,wBAAyB,CAH3B,uCAMI,iBAAkB","file":"275/style.css","sourcesContent":["\n  .test-scroll-wrapper{\n    width: 240px;\n    height: 200px;\n    border: 1px solid #969696;\n\n    .test-scroll-item{\n      text-align: center;\n    }\n  }\n"],"sourceRoot":""}
