@@ -36,10 +36,10 @@
 [ ] 分页
 
 弹出层组件
-[X] 弹出 popup-base  --王学智
+[X] 弹出 popup-base
 [ ] 通知
 [ ] 消息
-[X] 模态框 modal  --王学智
-[ ] 对话框 dialog  --王学智
+[X] 模态框 modal
+[x] 对话框 dialog
 [ ] 抽屉
 [ ] 弹出提示
