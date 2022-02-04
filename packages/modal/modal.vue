@@ -1,12 +1,9 @@
 <template>
-  <PopupBase v-bind:show="showPopupBase" class="r-modal" @onClose="onClose">
+  <PopupBase v-bind:show="showPopupBase" class="r-modal" @close="close">
     <div v-if="showMask" class="r-modal-mask" @click="clickMask"></div>
     <div
       class="r-modal-wrapper"
-      :class="[
-        `r-modal-wrapper-position-${position}`,
-        { ...wrapperCustomClass }
-      ]"
+      :class="[`r-modal-wrapper-position-${position}`, ...wrapperCustomClass]"
     >
       <transition
         :enter-active-class="`animate__${animateIn}`"
@@ -118,7 +115,7 @@ export default defineComponent({
     /**
      * 关闭事件
      */
-    onClose: null,
+    close: null,
     /**
      * 更新显示状态
      */
@@ -164,8 +161,8 @@ export default defineComponent({
       }
     }
 
-    const onClose = () => {
-      ctx.emit('onClose')
+    const close = () => {
+      ctx.emit('close')
     }
 
     return {
@@ -173,7 +170,7 @@ export default defineComponent({
       showModalContent,
       modalContentRef,
       clickMask,
-      onClose
+      close
     }
   }
 })

@@ -4,6 +4,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const pkg = require('./package.json')
 const webpack = require('webpack')
+const WindiCSSWebpackPlugin = require('windicss-webpack-plugin')
 
 const nodeEnv = process.env.NODE_ENV
 const buildTarget = process.env.BUILD_TARGET
@@ -63,13 +64,11 @@ const pluginsConfig = function () {
         chunks: ['index'],
         template: 'public/index.html',
         filename: 'index.html'
-      })
-    )
-
-    plugins.push(
+      }),
       new webpack.DefinePlugin({
         PKG_VERSION: JSON.stringify(pkg.version)
-      })
+      }),
+      new WindiCSSWebpackPlugin()
     )
   }
   return plugins

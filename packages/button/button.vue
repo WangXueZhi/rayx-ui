@@ -3,17 +3,22 @@
     class="r-button"
     @click="handleClick"
     :class="{
-      [`r-button-${colorType}`]: colorType !== 'default',
-      [`r-button-${type}`]: type !== 'default',
+      [`r-button-${type}`]: type,
       'r-button-circle': circle,
-      'r-button-disabled': disabled
+      'r-button-disabled': disabled,
+      'r-button-ghost': ghost,
+      'r-button-dashed': dashed,
+      'r-button-lite': lite,
+      'r-button-liter': liter,
+      [`r-button-${size}`]: size !== 'default'
     }"
   >
     <slot></slot>
   </button>
 </template>
 <script lang="ts">
-import { defineComponent, toRefs } from 'vue'
+import { defineComponent, toRefs, PropType } from 'vue'
+import { props } from './types'
 
 export default defineComponent({
   name: 'rButton',
@@ -21,16 +26,23 @@ export default defineComponent({
     /**
      * 颜色类型：default | primary | info | success | warning | error
      */
-    colorType: {
+    type: {
       type: String,
       default: 'default'
     },
     /**
-     * 按钮类型：default | ghost | dashed
+     * 幽灵按钮
      */
-    type: {
-      type: String,
-      default: 'default'
+    ghost: {
+      type: Boolean,
+      default: false
+    },
+    /**
+     * 虚线按钮
+     */
+    dashed: {
+      type: Boolean,
+      default: false
     },
     /**
      * 最大圆角
@@ -43,6 +55,27 @@ export default defineComponent({
      * 禁用
      */
     disabled: {
+      type: Boolean,
+      default: false
+    },
+    /**
+     * 尺寸: lg | nm | sm
+     */
+    size: {
+      type: String,
+      default: 'nm'
+    },
+    /**
+     * 轻淡一点
+     */
+    lite: {
+      type: Boolean,
+      default: false
+    },
+    /**
+     * 更轻淡一点
+     */
+    liter: {
       type: Boolean,
       default: false
     }

@@ -1,39 +1,29 @@
 @import '../styles/var.scss';
 
 .r-button {
-    line-height: 1.5715;
     position: relative;
-    display: inline-block;
-    font-weight: 400;
+    display: inline-flex;
+    align-items: center;
     white-space: nowrap;
-    text-align: center;
     background-image: none;
     cursor: pointer;
-    transition: all .3s cubic-bezier(.645, .045, .355, 1);
+    transition: all .2s cubic-bezier(.645, .045, .355, 1);
     user-select: none;
     touch-action: manipulation;
-    height: 32px;
-    padding: 4px 15px;
-    font-size: 14px;
-    border-radius: 2px;
+    border-radius: 0.2rem;
     color: rgba(0, 0, 0, .85);
     background: #fff;
-    border: 1px solid #d9d9d9;
+    border: 0.1rem solid #d9d9d9;
     outline: 0;
 
-    @mixin colorType($value: $--color-primary) {
+    @mixin type($value: $--color-primary) {
         color: #fff;
         background: $value;
         border-color: $value;
 
-        &:hover {
-            background: mix(#fff, $value, 20%);
-            border-color: mix(#fff, $value, 20%);
-        }
-
         &:active {
-            background: $value;
-            border-color: $value;
+            background: mix(#000, $value, 15%);
+            border-color: mix(#000, $value, 15%);
         }
 
         &.r-button-ghost,
@@ -41,35 +31,62 @@
             color: $value;
             background: none;
 
-            &:hover {
-                color: mix(#fff, $value, 20%);
-                border-color: mix(#fff, $value, 20%);
-            }
-
             &:active {
-                color: $value;
+                color: mix(#000, $value, 15%);
+                border-color: mix(#000, $value, 15%);
+            }
+        }
+
+        &.r-button-lite{
+            color: $value;
+            background: mix(#fff, $value, 80%);
+            border-color: rgba($color: $value, $alpha: 0);
+            &:hover {
+                color: #fff;
                 border-color: $value;
+                background: $value;
+            }
+            &:active {
+                background: mix(#000, $value, 15%);
+                border-color: mix(#000, $value, 15%);
+            }
+        }
+
+        &.r-button-liter{
+            background: mix(#fff, $value, 100%);
+            color: $value;
+            border-color: rgba($color: $value, $alpha: 0);
+
+            &:hover {
+                border-color: mix(#fff, $value, 80%);
+                background: mix(#fff, $value, 80%);
+            }
+            &:active {
+                border-color: mix(#fff, $value,70%);
+                background: mix(#fff, $value, 70%);
             }
         }
     }
-
+    &.r-button-default {
+        @include type($--color-default);
+    }
     &.r-button-primary {
-        @include colorType($--color-primary);
+        @include type($--color-primary);
     }
 
     &.r-button-success {
-        @include colorType($--color-success);
+        @include type($--color-success);
     }
     &.r-button-warning {
-        @include colorType($--color-warning);
+        @include type($--color-warning);
     }
 
     &.r-button-error {
-        @include colorType($--color-error);
+        @include type($--color-error);
     }
 
     &.r-button-info {
-        @include colorType($--color-info);
+        @include type($--color-info);
     }
 
     &.r-button-ghost {
@@ -82,11 +99,29 @@
     }
 
     &.r-button-circle{
-        border-radius: 32px;
+        border-radius: 3.2rem;
     }
 
     &.r-button-disabled{
         cursor: not-allowed;
         opacity: .5;
+    }
+
+    &.r-button-nm{
+        height: 3rem;
+        padding: 0 1.5rem;
+        font-size: 1.3rem;
+    }
+
+    &.r-button-lg{
+        height: 3.5rem;
+        padding: 0 1.7rem;
+        font-size: 1.5rem;
+    }
+
+    &.r-button-sm{
+        height: 2.5rem;
+        padding: 0 1.3rem;
+        font-size: 1.2rem;
     }
 }

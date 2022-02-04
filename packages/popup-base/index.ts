@@ -23,7 +23,7 @@ PopupBase.show = function (options: popupOptions): PopupBaseHandle {
       isVNode(content) ? { default: () => content } : content
     )
 
-    vm.props.onDestroy = () => {
+    vm.props.onClose = () => {
       render(null, container)
       container.parentNode.removeChild(container)
       if (instancesMap.get(vm)) {

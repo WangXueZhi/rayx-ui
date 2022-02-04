@@ -59,9 +59,9 @@ export default defineComponent({
   },
   emits: {
     /**
-     * 关闭事件
+     * popup被关闭时触发
      */
-    destroy: null,
+    close: null,
     /**
      * 更新显示状态
      */
@@ -69,7 +69,7 @@ export default defineComponent({
   },
   methods: {
     afterLeave () {
-      this.$emit('destroy')
+      this.$emit('close')
     },
     clickOutside () {
       if (this.closeOnClickOutside && this.show) {

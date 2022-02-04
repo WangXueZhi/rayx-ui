@@ -5,8 +5,8 @@ import { App } from 'vue'
 // 加载在线资源
 const R_ICON = {
   online: true,
-  onlineSrc: 'https://at.alicdn.com/t/font_2244128_kqpgvzq0r.js',
-  onlineHref: 'https://at.alicdn.com/t/font_2244128_kqpgvzq0r.css',
+  onlineSrc: '//at.alicdn.com/t/font_2244128_x2bmahnm47.js',
+  onlineHref: '//at.alicdn.com/t/font_2244128_x2bmahnm47.css',
   scriptId: 'r-iconfont-script',
   styleId: 'r-iconfont-style',
   loadScript: function () {

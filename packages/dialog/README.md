@@ -6,36 +6,53 @@
 
 ## 示例
 
-示例1
+基础
 
 ```vue demo
 <template>
   <div class="demo-wrapper">
-    <r-dialog />
+    <r-dialog v-model:show="show" title="Header">
+      确定打开Dialog？
+    </r-dialog>
+    <r-button @click="show = true">显示</r-button>
   </div>
 </template>
 <script>
-  export default {};
+export default {
+  data() {
+    return {
+      show: false
+    }
+  }
+}
 </script>
 ```
 
-示例2
+动画
 
-```vue demo hidecode
+```vue demo
 <template>
   <div class="demo-wrapper">
-    <r-dialog />
+    <r-dialog v-model:show="show" title="Header" animateIn="bounceIn"
+      animateOut="bounceOut">
+      bounceIn + bounceOut
+    </r-dialog>
+    <r-button @click="show = true">显示</r-button>
   </div>
 </template>
 <script>
-  export default {};
+export default {
+  data() {
+    return {
+      show: false
+    }
+  }
+}
 </script>
 ```
 
 <!-- props -->
 
-## event
+其他属性同[model](./#/docs/components/modal)组件
 
-| 名称  | 说明 | 返回值 |
-| ----- | ---- | ------ |
-| 事件1 | 事件1 | null   |
+<!-- events -->

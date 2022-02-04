@@ -32,7 +32,7 @@ Modal.show = function (options: modalOptions): ModalHandle {
       isVNode(content) ? { default: () => content } : null
     )
 
-    vm.props.onDestroy = () => {
+    vm.props.onClose = () => {
       render(null, container)
       container.parentNode.removeChild(container)
       if (instancesMap.get(vm)) {

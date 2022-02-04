@@ -10,6 +10,8 @@ import 'nprogress/nprogress.css'
 import RayxUi from '../packages'
 import '../packages/index.scss'
 
+import 'windi.css'
+
 // 配置NProgress进度条选项  —— 动画效果
 NProgress.configure({ ease: 'ease', speed: 500 })
 

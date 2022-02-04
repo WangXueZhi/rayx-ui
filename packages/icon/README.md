@@ -73,7 +73,9 @@ font-class 模式，支持样式自定义颜色
 </template>
 <script>
 const iconList = [
-  { name: 'iconform', desc: 'form' },
+  { name: 'icon-close-bold-fullradiu', desc: 'close-bold-fullradiu' },
+  { name: 'icon-close-thin-halfradiu', desc: 'close-thin-halfradiu' },
+  { name: 'icon-form', desc: 'form' },
   { name: 'icon-email', desc: 'email' },
   { name: 'icon-copy', desc: 'copy' },
   { name: 'icon-user', desc: 'user' },

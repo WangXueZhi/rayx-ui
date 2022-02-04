@@ -8,21 +8,13 @@
       <div class="ui-name-cn">快速搭建vue组件库</div>
       <div class="ui-desc-cn">开箱即用的组件库脚手架</div>
       <div class="ui-button">
-        <r-button colorType="primary" type="ghost" circle @click="componentDoc"
+        <r-button type="success" ghost circle @click="componentDoc"
           >组件文档</r-button
         >
-        <r-button
-          colorType="primary"
-          type="ghost"
-          circle
-          @click="architectureDoc"
+        <r-button type="success" ghost circle @click="architectureDoc"
           >脚手架说明</r-button
         >
-        <r-button
-          colorType="primary"
-          type="ghost"
-          circle
-          @click="developmentDoc"
+        <r-button type="success" ghost circle @click="developmentDoc"
           >组件开发</r-button
         >
       </div>

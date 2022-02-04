@@ -41,6 +41,9 @@ export default {
   margin-top: -40px;
   margin-left: -100px;
 }
+.demo-wrapper .r-button {
+  margin: 0 0.5rem;
+}
 </style>
 ```
 
