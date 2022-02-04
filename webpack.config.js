@@ -67,8 +67,7 @@ const pluginsConfig = function () {
       }),
       new webpack.DefinePlugin({
         PKG_VERSION: JSON.stringify(pkg.version)
-      }),
-      new WindiCSSWebpackPlugin()
+      })
     )
   }
   return plugins
