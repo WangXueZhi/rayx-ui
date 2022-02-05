@@ -9,10 +9,11 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v2 # If you're using actions/checkout@v2 you must set persist-credentials to false in most cases for the deployment to work correctly.
-    - name: Install and Build
+    - name: Node version 12
       uses: actions/setup-node@v2
       with: 
         node-version: '12'
+    - name: Install and Build
       run: |
         npm install
         npm run-script build
