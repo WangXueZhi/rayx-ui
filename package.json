@@ -22,7 +22,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "echo \"git commit trigger husky pre-commit hook\" && npx lint-staged",
+      "pre-commit": "echo \"git commit trigger husky pre-commit hook\"",
       "commit-msg": "commitlint -e $HUSKY_GIT_PARAMS"
     }
   },
